@@ -9,6 +9,13 @@
   return m_instance;
 }
 
-void Symbol_table::print(std::ostream& cout) {
-
+Symbol_table::Symbol_table() {
 }
+
+void Symbol_table::print(std::ostream& cout) {
+    for (std::map<std::string, Symbol*>::iterator it = sym_table.begin();
+        it!=sym_table.end(); it++) {
+        cout<<it->second->m_name<<"\n";
+    }
+}
+
