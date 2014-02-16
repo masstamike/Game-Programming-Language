@@ -2,6 +2,7 @@
 #include <map>
 #include "symbol.h"
 #include "string"
+//using namespace std;
 
 // class Symbol_table is a singleton
 class Symbol_table
