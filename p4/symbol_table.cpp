@@ -9,3 +9,6 @@
   return m_instance;
 }
 
+void Symbol_table::print(std::ostream& cout) {
+
+}

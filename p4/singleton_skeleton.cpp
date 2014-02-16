@@ -1,37 +1,37 @@
 // to make a singleton class
 //
 //   1) start with this file
-//   2) replace all the Foo with My_class and
+//   2) replace all the Symbol_table with My_class and
 //   3) break it into my_class.h and my_class.cpp at the -------------
 //   4) add real code
 
 
-// class Foo is a singleton
-class Foo
+// class Symbol_table is a singleton
+class Symbol_table
 {
   public:
-    static Foo *instance();
+    static Symbol_table *instance();
   private:
-    static Foo *m_instance;
+    static Symbol_table *m_instance;
 
-    Foo() {};
+    Symbol_table() {};
 
     // disable default copy constructor and default assignment
     // done as a precaution, they should never be called
-    Foo(const Foo &);
-    const Foo &operator=(const Foo &);
+    Symbol_table(const Symbol_table &);
+    const Symbol_table &operator=(const Symbol_table &);
 
 };
 
 ---------------------------------------------
 
 
-/* static */ Foo *Foo::m_instance = 0;
+/* static */ Symbol_table *Symbol_table::m_instance = 0;
 
-/* static */ Foo * Foo::instance()
+/* static */ Symbol_table * Symbol_table::instance()
 {
   if (m_instance == 0)
-    m_instance = new Foo();
+    m_instance = new Symbol_table();
   return m_instance;
 }
 

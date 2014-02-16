@@ -113,21 +113,3 @@ clean:
 # all dependencies.  It puts a line below "# DO NOT DELETE" for each dependency
 # makedepend does not come with cygwin, you have to go find it on the web
 # DO NOT DELETE
-
-error.o: error.h
-gpl_assert.o: /usr/include/stdlib.h /usr/include/features.h
-gpl_assert.o: /usr/include/stdc-predef.h /usr/include/alloca.h
-gpl.o: parser.h y.tab.h error.h gpl_assert.h /usr/include/signal.h
-gpl.o: /usr/include/features.h /usr/include/stdc-predef.h /usr/include/time.h
-gpl.o: /usr/include/stdlib.h /usr/include/alloca.h /usr/include/string.h
-gpl.o: /usr/include/xlocale.h /usr/include/stdio.h /usr/include/libio.h
-gpl.o: /usr/include/_G_config.h /usr/include/wchar.h
-indent.o: indent.h gpl_assert.h
-y.tab.o: error.h gpl_assert.h parser.h y.tab.h
-lex.yy.o: /usr/include/stdio.h /usr/include/features.h
-lex.yy.o: /usr/include/stdc-predef.h /usr/include/libio.h
-lex.yy.o: /usr/include/_G_config.h /usr/include/wchar.h /usr/include/string.h
-lex.yy.o: /usr/include/xlocale.h /usr/include/errno.h /usr/include/stdlib.h
-lex.yy.o: /usr/include/alloca.h error.h parser.h y.tab.h
-lex.yy.o: /usr/include/unistd.h /usr/include/getopt.h
-gpl.o: error.h gpl_assert.h parser.h y.tab.h

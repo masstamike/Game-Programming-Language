@@ -42,9 +42,10 @@ LIBS = -lX11 -lglut -lGL -lGLU -lm -lfl
 # list, and also put a .o version in the C++OBJ list
 # Use a \ at the end of the line to continue on next line
 
-C++SRC = error.cpp gpl_assert.cpp gpl.cpp indent.cpp
+C++SRC = error.cpp gpl_assert.cpp gpl.cpp indent.cpp symbol.cpp\
+         symbol_table.cpp
 	 
-C++OBJ = error.o gpl_assert.o gpl.o indent.o
+C++OBJ = error.o gpl_assert.o gpl.o indent.o symbol.o symbol_table.o
 
 # command to compile the gpl executable
 gpl: y.tab.o lex.yy.o $(C++OBJ)
@@ -62,12 +63,12 @@ gpl: y.tab.o lex.yy.o $(C++OBJ)
 #     WARNING: must start command lines with a tab (i.e. before the g++)
 
 # Phase 2 & 3: no symbol table, no graphics
-gpl.o: gpl.cpp Makefile
-	g++ $(CPPFLAGS) -c gpl.cpp -o gpl.o
+#gpl.o: gpl.cpp Makefile
+#	g++ $(CPPFLAGS) -c gpl.cpp -o gpl.o
 
 # Phase 4 & 5: symbol table AND print the symbol table, no graphics
-#gpl.o: gpl.cpp Makefile
-#	g++ -DSYMBOL_TABLE -DPRINT_SYMBOL_TABLE $(CPPFLAGS) -c gpl.cpp
+gpl.o: gpl.cpp Makefile
+	g++ -DSYMBOL_TABLE -DPRINT_SYMBOL_TABLE $(CPPFLAGS) -c gpl.cpp
 
 # Phase 6, 7 : symbol table AND print the symbol table, with graphics
 #gpl.o: gpl.cpp Makefile

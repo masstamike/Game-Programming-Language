@@ -1,4 +1,4 @@
-
+#include <ostream>
 // to make a singleton class
 //
 //   1) start with this file
@@ -12,6 +12,7 @@ class Symbol_table
 {
   public:
     static Symbol_table *instance();
+    void print(std::ostream& stream);
   private:
     static Symbol_table *m_instance;
 
