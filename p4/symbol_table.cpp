@@ -34,3 +34,10 @@ void Symbol_table::print(std::ostream& stream) {
 void Symbol_table::add(std::string name, Symbol* sym) {
     sym_table[name] = sym;
 }
+
+bool Symbol_table::find(std::string s) {
+    std::map<std::string, Symbol*>::iterator it = sym_table.find(s);
+    if(it == sym_table.end())
+        return false;
+    return true;
+}
