@@ -138,7 +138,7 @@ near                    return emit_string(T_NEAR);
 
 [\t]                    ;
 \n                      line_count++;
-\/\/.+                  ;
+\/\/.*                  ;
 [0-9]+                  return emit_int(T_INT_CONSTANT);
 [0-9]*\.[0-9]+|[0-9]+\. return emit_double(T_DOUBLE_CONSTANT);
 [a-zA-Z_]+[a-zA-Z0-9_]* return emit_string(T_ID);
