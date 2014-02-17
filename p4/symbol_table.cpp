@@ -31,3 +31,6 @@ void Symbol_table::print(std::ostream& stream) {
     }
 }
 
+void Symbol_table::add(std::string name, Symbol* sym) {
+    sym_table[name] = sym;
+}

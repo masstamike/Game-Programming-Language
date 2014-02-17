@@ -11,9 +11,13 @@ extern int line_count;      // the current line in the input; from arary.l
 #include <iostream>
 #include <string>
 #include <vector>
+#include "symbol_table.h"
+#include "symbol.h"
+//#include <map>
 using namespace std;
 
 vector<int> *int_vector;
+Symbol_table* symbol_table = Symbol_table::instance();
 %}
 
 // Bison fundamentally works by asking flex to get the next token, which it
@@ -42,7 +46,7 @@ vector<int> *int_vector;
 
 
 // define the constant-string tokens:
-%token T_INT
+%token <union_string> T_INT
 %token T_DOUBLE
 %token T_STRING
 %token T_TRIANGLE
@@ -144,6 +148,7 @@ vector<int> *int_vector;
 %token <union_double> T_DOUBLE_CONSTANT
 %token <union_string> T_STRING_CONSTANT
 %token <union_int> T_PRINT
+%type <union_variable_type> simple_type
 
 // special token that does not match any production
 // used for characters that are not part of the language
@@ -176,14 +181,22 @@ declaration:
 variable_declaration:
     simple_type  T_ID  optional_initializer
     /*| simple_type  T_ID  T_LBRACKET expression T_RBRACKET*/
-    |  simple_type T_ID T_LBRACKET T_INT_CONSTANT T_RBRACKET
+    |  simple_type T_ID T_LBRACKET T_INT_CONSTANT T_RBRACKET {
+        if($1 == INT)
+            symbol_table->add(*$2, new Symbol(*$2,new int(42),"int"));
+        else if($1 == DOUBLE)
+            symbol_table->add(*$2, new Symbol(*$2,new double(3.145),"double"));
+        else if($1 == STRING)
+            symbol_table->add(*$2, new Symbol(*$2, new string("Hello world"),
+            "string"));
+    }
     ;
 
 //---------------------------------------------------------------------
 simple_type:
-    T_INT
-    | T_DOUBLE
-    | T_STRING
+    T_INT{$$=INT;}
+    | T_DOUBLE {$$=DOUBLE;}
+    | T_STRING {$$=STRING;}
     ;
 
 //---------------------------------------------------------------------

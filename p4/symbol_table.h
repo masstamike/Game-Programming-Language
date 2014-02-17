@@ -10,8 +10,9 @@ class Symbol_table
   public:
     static Symbol_table *instance();
     void print(std::ostream& stream);
-    std::map<std::string, Symbol*> sym_table;
+    void add(std::string, Symbol*);
   private:
+    std::map<std::string, Symbol*> sym_table;
     static Symbol_table *m_instance;
 
     Symbol_table();
