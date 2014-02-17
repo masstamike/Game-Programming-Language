@@ -184,7 +184,9 @@ declaration:
 variable_declaration:
     simple_type  T_ID  optional_initializer
     {
-        if(symbol_table->find(*$2)){
+        string array = *$2;
+        array = array + "[0]";
+        if(symbol_table->find(*$2) || symbol_table->find(array)){
             Error::error(Error::PREVIOUSLY_DECLARED_VARIABLE,
                 *$2);
         }
@@ -199,6 +201,12 @@ variable_declaration:
     }
     /*| simple_type  T_ID  T_LBRACKET expression T_RBRACKET*/
     |  simple_type T_ID T_LBRACKET T_INT_CONSTANT T_RBRACKET {
+        string array = *$2;
+        array = array + "[0]";
+        if(symbol_table->find(*$2) || symbol_table->find(array)){
+            Error::error(Error::PREVIOUSLY_DECLARED_VARIABLE,
+                *$2);
+        }
     for (int x = 0; x<$4; x++) {
         string name = *$2;
         std::stringstream out;
