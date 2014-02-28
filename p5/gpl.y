@@ -199,7 +199,7 @@ variable_declaration:
             new string("\"Hello world\""),
             "string"));
     }
-    /*| simple_type  T_ID  T_LBRACKET expression T_RBRACKET*/
+    /*| simple_type  T_ID  T_LBRACKET expression T_RBRACKET {*/
     |  simple_type T_ID T_LBRACKET T_INT_CONSTANT T_RBRACKET {
         string array = *$2;
         array = array + "[0]";
