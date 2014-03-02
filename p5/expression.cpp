@@ -10,7 +10,11 @@ Expr::Expr(double d) {
     type = "double";
 }
 
-Expr::Expr(string s) {
+Expr::Expr(std::string s) {
     m_str = s;
     type = "string";
+}
+
+int Expr::eval_int() {
+    return m_int;
 }

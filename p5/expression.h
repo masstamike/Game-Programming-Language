@@ -1,22 +1,23 @@
+#include <string>
 #ifndef EXPRESSION_H
 #define EXPRESSION_H
-#include <string>
 
 class Expr {
     public:
         Expr(int i);//int constructor
         Expr(double d);//double constructor
-        Expr(string s);//string constructor
-        Expr();
-        Expr();
-        Expr();
-        Expr* m_left, m_right;
-        string type;
+        Expr(std::string s);//string constructor
+//        Expr();
+//        Expr();
+//        Expr();
+        int eval_int();
+        Expr *m_left, *m_right;
+        std::string type;
         
     private:
         int m_int;
         double m_double;
-        string m_str;
+        std::string m_str;
 };
 
 #endif
