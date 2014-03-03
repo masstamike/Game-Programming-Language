@@ -45,7 +45,8 @@ LIBS = -lX11 -lglut -lGL -lGLU -lm -lfl
 C++SRC = error.cpp gpl_assert.cpp gpl.cpp indent.cpp symbol.cpp\
          symbol_table.cpp expression.cpp
 	 
-C++OBJ = error.o gpl_assert.o gpl.o indent.o symbol.o symbol_table.o expression.o
+C++OBJ = error.o gpl_assert.o gpl.o indent.o symbol.o symbol_table.o\
+         expression.o
 
 # command to compile the gpl executable
 gpl: y.tab.o lex.yy.o $(C++OBJ)

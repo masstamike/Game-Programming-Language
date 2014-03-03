@@ -1,5 +1,6 @@
 %{
 //stuff from flex that bison needs to know about:
+#include "expression.h"
 extern int yylex();         // this lexer function returns next token
 extern int yyerror(char *); // used to print errors
 extern int line_count;      // the current line in the input; from arary.l
@@ -33,6 +34,7 @@ Symbol_table* symbol_table = Symbol_table::instance();
  std::string    *union_string;  // MUST be a pointer to a string (this sucks!)
  double         union_double;
  Variable_type  union_variable_type;
+ Expr*          union_expr;
 }
 // Precedence Levels:
 %left T_OR
@@ -151,7 +153,7 @@ Symbol_table* symbol_table = Symbol_table::instance();
 %token <union_string> T_STRING_CONSTANT
 %token <union_int> T_PRINT
 %type <union_variable_type> simple_type
-//%type </**/> optional_initializer
+%type <union_expr> expression
 
 // special token that does not match any production
 // used for characters that are not part of the language
@@ -199,15 +201,15 @@ variable_declaration:
             new string("\"Hello world\""),
             "string"));
     }
-    /*| simple_type  T_ID  T_LBRACKET expression T_RBRACKET {*/
-    |  simple_type T_ID T_LBRACKET T_INT_CONSTANT T_RBRACKET {
+    | simple_type  T_ID  T_LBRACKET expression T_RBRACKET {
+    /*|  simple_type T_ID T_LBRACKET T_INT_CONSTANT T_RBRACKET {*/
         string array = *$2;
         array = array + "[0]";
         if(symbol_table->find(*$2) || symbol_table->find(array)){
             Error::error(Error::PREVIOUSLY_DECLARED_VARIABLE,
                 *$2);
         }
-    for (int x = 0; x<$4; x++) {
+    for (int x = 0; x<$4->eval_int(); x++) {
         string name = *$2;
         std::stringstream out;
         out<<x;

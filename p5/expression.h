@@ -11,13 +11,16 @@ class Expr {
 //        Expr();
 //        Expr();
         int eval_int();
+        double eval_double();
+        std::string eval_string();
+        std::string get_type();
         Expr *m_left, *m_right;
-        std::string type;
         
     private:
         int m_int;
         double m_double;
         std::string m_str;
+        std::string type;
 };
 
 #endif

@@ -18,3 +18,15 @@ Expr::Expr(std::string s) {
 int Expr::eval_int() {
     return m_int;
 }
+
+double Expr::eval_double() {
+    return m_double;
+}
+
+std::string Expr::eval_string() {
+    return m_str;
+}
+
+std::string Expr::get_type() {
+    return type;
+}

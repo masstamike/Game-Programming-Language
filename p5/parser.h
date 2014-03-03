@@ -24,6 +24,7 @@
 // of "string"
 // #include "gpl_type.h"
 #include <string>
+#include "expression.h"
 
 enum Variable_type {INT,STRING,DOUBLE,TRIANGLE,PIXMAP,CIRCLE,RECTANGLE,TEXTBOX}; 
 #include "y.tab.h"

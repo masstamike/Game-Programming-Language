@@ -12,5 +12,83 @@ gpl.cpp::main() Calling yyparse()
 
 gpl.cpp::main() after call to yyparse().
 
-1 error found.
-gpl giving up.
+No errors found (parser probably worked correctly).
+
+
+Printing the symbol table from main()
+int abs1 42
+double d 3.145
+double d10 3.145
+double d11 3.145
+double d12 3.145
+double d13 3.145
+double d14 3.145
+double d15 3.145
+double d16 3.145
+double d17 3.145
+double d18 3.145
+double d2 3.145
+double d3 3.145
+double d4 3.145
+double d5 3.145
+double d6 3.145
+double d7 3.145
+double d8 3.145
+double d9 3.145
+int i 42
+int i1 42
+int i10 42
+int i11 42
+int i12 42
+int i13 42
+int i14 42
+int i15 42
+int i16 42
+int i17 42
+int i18 42
+int i2 42
+int i3 42
+int i4 42
+int i43 42
+int i44 42
+int i45 42
+int i46 42
+int i47 42
+int i48 42
+int i49 42
+int i5 42
+int i50 42
+int i51 42
+int i52 42
+int i53 42
+int i54 42
+int i55 42
+int i56 42
+int i57 42
+int i58 42
+int i59 42
+int i6 42
+int i60 42
+int i61 42
+int i62 42
+int i63 42
+int i64 42
+int i65 42
+int i66 42
+int i67 42
+int i68 42
+int i7 42
+int i70 42
+int i71 42
+int i8 42
+int i9 42
+int ii 42
+int iiii 42
+int myInt 42
+double pi 3.145
+string s "Hello world"
+string s2 "Hello world"
+string s3 "Hello world"
+If graphics was enabled gpl program would execute now.
+
+gpl.cpp::main() done.
