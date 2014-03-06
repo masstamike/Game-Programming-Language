@@ -152,8 +152,8 @@ Symbol_table* symbol_table = Symbol_table::instance();
 %token <union_double> T_DOUBLE_CONSTANT
 %token <union_string> T_STRING_CONSTANT
 %token <union_int> T_PRINT
-%type <union_int> optional_initializer //just for now
-%type <union_int> primary_expression
+%type <union_expr> optional_initializer //just for now
+%type <union_expr> primary_expression
 %type <union_variable_type> simple_type
 %type <union_expr> expression
 
@@ -195,12 +195,14 @@ variable_declaration:
                 *$2);
         }
         if($1 == INT)
-            symbol_table->add(*$2, new Symbol(*$2,new int($3),"int"));
+            symbol_table->add(*$2, new Symbol(*$2,new int($3?$3->eval_int():
+                0),"int"));
         else if($1 == DOUBLE)
-            symbol_table->add(*$2, new Symbol(*$2,new double(3.145),"double"));
+            symbol_table->add(*$2, new Symbol(*$2,new double($3?
+                $3->eval_double():0.0),"double"));
         else if($1 == STRING)
             symbol_table->add(*$2, new Symbol(*$2,
-            new string("\"Hello world\""),
+            new string($3?$3->eval_string():""),
             "string"));
     }
     | simple_type  T_ID  T_LBRACKET expression T_RBRACKET {
@@ -447,7 +449,7 @@ primary_expression:
     T_LPAREN  expression T_RPAREN
     | variable
     | T_INT_CONSTANT {
-        $$=$1;
+        $$=new Expr($1);
     }
     | T_TRUE
     | T_FALSE
