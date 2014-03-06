@@ -453,8 +453,12 @@ primary_expression:
     }
     | T_TRUE
     | T_FALSE
-    | T_DOUBLE_CONSTANT
-    | T_STRING_CONSTANT
+    | T_DOUBLE_CONSTANT {
+        $$=new Expr($1);
+    }
+    | T_STRING_CONSTANT {
+        $$=new Expr(*$1);
+    }
     ;
 
 //---------------------------------------------------------------------

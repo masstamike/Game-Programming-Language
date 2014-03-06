@@ -9,3 +9,86 @@ gpl.cpp::main()
 
 gpl.cpp::main() Calling yyparse()
 
+
+gpl.cpp::main() after call to yyparse().
+
+No errors found (parser probably worked correctly).
+
+
+Printing the symbol table from main()
+int abs1 0
+double d 3.21143e-322
+double d10 2.42092e-322
+double d11 2.42092e-322
+double d12 2.42092e-322
+double d13 2.42092e-322
+double d14 2.42092e-322
+double d15 2.42092e-322
+double d16 1
+double d17 0
+double d18 1
+double d2 3.21143e-322
+double d3 0
+double d4 2.42092e-322
+double d5 2.42092e-322
+double d6 2.42092e-322
+double d7 2.42092e-322
+double d8 2.42092e-322
+double d9 2.42092e-322
+int i 1
+int i1 1
+int i10 0
+int i11 0
+int i12 0
+int i13 0
+int i14 0
+int i15 0
+int i16 0
+int i17 0
+int i18 0
+int i2 1
+int i3 1
+int i4 1
+int i43 0
+int i44 42
+int i45 42
+int i46 0
+int i47 0
+int i48 42
+int i49 42
+int i5 1
+int i50 0
+int i51 0
+int i52 42
+int i53 42
+int i54 0
+int i55 0
+int i56 42
+int i57 42
+int i58 0
+int i59 0
+int i6 1
+int i60 42
+int i61 42
+int i62 0
+int i63 0
+int i64 42
+int i65 42
+int i66 0
+int i67 0
+int i68 0
+int i7 0
+int i70 0
+int i71 0
+int i8 0
+int i9 0
+int ii 0
+int iiii 0
+int myInt 1
+double pi 0
+string s "to you all."
+string s2 
+string s3 "int i[0]"
+If graphics was enabled gpl program would execute now.
+
+gpl.cpp::main() done.

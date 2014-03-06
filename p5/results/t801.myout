@@ -9,3 +9,24 @@ gpl.cpp::main()
 
 gpl.cpp::main() Calling yyparse()
 
+
+gpl.cpp::main() after call to yyparse().
+
+No errors found (parser probably worked correctly).
+
+
+Printing the symbol table from main()
+double a 1.1
+double b 2.2
+double c 3.3
+double d 4.4
+double e 5.5
+double g 2.42092e-322
+double h 2.42092e-322
+double i 1.63042e-322
+double j 2.42092e-322
+double k 1.63042e-322
+double l 2.42092e-322
+If graphics was enabled gpl program would execute now.
+
+gpl.cpp::main() done.
