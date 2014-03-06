@@ -152,6 +152,8 @@ Symbol_table* symbol_table = Symbol_table::instance();
 %token <union_double> T_DOUBLE_CONSTANT
 %token <union_string> T_STRING_CONSTANT
 %token <union_int> T_PRINT
+%type <union_int> optional_initializer //just for now
+%type <union_int> primary_expression
 %type <union_variable_type> simple_type
 %type <union_expr> expression
 
@@ -193,7 +195,7 @@ variable_declaration:
                 *$2);
         }
         if($1 == INT)
-            symbol_table->add(*$2, new Symbol(*$2,new int(42),"int"));
+            symbol_table->add(*$2, new Symbol(*$2,new int($3),"int"));
         else if($1 == DOUBLE)
             symbol_table->add(*$2, new Symbol(*$2,new double(3.145),"double"));
         else if($1 == STRING)
@@ -236,6 +238,7 @@ simple_type:
 //---------------------------------------------------------------------
 optional_initializer:
     T_ASSIGN expression
+    { $$=$2; }
     | empty
     ;
 
@@ -419,7 +422,7 @@ variable:
 
 //---------------------------------------------------------------------
 expression:
-    primary_expression
+    primary_expression {$$=$1;}
     | expression T_OR expression
     | expression T_AND expression
     | expression T_LESS_EQUAL expression
@@ -443,7 +446,9 @@ expression:
 primary_expression:
     T_LPAREN  expression T_RPAREN
     | variable
-    | T_INT_CONSTANT
+    | T_INT_CONSTANT {
+        $$=$1;
+    }
     | T_TRUE
     | T_FALSE
     | T_DOUBLE_CONSTANT
