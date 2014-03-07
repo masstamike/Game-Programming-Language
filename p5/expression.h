@@ -10,6 +10,7 @@ class Expr {
 //        Expr();
 //        Expr();
 //        Expr();
+        ~Expr();
         int eval_int();
         double eval_double();
         std::string eval_string();

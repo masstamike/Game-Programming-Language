@@ -15,6 +15,11 @@ Expr::Expr(std::string s) {
     type = "string";
 }
 
+Expr::~Expr() {
+    if(m_left) delete m_left;
+    if(m_right) delete m_right;
+}
+
 int Expr::eval_int() {
     return m_int;
 }
