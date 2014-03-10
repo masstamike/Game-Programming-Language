@@ -22,7 +22,7 @@ string c
 double d 1
 int e 0
 int f 0
-int g 2
+int g 0
 int h 0
 If graphics was enabled gpl program would execute now.
 

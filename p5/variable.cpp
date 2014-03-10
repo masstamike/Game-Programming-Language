@@ -1,4 +1,4 @@
-#include variable.h
+#include "variable.h"
 
 Variable::Variable (std::string id, Symbol* sym, std::string type) {
     m_id = id;

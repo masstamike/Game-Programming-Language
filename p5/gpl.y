@@ -16,6 +16,8 @@ extern int line_count;      // the current line in the input; from arary.l
 #include "symbol.h"
 #include <cstdlib>
 #include <sstream>
+#include "gpl_type.h"
+#include "variable.h"
 //#include <map>
 using namespace std;
 
@@ -33,7 +35,9 @@ Symbol_table* symbol_table = Symbol_table::instance();
  int            union_int;
  std::string    *union_string;  // MUST be a pointer to a string (this sucks!)
  double         union_double;
- Variable_type  union_variable_type;
+ Gpl_type       union_variable_type;
+ Variable*       union_variable;
+// Operator_type  union_operator_type;
  Expr*          union_expr;
 }
 // Precedence Levels:
@@ -152,10 +156,11 @@ Symbol_table* symbol_table = Symbol_table::instance();
 %token <union_double> T_DOUBLE_CONSTANT
 %token <union_string> T_STRING_CONSTANT
 %token <union_int> T_PRINT
-%type <union_expr> optional_initializer //just for now
+%type <union_expr> optional_initializer
 %type <union_expr> primary_expression
 %type <union_variable_type> simple_type
 %type <union_expr> expression
+%type <union_variable> variable
 
 // special token that does not match any production
 // used for characters that are not part of the language
@@ -213,19 +218,20 @@ variable_declaration:
             Error::error(Error::PREVIOUSLY_DECLARED_VARIABLE,
                 *$2);
         }
-    for (int x = 0; x<$4->eval_int(); x++) {
-        string name = *$2;
-        std::stringstream out;
-        out<<x;
-        name = name + '['+out.str()+']';
-        if($1 == INT)
-            symbol_table->add(name, new Symbol(*$2,new int(42),"int"));
-        else if($1 == DOUBLE)
-            symbol_table->add(name, new Symbol(*$2,new double(3.145),"double"));
-        else if($1 == STRING)
-            symbol_table->add(name, new Symbol(*$2,
-            new string("\"Hello world\""),
-            "string"));
+        for (int x = 0; x<$4->eval_int(); x++) {
+            string name = *$2;
+            std::stringstream out;
+            out<<x;
+            name = name + '['+out.str()+']';
+            if($1 == INT)
+                symbol_table->add(name, new Symbol(*$2,new int(0),"int"));
+            else if($1 == DOUBLE)
+                symbol_table->add(name, new Symbol(*$2,new double(0.0),
+                "double"));
+            else if($1 == STRING)
+                symbol_table->add(name, new Symbol(*$2,
+                new string("\"\""),
+                "string"));
     }
     }
     ;
@@ -239,8 +245,9 @@ simple_type:
 
 //---------------------------------------------------------------------
 optional_initializer:
-    T_ASSIGN expression
-    { $$=$2; }
+    T_ASSIGN expression {
+        $$=$2;
+    }
     | empty
     ;
 
@@ -416,7 +423,13 @@ assign_statement:
 
 //---------------------------------------------------------------------
 variable:
-    T_ID
+    T_ID {
+        Symbol* var = symbol_table->find(*$1);
+        if(var) {
+            if(var->m_type == "int")
+                $$=new Variable(*$1,var,"int");
+        }
+    }
     | T_ID T_LBRACKET expression T_RBRACKET
     | T_ID T_PERIOD T_ID
     | T_ID T_LBRACKET expression T_RBRACKET T_PERIOD T_ID
@@ -435,7 +448,9 @@ expression:
     | expression T_NOT_EQUAL expression
     | expression T_PLUS expression 
     | expression T_MINUS expression
-    | expression T_ASTERISK expression
+    | expression T_ASTERISK expression {
+        $$=new Expr(MULTIPLY, $1, $3);
+    }
     | expression T_DIVIDE expression
     | expression T_MOD expression
     | T_MINUS  expression %prec UNARY_OPS
@@ -447,12 +462,18 @@ expression:
 //---------------------------------------------------------------------
 primary_expression:
     T_LPAREN  expression T_RPAREN
-    | variable
+    | variable {
+        $$ = new Expr($1);
+    }
     | T_INT_CONSTANT {
         $$=new Expr($1);
     }
-    | T_TRUE
-    | T_FALSE
+    | T_TRUE {
+        $$=new Expr(1);
+    }
+    | T_FALSE {
+        $$=new Expr(0);
+    }
     | T_DOUBLE_CONSTANT {
         $$=new Expr($1);
     }

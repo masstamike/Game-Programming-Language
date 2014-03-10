@@ -35,9 +35,9 @@ void Symbol_table::add(std::string name, Symbol* sym) {
     sym_table[name] = sym;
 }
 
-bool Symbol_table::find(std::string s) {
+Symbol* Symbol_table::find(std::string s) {
     std::map<std::string, Symbol*>::iterator it = sym_table.find(s);
     if(it == sym_table.end())
-        return false;
-    return true;
+        return NULL;
+    return it->second;
 }

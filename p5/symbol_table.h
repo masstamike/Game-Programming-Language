@@ -11,7 +11,7 @@ class Symbol_table
     static Symbol_table *instance();
     void print(std::ostream& stream);
     void add(std::string, Symbol*);
-    bool find(std::string);
+    Symbol* find(std::string);
   private:
     std::map<std::string, Symbol*> sym_table;
     static Symbol_table *m_instance;
