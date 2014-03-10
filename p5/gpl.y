@@ -230,7 +230,7 @@ variable_declaration:
                 "double"));
             else if($1 == STRING)
                 symbol_table->add(name, new Symbol(*$2,
-                new string("\"\""),
+                new string(""),
                 "string"));
     }
     }
@@ -430,6 +430,8 @@ variable:
                 $$=new Variable(*$1,var,"int");
             else if(var->m_type == "double")
                 $$=new Variable(*$1,var,"double");
+            else if(var->m_type == "string")
+                $$=new Variable(*$1,var,"string");
         }
     }
     | T_ID T_LBRACKET expression T_RBRACKET
@@ -448,7 +450,9 @@ expression:
     | expression T_GREATER  expression
     | expression T_EQUAL expression
     | expression T_NOT_EQUAL expression
-    | expression T_PLUS expression 
+    | expression T_PLUS expression {
+        $$=new Expr(PLUS, $1, $3);
+    }
     | expression T_MINUS expression
     | expression T_ASTERISK expression {
         $$=new Expr(MULTIPLY, $1, $3);

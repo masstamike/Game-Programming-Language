@@ -15,6 +15,8 @@ Expr::Expr(double d) {
 }
 
 Expr::Expr(std::string s) {
+    s.erase(0,1);
+    s.erase(s.size()-1);
     m_str = s;
     type = "string";
     m_kind = "constant";
@@ -79,7 +81,14 @@ std::string Expr::eval_string() {
 //    assert(type == "string");
     if(m_kind == "constant")
         return m_str;
-    else {
+    else if (m_kind == "expr") {
+        if(m_op == PLUS) {
+            return m_left->eval_string()+m_right->eval_string();
+        }
+    } else if (m_kind=="variable") {
+        if(m_var->m_sym->m_type == "string")
+            return *(std::string*) m_var->m_sym->m_value;
+    } else {
         return m_str; //just for now
     }
 }
