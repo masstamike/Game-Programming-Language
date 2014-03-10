@@ -428,6 +428,8 @@ variable:
         if(var) {
             if(var->m_type == "int")
                 $$=new Variable(*$1,var,"int");
+            else if(var->m_type == "double")
+                $$=new Variable(*$1,var,"double");
         }
     }
     | T_ID T_LBRACKET expression T_RBRACKET

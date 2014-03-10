@@ -65,10 +65,6 @@ double Expr::eval_double() {
             return m_left->eval_double()*m_right->eval_double();
         }
     } else if (m_kind == "variable") {
-        std::cout<<"evaluating a variable\n";
-        std::cout<<m_var<<std::endl;
-        std::cout<<m_var->m_sym<<std::endl;
-        std::cout<<m_var->m_sym->m_type<<std::endl;
         if(m_var->m_sym->m_type == "double")
             return *(double*) m_var->m_sym->m_value;
         //else
