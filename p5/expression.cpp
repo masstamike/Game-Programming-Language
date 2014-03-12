@@ -1,5 +1,6 @@
 #include <cassert>
 #include <iostream>
+#include <string>
 #include "expression.h"
 
 Expr::Expr(int i) {
@@ -79,8 +80,13 @@ double Expr::eval_double() {
 
 std::string Expr::eval_string() {
 //    assert(type == "string");
-    if(m_kind == "constant")
+    if(m_kind == "constant") {
+        if(type=="int")
+            return std::to_string(m_int);
+        else if(type=="double")
+            return std::to_string(m_double);
         return m_str;
+    }
     else if (m_kind == "expr") {
         if(m_op == PLUS) {
             return m_left->eval_string()+m_right->eval_string();
