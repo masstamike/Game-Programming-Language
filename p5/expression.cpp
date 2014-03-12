@@ -81,19 +81,25 @@ double Expr::eval_double() {
 std::string Expr::eval_string() {
 //    assert(type == "string");
     if(m_kind == "constant") {
-        if(type=="int")
+        if(type=="int") {
             return std::to_string(m_int);
-        else if(type=="double")
+        }
+        else if(type=="double") {
             return std::to_string(m_double);
+        }
         return m_str;
     }
     else if (m_kind == "expr") {
-        if(m_op == PLUS) {
+        if(operator_to_string(m_op) == "+") {
             return m_left->eval_string()+m_right->eval_string();
         }
     } else if (m_kind=="variable") {
         if(m_var->m_sym->m_type == "string")
             return *(std::string*) m_var->m_sym->m_value;
+        else if(m_var->m_sym->m_type == "int")
+            return std::to_string(*(int*) m_var->m_sym->m_value);
+        else if(m_var->m_sym->m_type == "double")
+            return std::to_string(*(double*) m_var->m_sym->m_value);
     } else {
         return m_str; //just for now
     }

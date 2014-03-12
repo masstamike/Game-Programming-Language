@@ -461,13 +461,17 @@ expression:
     | expression T_MOD expression
     | T_MINUS  expression %prec UNARY_OPS
     | T_NOT  expression
-    | math_operator T_LPAREN expression T_RPAREN
+    | math_operator T_LPAREN expression T_RPAREN {
+        
+    }
     | variable geometric_operator variable
     ;
 
 //---------------------------------------------------------------------
 primary_expression:
-    T_LPAREN  expression T_RPAREN
+    T_LPAREN  expression T_RPAREN {
+        $$=$2;
+    }
     | variable {
         $$ = new Expr($1);
     }
