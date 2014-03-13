@@ -91,7 +91,18 @@ std::string Expr::eval_string() {
     }
     else if (m_kind == "expr") {
         if(operator_to_string(m_op) == "+") {
-            return m_left->eval_string()+m_right->eval_string();
+            int ileft, iright;
+            double dleft, dright;
+            if(m_left->type == "int") {
+                ileft = *(int*) m_left->m_value;
+                if(m_right->type == "int") {
+                    iright = *(int*) m_right->m_value;
+                    return std::to_string(ileft+iright);
+                } else if(m_right->type == "double") {
+                    dright = *(double*) m_right->m_value;
+                    return std::to_string(ileft+iright);
+                }
+            }
         }
     } else if (m_kind=="variable") {
         if(m_var->m_sym->m_type == "string")
