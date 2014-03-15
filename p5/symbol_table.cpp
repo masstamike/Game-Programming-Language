@@ -26,7 +26,7 @@ void Symbol_table::print(std::ostream& stream) {
         else if(it->second->m_type == "double")
             stream<<*(double*)it->second->m_value<<'\n';
         else if(it->second->m_type == "string")
-            stream<<'\"'<<*(std::string*)it->second->m_value<<"\"\n";
+            stream<<"\""<<*(std::string*)it->second->m_value<<"\"\n";
 
     }
 }

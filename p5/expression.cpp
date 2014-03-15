@@ -94,15 +94,18 @@ std::string Expr::eval_string() {
             int ileft, iright;
             double dleft, dright;
             if(m_left->type == "int") {
-                ileft = *(int*) m_left->m_value;
+                ileft = m_left->m_int;
                 if(m_right->type == "int") {
-                    iright = *(int*) m_right->m_value;
+                    iright = m_right->m_int;
                     return std::to_string(ileft+iright);
                 } else if(m_right->type == "double") {
-                    dright = *(double*) m_right->m_value;
-                    return std::to_string(ileft+iright);
+                    dright = m_right->m_double;
+                    dright = iright+dright;
+                    return std::to_string(dright);
                 }
             }
+            else
+                return m_left->eval_string()+m_right->eval_string();
         }
     } else if (m_kind=="variable") {
         if(m_var->m_sym->m_type == "string")
