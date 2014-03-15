@@ -25,7 +25,19 @@ Expr::Expr(std::string s) {
 
 Expr::Expr(Operator_type op, Expr* left, Expr* right) {
     m_op = op;
-    type = "op";
+    if(left && right){
+    if(left->type == right->type)
+        type = left->type;
+    else if(left->type == "string" || left->type=="string")
+        type = "string";
+    else if(left->type == "double" || right->type=="double")
+        type = "double";
+    else if((left->type)=="int"&&(right->type)=="int")
+        type = "int";}
+    else {
+        std::cout<<left<<operator_to_string(op)<<right<<"left or right not define\n";
+        type == "int"; //just for now
+    }
     m_kind = "expr";
     m_left = left;
     m_right = right;
@@ -33,7 +45,7 @@ Expr::Expr(Operator_type op, Expr* left, Expr* right) {
 
 Expr::Expr(Variable* var) {
     m_var = var;
-    type = "variable";
+    type = var->m_type;
     m_kind = "variable";
 }
 
@@ -61,8 +73,12 @@ int Expr::eval_int() {
 
 double Expr::eval_double() {
 //    assert(type == "double");
-    if(m_kind == "constant")
-        return m_double;
+    if(m_kind == "constant") {
+        if(type=="double")
+            return m_double;
+        else
+            return (double) m_int;
+    }
     else if (m_kind == "expr") {
         if(m_op==MULTIPLY) {
             return m_left->eval_double()*m_right->eval_double();
@@ -80,6 +96,7 @@ double Expr::eval_double() {
 
 std::string Expr::eval_string() {
 //    assert(type == "string");
+    std::cout<<"evaluating a string\n";
     if(m_kind == "constant") {
         if(type=="int") {
             return std::to_string(m_int);
@@ -93,16 +110,20 @@ std::string Expr::eval_string() {
         if(operator_to_string(m_op) == "+") {
             int ileft, iright;
             double dleft, dright;
-            if(m_left->type == "int") {
-                ileft = m_left->m_int;
+/*            if(m_left->type == "int") {
+                ileft = m_left->eval_int();
                 if(m_right->type == "int") {
-                    iright = m_right->m_int;
+                    iright = m_right->eval_int();
                     return std::to_string(ileft+iright);
                 } else if(m_right->type == "double") {
                     dright = m_right->m_double;
                     dright = iright+dright;
                     return std::to_string(dright);
                 }
+            }*/
+            if(type == "double") {
+                double d = m_left->eval_double()+m_right->eval_double();
+                return std::to_string(d);
             }
             else
                 return m_left->eval_string()+m_right->eval_string();
