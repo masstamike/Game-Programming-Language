@@ -30,23 +30,26 @@ Expr::Expr(Operator_type op, Expr* ex) {
     m_kind = "expr";
     m_left = ex;
     m_right = NULL;
-    if(operator_to_string(op)=="sin")
+    if (op == UNARY_MINUS)
+        type = ex->get_type();
+    else if (op == RANDOM)
+        type = "int";
+    else
         type = "double";
-//    else if ...
-//    else ...
 }
 
 Expr::Expr(Operator_type op, Expr* left, Expr* right) {
     m_op = op;
     if(left && right){
-    if(left->type == right->type)
-        type = left->type;
-    else if(left->type == "string" || left->type=="string")
+    if(left->get_type() == right->get_type())
+        type = left->get_type();
+    else if(left->get_type() == "string" || left->get_type()=="string")
         type = "string";
-    else if(left->type == "double" || right->type=="double")
+    else if(left->get_type() == "double" || right->get_type()=="double")
         type = "double";
-    else if((left->type)=="int"&&(right->type)=="int")
-        type = "int";}
+    else if((left->get_type())=="int"&&(right->get_type())=="int")
+        type = "int";
+    }
     else {
         std::cout<<left<<operator_to_string(op)<<right<<"left or right not define\n";
         type == "int"; //just for now
@@ -74,6 +77,10 @@ int Expr::eval_int() {
     else if (m_kind == "expr") {
         if(m_op==MULTIPLY) {
             return m_left->eval_int()*m_right->eval_int();
+        } else if (m_op==UNARY_MINUS) {
+            return -(m_left->eval_int());
+        } else if (m_op==RANDOM) {
+            return (rand() % m_left->eval_int());
         }
     } else if (m_kind == "variable") {
         if(m_var->m_sym->m_type == "int")
@@ -89,21 +96,52 @@ double Expr::eval_double() {
     if(m_kind == "constant") {
         if(type=="double")
             return m_double;
-        else {
+        else if (type == "int") {
             return (double) m_int;
         }
+//        else
+            //error
     }
     else if (m_kind == "expr") {
-        if(m_op==MULTIPLY) {
-            return m_left->eval_double()*m_right->eval_double();
-        } else if (m_op==SIN) {
-            return sin(m_left->eval_double()*3.141592653689/180);
+        switch(m_op) {
+            case PLUS:
+                return (m_left->eval_double())+(m_right->eval_double());
+            case MINUS:
+                return (m_left->eval_double())-(m_right->eval_double());
+            case MULTIPLY:
+                return (m_left->eval_double())*(m_right->eval_double());
+            case SIN: 
+                return sin(m_left->eval_double()*3.141592653589/180);
+            case COS:
+                return cos(m_left->eval_double()*3.141592653589/180);
+            case TAN:
+                return tan(m_left->eval_double()*3.141592653589/180);
+            case ASIN:
+                return asin(m_left->eval_double())*180/3.141592653589;
+            case ACOS:
+                return acos(m_left->eval_double())*180/3.141592653589;
+            case ATAN:
+                return atan(m_left->eval_double())*180/3.141592653589;
+            case SQRT:
+                return sqrt(m_left->eval_double());
+            case ABS:
+                return abs(m_left->eval_double());
+            case FLOOR:
+                return floor(m_left->eval_double());
+            case UNARY_MINUS:
+                return -(m_left->eval_double());
+            case RANDOM:
+                return (rand() % m_left->eval_int());
         }
     } else if (m_kind == "variable") {
-        if(m_var->m_sym->m_type == "double")
-            return *(double*) m_var->m_sym->m_value;
-        else if (m_var->m_sym->m_type == "int")
-            return (double) *(int*) m_var->m_sym->m_value;
+        if(m_var->m_type == "double") {
+            double d = *(double*) m_var->m_sym->m_value;
+            return d;
+        }
+        else if (m_var->m_type == "int") {
+            double d = (double) *(int*) m_var->m_sym->m_value;
+            return d;
+        }
     }
     else {
         return m_double; //just for now

@@ -454,13 +454,19 @@ expression:
     | expression T_PLUS expression {
         $$=new Expr(PLUS, $1, $3);
     }
-    | expression T_MINUS expression
+    | expression T_MINUS expression {
+        $$=new Expr(MINUS, $1, $3);
+    }
     | expression T_ASTERISK expression {
         $$=new Expr(MULTIPLY, $1, $3);
     }
-    | expression T_DIVIDE expression
+    | expression T_DIVIDE expression {
+        $$=new Expr(DIVIDE, $1, $3);
+    }
     | expression T_MOD expression
-    | T_MINUS  expression %prec UNARY_OPS
+    | T_MINUS  expression %prec UNARY_OPS {
+        $$=new Expr(UNARY_MINUS, $2);
+    }
     | T_NOT  expression
     | math_operator T_LPAREN expression T_RPAREN {
         if($3->get_type()=="int" || $3->get_type()=="double")

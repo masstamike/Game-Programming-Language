@@ -26,8 +26,8 @@ int g 0
 int h 0
 int i 0
 int j 0
-int k 2
-int l 8
+int k 0
+int l 0
 If graphics was enabled gpl program would execute now.
 
 gpl.cpp::main() done.
