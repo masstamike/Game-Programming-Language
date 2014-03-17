@@ -10,6 +10,7 @@ class Expr {
         Expr(double d);//double constructor
         Expr(std::string s);//string constructor
         Expr(Operator_type, Expr*, Expr*);
+        Expr(Operator_type, Expr*);
         Expr(Variable*);
 //        Expr();
         ~Expr();

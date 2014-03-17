@@ -37,7 +37,7 @@ Symbol_table* symbol_table = Symbol_table::instance();
  double         union_double;
  Gpl_type       union_variable_type;
  Variable*       union_variable;
-// Operator_type  union_operator_type;
+ Operator_type  union_operator_type;
  Expr*          union_expr;
 }
 // Precedence Levels:
@@ -161,6 +161,7 @@ Symbol_table* symbol_table = Symbol_table::instance();
 %type <union_variable_type> simple_type
 %type <union_expr> expression
 %type <union_variable> variable
+%type <union_operator_type> math_operator
 
 // special token that does not match any production
 // used for characters that are not part of the language
@@ -462,7 +463,10 @@ expression:
     | T_MINUS  expression %prec UNARY_OPS
     | T_NOT  expression
     | math_operator T_LPAREN expression T_RPAREN {
-        
+        if($3->get_type()=="int" || $3->get_type()=="double")
+            $$=new Expr($1,$3);
+//        else
+            //error
     }
     | variable geometric_operator variable
     ;
@@ -500,16 +504,16 @@ geometric_operator:
 
 //---------------------------------------------------------------------
 math_operator:
-    T_SIN
-    | T_COS
-    | T_TAN
-    | T_ASIN
-    | T_ACOS
-    | T_ATAN
-    | T_SQRT
-    | T_ABS
-    | T_FLOOR
-    | T_RANDOM
+    T_SIN{$$=SIN;}
+    | T_COS{$$=COS;}
+    | T_TAN{$$=TAN;}
+    | T_ASIN{$$=ASIN;}
+    | T_ACOS{$$=ACOS;}
+    | T_ATAN{$$=ATAN;}
+    | T_SQRT{$$=SQRT;}
+    | T_ABS{$$=ABS;}
+    | T_FLOOR{$$=FLOOR;}
+    | T_RANDOM{$$=RANDOM;}
     ;
 
 //---------------------------------------------------------------------

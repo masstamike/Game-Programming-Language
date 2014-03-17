@@ -3,6 +3,7 @@
 #include <string>
 #include "expression.h"
 #include <sstream>
+#include <cmath>
 
 Expr::Expr(int i) {
     m_int = i;
@@ -22,6 +23,17 @@ Expr::Expr(std::string s) {
     m_str = s;
     type = "string";
     m_kind = "constant";
+}
+
+Expr::Expr(Operator_type op, Expr* ex) {
+    m_op = op;
+    m_kind = "expr";
+    m_left = ex;
+    m_right = NULL;
+    if(operator_to_string(op)=="sin")
+        type = "double";
+//    else if ...
+//    else ...
 }
 
 Expr::Expr(Operator_type op, Expr* left, Expr* right) {
@@ -84,6 +96,8 @@ double Expr::eval_double() {
     else if (m_kind == "expr") {
         if(m_op==MULTIPLY) {
             return m_left->eval_double()*m_right->eval_double();
+        } else if (m_op==SIN) {
+            return sin(m_left->eval_double()*3.141592653689/180);
         }
     } else if (m_kind == "variable") {
         if(m_var->m_sym->m_type == "double")
