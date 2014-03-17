@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include "expression.h"
+#include <sstream>
 
 Expr::Expr(int i) {
     m_int = i;
@@ -76,8 +77,9 @@ double Expr::eval_double() {
     if(m_kind == "constant") {
         if(type=="double")
             return m_double;
-        else
+        else {
             return (double) m_int;
+        }
     }
     else if (m_kind == "expr") {
         if(m_op==MULTIPLY) {
@@ -86,8 +88,8 @@ double Expr::eval_double() {
     } else if (m_kind == "variable") {
         if(m_var->m_sym->m_type == "double")
             return *(double*) m_var->m_sym->m_value;
-        //else
-            //error
+        else if (m_var->m_sym->m_type == "int")
+            return (double) *(int*) m_var->m_sym->m_value;
     }
     else {
         return m_double; //just for now
@@ -96,45 +98,45 @@ double Expr::eval_double() {
 
 std::string Expr::eval_string() {
 //    assert(type == "string");
-    std::cout<<"evaluating a string\n";
+    std::stringstream ss;
     if(m_kind == "constant") {
         if(type=="int") {
-            return std::to_string(m_int);
+            ss<<m_int;
+            return ss.str();
         }
         else if(type=="double") {
-            return std::to_string(m_double);
+            ss<<m_double;
+            return ss.str();
         }
         return m_str;
     }
     else if (m_kind == "expr") {
         if(operator_to_string(m_op) == "+") {
-            int ileft, iright;
-            double dleft, dright;
-/*            if(m_left->type == "int") {
-                ileft = m_left->eval_int();
-                if(m_right->type == "int") {
-                    iright = m_right->eval_int();
-                    return std::to_string(ileft+iright);
-                } else if(m_right->type == "double") {
-                    dright = m_right->m_double;
-                    dright = iright+dright;
-                    return std::to_string(dright);
-                }
-            }*/
+//            int ileft, iright;
+//            double dleft, dright;
             if(type == "double") {
-                double d = m_left->eval_double()+m_right->eval_double();
-                return std::to_string(d);
+                double d = (m_left->eval_double())+(m_right->eval_double());
+                ss<<d;
+                return ss.str();
             }
-            else
-                return m_left->eval_string()+m_right->eval_string();
+            else {
+                ss<<(m_left->eval_string()+m_right->eval_string());
+                return ss.str();
+            }
         }
     } else if (m_kind=="variable") {
-        if(m_var->m_sym->m_type == "string")
-            return *(std::string*) m_var->m_sym->m_value;
-        else if(m_var->m_sym->m_type == "int")
-            return std::to_string(*(int*) m_var->m_sym->m_value);
-        else if(m_var->m_sym->m_type == "double")
-            return std::to_string(*(double*) m_var->m_sym->m_value);
+        if(m_var->m_sym->m_type == "string") {
+            std::string s=*(std::string*) m_var->m_sym->m_value;
+            return s;
+        } else if (m_var->m_sym->m_type == "int") {
+            int i = *(int*) m_var->m_sym->m_value;
+            ss<<i;
+            return ss.str();
+        } else if (m_var->m_sym->m_type == "double") {
+            double d = *(double*) m_var->m_sym->m_value;
+            ss<<d;
+            return ss.str();
+        }
     } else {
         return m_str; //just for now
     }
