@@ -248,7 +248,7 @@ optional_initializer:
     T_ASSIGN expression {
         $$=$2;
     }
-    | empty
+    | empty{$$=NULL;}
     ;
 
 //---------------------------------------------------------------------
