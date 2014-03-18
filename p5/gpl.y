@@ -206,10 +206,20 @@ variable_declaration:
         else if($1 == DOUBLE)
             symbol_table->add(*$2, new Symbol(*$2,new double($3?
                 $3->eval_double():0.0),"double"));
-        else if($1 == STRING)
+        else if($1 == STRING) {
+            stringstream ss;
+            if(!$3)
+                ss << "";
+            else if($3->get_type() == "int")
+                ss << $3->eval_int();
+            else if($3->get_type() == "double")
+                ss << $3->eval_double();
+            else
+                ss << $3->eval_string();
             symbol_table->add(*$2, new Symbol(*$2,
-            new string($3?$3->eval_string():""),
+            new string(ss.str()),
             "string"));
+        }
     }
     | simple_type  T_ID  T_LBRACKET expression T_RBRACKET {
     /*|  simple_type T_ID T_LBRACKET T_INT_CONSTANT T_RBRACKET {*/

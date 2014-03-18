@@ -23,10 +23,10 @@ double d 4.4
 double e 5.5
 double g 3.3
 double h 1.1
-double i 2.09439e-317
+double i 2.09457e-317
 double j 5.5
-double k 2.09439e-317
-double l 9.21531e-317
+double k 2.09457e-317
+double l 9.21609e-317
 If graphics was enabled gpl program would execute now.
 
 gpl.cpp::main() done.
