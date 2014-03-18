@@ -454,6 +454,9 @@ variable:
 expression:
     primary_expression {$$=$1;}
     | expression T_OR expression
+    {
+        $$=new Expr(OR, $1, $3);
+    }
     | expression T_AND expression
     {
         $$=new Expr(AND, $1, $3);
