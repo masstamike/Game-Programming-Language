@@ -455,6 +455,9 @@ expression:
     primary_expression {$$=$1;}
     | expression T_OR expression
     | expression T_AND expression
+    {
+        $$=new Expr(AND, $1, $3);
+    }
     | expression T_LESS_EQUAL expression
     | expression T_GREATER_EQUAL  expression
     | expression T_LESS expression 
@@ -473,7 +476,10 @@ expression:
         $$=new Expr(MULTIPLY, $1, $3);
     }
     | expression T_DIVIDE expression {
-        $$=new Expr(DIVIDE, $1, $3);
+        if($1->get_type() == "string" || $3->get_type() == "string");
+            //error
+        else
+            $$=new Expr(DIVIDE, $1, $3);
     }
     | expression T_MOD expression
     | T_MINUS  expression %prec UNARY_OPS {
