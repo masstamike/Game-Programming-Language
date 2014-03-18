@@ -43,7 +43,8 @@ Symbol_table* symbol_table = Symbol_table::instance();
 // Precedence Levels:
 %left T_OR
 %left T_AND
-%left T_LESS T_GREATER T_LESS_EQUAL T_GREATER_EQUAL T_EQUAL T_NOT_EQUAL
+%left T_LESS T_GREATER T_EQUAL T_NOT_EQUAL
+%left T_GREATER_EQUAL T_LESS_EQUAL
 %left T_MINUS T_PLUS
 %left T_ASTERISK T_DIVIDE T_MOD
 %nonassoc UNARY_OPS T_NOT

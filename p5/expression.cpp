@@ -102,6 +102,12 @@ int Expr::eval_int() {
                         return (m_left->eval_int()||m_right->eval_int())?1:0;
                     case LESS_THAN:
                         return (m_left->eval_int()<m_right->eval_int())?1:0;
+                    case LESS_THAN_EQUAL:
+                        return (m_left->eval_int()<=m_right->eval_int())?1:0;
+                    case GREATER_THAN:
+                        return (m_left->eval_int()>m_right->eval_int())?1:0;
+                    case GREATER_THAN_EQUAL:
+                        return (m_left->eval_int()>=m_right->eval_int())?1:0;
                 }
             } else if(m_left->get_type() == "double") {
                 switch (m_op) {
@@ -119,6 +125,15 @@ int Expr::eval_int() {
                             1:0;
                     case LESS_THAN:
                         return (m_left->eval_double()<m_right->eval_double())?
+                            1:0;
+                    case LESS_THAN_EQUAL:
+                        return (m_left->eval_double()<=m_right->eval_double())?
+                            1:0;
+                    case GREATER_THAN:
+                        return (m_left->eval_double()>m_right->eval_double())?
+                            1:0;
+                    case GREATER_THAN_EQUAL:
+                        return (m_left->eval_double()>=m_right->eval_double())?
                             1:0;
                 }
             } else {
@@ -144,6 +159,12 @@ int Expr::eval_int() {
                         return (m_left->eval_int()||m_right->eval_double())?1:0;
                     case LESS_THAN:
                         return (m_left->eval_int()<m_right->eval_double())?1:0;
+                    case LESS_THAN_EQUAL:
+                        return (m_left->eval_int()<=m_right->eval_double())?1:0;
+                    case GREATER_THAN:
+                        return (m_left->eval_int()>m_right->eval_double())?1:0;
+                    case GREATER_THAN_EQUAL:
+                        return (m_left->eval_int()>=m_right->eval_double())?1:0;
                 }
             }
         } else if(m_left->get_type() == "double") {
@@ -159,6 +180,12 @@ int Expr::eval_int() {
                         return (m_left->eval_double()||m_right->eval_int())?1:0;
                     case LESS_THAN:
                         return (m_left->eval_double()<m_right->eval_int())?1:0;
+                    case LESS_THAN_EQUAL:
+                        return (m_left->eval_double()<=m_right->eval_int())?1:0;
+                    case GREATER_THAN:
+                        return (m_left->eval_double()>m_right->eval_int())?1:0;
+                    case GREATER_THAN_EQUAL:
+                        return (m_left->eval_double()>=m_right->eval_int())?1:0;
                 }
             }
         }
