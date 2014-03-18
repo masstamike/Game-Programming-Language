@@ -461,14 +461,16 @@ expression:
     {
         $$=new Expr(AND, $1, $3);
     }
-    | expression T_LESS_EQUAL expression
-    | expression T_GREATER_EQUAL  expression
-    | expression T_LESS expression 
-    | expression T_GREATER  expression
+    | expression T_LESS_EQUAL expression {$$=new Expr(LESS_THAN_EQUAL,$1,$3);}
+    | expression T_GREATER_EQUAL  expression {
+        $$=new Expr(GREATER_THAN_EQUAL,$1,$3);
+    }
+    | expression T_LESS expression {$$=new Expr(LESS_THAN, $1, $3);}
+    | expression T_GREATER  expression {$$=new Expr(GREATER_THAN,$1,$3);}
     | expression T_EQUAL expression {
         $$=new Expr(EQUAL, $1, $3);
     }
-    | expression T_NOT_EQUAL expression
+    | expression T_NOT_EQUAL expression {$$=new Expr(NOT_EQUAL,$1,$3);}
     | expression T_PLUS expression {
         $$=new Expr(PLUS, $1, $3);
     }
@@ -484,7 +486,7 @@ expression:
         else
             $$=new Expr(DIVIDE, $1, $3);
     }
-    | expression T_MOD expression
+    | expression T_MOD expression {$$=new Expr(MOD,$1,$3);}
     | T_MINUS  expression %prec UNARY_OPS {
         $$=new Expr(UNARY_MINUS, $2);
     }
