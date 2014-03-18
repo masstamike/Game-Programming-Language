@@ -94,6 +94,8 @@ int Expr::eval_int() {
                 switch (m_op) {
                     case EQUAL:
                         return (m_left->eval_int()==m_right->eval_int())?1:0;
+                    case NOT_EQUAL:
+                        return (m_left->eval_int()!=m_right->eval_int())?1:0;
                     case AND:
                         return (m_left->eval_int()&&m_right->eval_int())?1:0;
                     case OR:
@@ -105,6 +107,9 @@ int Expr::eval_int() {
                 switch (m_op) {
                     case EQUAL:
                         return (m_left->eval_double()==m_right->eval_double())?
+                            1:0;
+                    case NOT_EQUAL:
+                        return (m_left->eval_double()!=m_right->eval_double())?
                             1:0;
                     case AND:
                         return (m_left->eval_double()&&m_right->eval_double())?
@@ -121,6 +126,9 @@ int Expr::eval_int() {
                     case EQUAL:
                         return (m_left->eval_string()==m_right->eval_string())?
                             1:0;
+                    case NOT_EQUAL:
+                        return (m_left->eval_string()!=m_right->eval_string())?
+                            1:0;
                 }
             }
         } else if(m_left->get_type() == "int") {
@@ -128,6 +136,8 @@ int Expr::eval_int() {
                 switch (m_op) {
                     case EQUAL:
                         return (m_left->eval_int()==m_right->eval_double())?1:0;
+                    case NOT_EQUAL:
+                        return (m_left->eval_int()!=m_right->eval_double())?1:0;
                     case AND:
                         return (m_left->eval_int()&&m_right->eval_double())?1:0;
                     case OR:
@@ -141,6 +151,8 @@ int Expr::eval_int() {
                 switch (m_op) {
                     case EQUAL:
                         return (m_left->eval_double()==m_right->eval_int())?1:0;
+                    case NOT_EQUAL:
+                        return (m_left->eval_double()!=m_right->eval_int())?1:0;
                     case AND:
                         return (m_left->eval_double()&&m_right->eval_int())?1:0;
                     case OR:
@@ -214,6 +226,8 @@ double Expr::eval_double() {
                 switch (m_op) {
                     case EQUAL:
                         return (m_left->eval_int()==m_right->eval_int())?1:0;
+                    case NOT_EQUAL:
+                        return (m_left->eval_int()!=m_right->eval_int())?1:0;
                     case AND:
                         return (m_left->eval_int()&&m_right->eval_int())?1:0;
                     case OR:
@@ -226,6 +240,9 @@ double Expr::eval_double() {
                 switch (m_op) {
                     case EQUAL:
                         return (m_left->eval_double()==m_right->eval_double())?
+                            1:0;
+                    case NOT_EQUAL:
+                        return (m_left->eval_double()!=m_right->eval_double())?
                             1:0;
                     case AND:
                         return (m_left->eval_double()&&m_right->eval_double())?
@@ -241,6 +258,9 @@ double Expr::eval_double() {
                     case EQUAL:
                         return (m_left->eval_string()==m_right->eval_string())?
                             1:0;
+                    case NOT_EQUAL:
+                        return (m_left->eval_string()!=m_right->eval_string())?
+                            1:0;
                 }
             }
         } else if (m_left->get_type() == "int") {
@@ -248,6 +268,8 @@ double Expr::eval_double() {
                 switch (m_op) {
                     case EQUAL:
                         return (m_left->eval_int()==m_right->eval_double())?1:0;
+                    case NOT_EQUAL:
+                        return (m_left->eval_int()!=m_right->eval_double())?1:0;
                     case AND:
                         return (m_left->eval_int()&&m_right->eval_double())?1:0;
                     case OR:
@@ -261,6 +283,8 @@ double Expr::eval_double() {
                 switch (m_op) {
                     case EQUAL:
                         return (m_left->eval_double()==m_right->eval_int())?1:0;
+                    case NOT_EQUAL:
+                        return (m_left->eval_double()!=m_right->eval_int())?1:0;
                     case AND:
                         return (m_left->eval_double()&&m_right->eval_int())?1:0;
                     case OR:
