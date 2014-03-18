@@ -193,6 +193,23 @@ double Expr::eval_double() {
                     if(m_right->get_type() == "int")
                         return (m_left->eval_double()==m_right->eval_int())?1:0;
                 }
+            case AND:
+                if(m_left->get_type() == m_right->get_type()) {
+                    if(m_left->get_type() == "int")
+                        return (m_left->eval_int()&&m_right->eval_int())?1:0;
+                    else if(m_left->get_type() == "double")
+                        return (m_left->eval_double()&&m_right->eval_double())?
+                            1:0;
+/*                    else
+                        return (m_left->eval_string()&&m_right->eval_string())?
+                            1:0;*/
+                } else if(m_left->get_type() == "int") {
+                    if(m_right->get_type() == "double")
+                        return (m_left->eval_int()&&m_right->eval_double())?1:0;
+                } else if(m_left->get_type() == "double") {
+                    if(m_right->get_type() == "int")
+                        return (m_left->eval_double()&&m_right->eval_int())?1:0;
+                }
         }
     } else if (m_kind == "variable") {
         if(m_var->m_type == "double") {
