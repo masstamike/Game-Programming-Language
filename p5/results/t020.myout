@@ -17,9 +17,9 @@ No errors found (parser probably worked correctly).
 
 Printing the symbol table from main()
 int a 0
-double b 2.09457e-317
-string c "0"
-double d 1.1
+double b 2.09523e-317
+string c "2.09523e-317"
+double d 2.09523e-317
 int e 0
 int f 0
 int g 0

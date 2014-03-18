@@ -459,7 +459,9 @@ expression:
     | expression T_GREATER_EQUAL  expression
     | expression T_LESS expression 
     | expression T_GREATER  expression
-    | expression T_EQUAL expression
+    | expression T_EQUAL expression {
+        $$=new Expr(EQUAL, $1, $3);
+    }
     | expression T_NOT_EQUAL expression
     | expression T_PLUS expression {
         $$=new Expr(PLUS, $1, $3);
@@ -477,7 +479,9 @@ expression:
     | T_MINUS  expression %prec UNARY_OPS {
         $$=new Expr(UNARY_MINUS, $2);
     }
-    | T_NOT  expression
+    | T_NOT expression {
+        $$=new Expr(NOT, $2);
+    }
     | math_operator T_LPAREN expression T_RPAREN {
         if($3->get_type()=="int" || $3->get_type()=="double")
             $$=new Expr($1,$3);

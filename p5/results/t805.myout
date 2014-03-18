@@ -96,7 +96,7 @@ double var054 -2.04
 double var055 -261.344
 double var056 54.182
 double var057 243.367
-double var058 2.09457e-317
+double var058 2.09523e-317
 double var059 -100.056
 double var060 -1.2659e+06
 double var061 -198.041
@@ -140,7 +140,7 @@ double var098 12.03
 double var099 382.588
 double var100 0
 double var101 -362.865
-double var102 4.18913e-317
+double var102 4.19046e-317
 double var103 4.24
 double var104 288.089
 double var105 -3136.12
@@ -226,7 +226,7 @@ double var184 628.2
 double var185 -328.643
 double var186 -163.326
 double var187 5.86
-double var188 9.00664e-317
+double var188 9.00949e-317
 double var189 28.75
 double var190 6.44
 double var191 19536.5
@@ -410,7 +410,7 @@ double var368 1277.38
 double var369 -5102.42
 double var370 772.37
 double var371 35.35
-double var372 2.30402e-317
+double var372 2.30475e-317
 double var373 13.8
 double var374 46.17
 double var375 60.03
@@ -492,12 +492,12 @@ double var450 43311.5
 double var451 16.16
 double var452 -1.1
 double var453 3003.01
-double var454 1.381e-311
+double var454 1.38144e-311
 double var455 2213.34
 double var456 22.22
 double var457 35.73
 double var458 743.037
-double var459 2.09457e-317
+double var459 2.09523e-317
 double var460 93.122
 double var461 -83.83
 double var462 222.145
@@ -544,7 +544,7 @@ double var502 -309.878
 double var503 280.829
 double var504 -1381.63
 double var505 52.23
-double var506 2.09457e-317
+double var506 2.09523e-317
 double var507 -19.19
 double var508 5489.74
 double var509 -44.62
@@ -589,7 +589,7 @@ double var547 418.786
 double var548 7.7
 double var549 -40.714
 double var550 -1382.73
-double var551 1.15201e-316
+double var551 1.15238e-316
 double var552 -15.98
 double var553 16153
 double var554 358.025
@@ -611,14 +611,14 @@ double var569 128.821
 double var570 21.48
 double var571 232.638
 double var572 -5990.79
-double var573 3.58135e-315
+double var573 3.58249e-315
 double var574 14.7
 double var575 11.11
 double var576 -61.43
 double var577 -12.804
 double var578 -29.09
 double var579 113.423
-double var580 -3.54191e-316
+double var580 -3.54304e-316
 double var581 -523.679
 double var582 -170.589
 double var583 -9.45
@@ -725,7 +725,7 @@ double var683 57.77
 double var684 -450.84
 double var685 24.4
 double var686 507.208
-double var687 1.03415e-314
+double var687 1.03447e-314
 double var688 22198.3
 double var689 -151.129
 double var690 -78.578
@@ -754,7 +754,7 @@ double var712 2.94
 double var713 5.52
 double var714 301.99
 double var715 -14.14
-double var716 4.23312e-316
+double var716 4.23446e-316
 double var717 -23.23
 double var718 1.12
 double var719 16.25
@@ -795,7 +795,7 @@ double var753 -38
 double var754 -203.042
 double var755 53.484
 double var756 -196.297
-double var757 3.34703e-315
+double var757 3.34809e-315
 double var758 -638.922
 double var759 -27.672
 double var760 19.19
@@ -925,7 +925,7 @@ double var883 1890.71
 double var884 309.525
 double var885 66.623
 double var886 34.34
-double var887 5.49824e-316
+double var887 5.49998e-316
 double var888 -545.088
 double var889 -65.064
 double var890 -34.34
@@ -1034,7 +1034,7 @@ double var992 37.37
 double var993 13.87
 double var994 214.07
 double var995 257.065
-double var996 2.51348e-316
+double var996 2.51428e-316
 double var997 748.228
 double var998 -1504.84
 double var999 -129.19
