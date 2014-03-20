@@ -446,7 +446,15 @@ variable:
                 $$=new Variable(*$1,var,"string");
         }
     }
-    | T_ID T_LBRACKET expression T_RBRACKET
+    | T_ID T_LBRACKET expression T_RBRACKET {
+        if($3->get_type() !=  "int") {
+            string s2=$3->get_type();
+            s2="A "+s2+" expression";
+            Error::error(Error::ARRAY_INDEX_MUST_BE_AN_INTEGER,*$1,s2);
+            $$=NULL;
+        }
+        
+    }
     | T_ID T_PERIOD T_ID
     | T_ID T_LBRACKET expression T_RBRACKET T_PERIOD T_ID
     ;
@@ -509,7 +517,10 @@ primary_expression:
         $$=$2;
     }
     | variable {
-        $$ = new Expr($1);
+        if($1)
+            $$ = new Expr($1);
+        else
+            $$=NULL;
     }
     | T_INT_CONSTANT {
         $$=new Expr($1);
