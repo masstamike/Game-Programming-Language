@@ -1,0 +1,2 @@
+Semantic error on line 2: The array 'iii' was declared with illegal size '0'.  Arrays sizes must be integers of 1 or larger.
+Semantic error on line 4: Index value '0' is out of bounds for array 'iii'.

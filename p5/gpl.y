@@ -223,12 +223,24 @@ variable_declaration:
         }
     }
     | simple_type  T_ID  T_LBRACKET expression T_RBRACKET {
-    /*|  simple_type T_ID T_LBRACKET T_INT_CONSTANT T_RBRACKET {*/
         string array = *$2;
         array = array + "[0]";
         if(symbol_table->find(*$2) || symbol_table->find(array)){
             Error::error(Error::PREVIOUSLY_DECLARED_VARIABLE,
                 *$2);
+        }
+        if($4->eval_int() <1) {
+            if($4->get_type() == "int") {
+                stringstream ss;
+                ss<<$4->eval_int();
+                Error::error(Error::INVALID_ARRAY_SIZE,*$2,ss.str());
+            } else if($4->get_type() == "double") {
+                stringstream ss;
+                ss<<$4->eval_double();
+                Error::error(Error::INVALID_ARRAY_SIZE,*$2,ss.str());
+            } else if($4->get_type() == "string") {
+                Error::error(Error::INVALID_ARRAY_SIZE,*$2,$4->eval_string());
+            }
         }
         for (int x = 0; x<$4->eval_int(); x++) {
             string name = *$2;
@@ -453,7 +465,25 @@ variable:
             Error::error(Error::ARRAY_INDEX_MUST_BE_AN_INTEGER,*$1,s2);
             $$=NULL;
         }
-        
+        string array = *$1;
+        int index = $3->eval_int();
+        stringstream ss;
+        ss<<index;
+        array = array + "[" + ss.str() + "]";
+        Symbol* sym = symbol_table->find(array);
+        if(sym) {
+            if(sym->m_type == "int")
+                $$=new Variable(*$1,sym,"int");
+            else if(sym->m_type == "double")
+                $$=new Variable(*$1,sym,"double");
+            else if(sym->m_type == "string")
+                $$=new Variable(*$1,sym,"string");
+        } else {
+            stringstream ss;
+            ss<<$3->eval_int();
+            Error::error(Error::ARRAY_INDEX_OUT_OF_BOUNDS,*$1,ss.str());
+            $$=NULL;
+        }
     }
     | T_ID T_PERIOD T_ID
     | T_ID T_LBRACKET expression T_RBRACKET T_PERIOD T_ID
