@@ -41,6 +41,11 @@ Expr::Expr(Operator_type op, Expr* ex) {
 Expr::Expr(Operator_type op, Expr* left, Expr* right) {
     m_op = op;
     if(left && right){
+/*    if(op == EQUAL || op == NOT_EQUAL || op == NOT || op == AND || op == OR ||
+        op == MOD || op == LESS_THAN || op == LESS_THAN_EQUAL ||
+        op == GREATER_THAN || op == GREATER_THAN_EQUAL || op == FLOOR ||
+        op == RANDOM)
+        type == "int";*/
     if(left->get_type() == right->get_type())
         type = left->get_type();
     else if(left->get_type() == "string" || left->get_type()=="string")

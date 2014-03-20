@@ -201,6 +201,10 @@ variable_declaration:
             Error::error(Error::PREVIOUSLY_DECLARED_VARIABLE,
                 *$2);
         }
+/*        if($3 && $3->get_type()!=gpl_type_to_string($1))
+            if($1==INT && $3->get_type()=="string"){
+                Error::error(Error::INVALID_TYPE_FOR_INITIAL_VALUE,*$2);
+            }*/
         if($1 == INT)
             symbol_table->add(*$2, new Symbol(*$2,new int($3?$3->eval_int():
                 0),"int"));
@@ -229,7 +233,7 @@ variable_declaration:
             Error::error(Error::PREVIOUSLY_DECLARED_VARIABLE,
                 *$2);
         }
-        if($4->eval_int() <1) {
+        if($4->get_type()=="int" && $4->eval_int() <1) {
             if($4->get_type() == "int") {
                 stringstream ss;
                 ss<<$4->eval_int();
@@ -241,6 +245,9 @@ variable_declaration:
             } else if($4->get_type() == "string") {
                 Error::error(Error::INVALID_ARRAY_SIZE,*$2,$4->eval_string());
             }
+        }
+        if($4->get_type() != "int") {
+            Error::error(Error::INVALID_ARRAY_SIZE,*$2,$4->eval_string());
         }
         for (int x = 0; x<$4->eval_int(); x++) {
             string name = *$2;
@@ -456,6 +463,9 @@ variable:
                 $$=new Variable(*$1,var,"double");
             else if(var->m_type == "string")
                 $$=new Variable(*$1,var,"string");
+        } else {
+            Error::error(Error::UNDECLARED_VARIABLE,*$1);
+            $$=NULL;
         }
     }
     | T_ID T_LBRACKET expression T_RBRACKET {
@@ -550,7 +560,7 @@ primary_expression:
         if($1)
             $$ = new Expr($1);
         else
-            $$=NULL;
+            $$=new Expr(0);
     }
     | T_INT_CONSTANT {
         $$=new Expr($1);
