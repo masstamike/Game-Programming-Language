@@ -209,6 +209,8 @@ int Expr::eval_int() {
                         return (m_left->eval_int()>=m_right->eval_int())?1:0;
                     case PLUS:
                         return m_left->eval_int()+m_right->eval_int();
+                    case MINUS:
+                        return m_left->eval_int()-m_right->eval_int();
                 }
             } else if(m_left->get_type() == "double") {
                 switch (m_op) {

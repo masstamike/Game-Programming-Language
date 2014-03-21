@@ -22,8 +22,8 @@ int c 3
 int d 4
 int e 5
 int f 6
-int g 0
-int h 6
+int g 3
+int h 1
 int i 0
 int j 5
 int k 0
