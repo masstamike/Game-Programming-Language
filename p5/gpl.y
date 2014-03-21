@@ -203,6 +203,7 @@ variable_declaration:
         }
         if($3 && ($3->get_kind()=="constant" || $3->get_kind()=="variable") &&
              ($3->get_type()!=gpl_type_to_string($1)) && $1!=STRING) {
+            if(!($1==DOUBLE && $3->get_type()=="int"))
                 Error::error(Error::INVALID_TYPE_FOR_INITIAL_VALUE,*$2);
         }
         else if($3 && $1==INT && $3->get_type()!="int")
