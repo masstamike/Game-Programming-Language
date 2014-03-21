@@ -207,6 +207,8 @@ variable_declaration:
         }
         else if($3 && $1==INT && $3->get_type()!="int")
             Error::error(Error::INVALID_TYPE_FOR_INITIAL_VALUE,*$2);
+        else if($3 && $1==DOUBLE && $3->get_type()=="string")
+            Error::error(Error::INVALID_TYPE_FOR_INITIAL_VALUE,*$2);
         if($1 == INT)
             symbol_table->add(*$2, new Symbol(*$2,new int($3?$3->eval_int():
                 0),"int"));

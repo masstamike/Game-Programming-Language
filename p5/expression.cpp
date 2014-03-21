@@ -61,7 +61,7 @@ Expr::Expr(Operator_type op, Expr* left, Expr* right) {
         case PLUS:
             if(left->get_type() == right->get_type())
                 type = left->get_type();
-            else if(left->get_type() == "string" || left->get_type()=="string")
+            else if(left->get_type() == "string" || right->get_type()=="string")
                 type = "string";
             else if(left->get_type() == "double" || right->get_type()=="double")
                 type = "double";
