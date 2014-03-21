@@ -201,10 +201,9 @@ variable_declaration:
             Error::error(Error::PREVIOUSLY_DECLARED_VARIABLE,
                 *$2);
         }
-/*        if($3 && $3->get_type()!=gpl_type_to_string($1))
-            if($1==INT && $3->get_type()=="string"){
+        if($3 && $3->get_kind()=="constant" && 
+            $3->get_type()!=gpl_type_to_string($1))
                 Error::error(Error::INVALID_TYPE_FOR_INITIAL_VALUE,*$2);
-            }*/
         if($1 == INT)
             symbol_table->add(*$2, new Symbol(*$2,new int($3?$3->eval_int():
                 0),"int"));
