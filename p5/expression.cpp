@@ -41,19 +41,45 @@ Expr::Expr(Operator_type op, Expr* ex) {
 Expr::Expr(Operator_type op, Expr* left, Expr* right) {
     m_op = op;
     if(left && right){
-/*    if(op == EQUAL || op == NOT_EQUAL || op == NOT || op == AND || op == OR ||
-        op == MOD || op == LESS_THAN || op == LESS_THAN_EQUAL ||
-        op == GREATER_THAN || op == GREATER_THAN_EQUAL || op == FLOOR ||
-        op == RANDOM)
-        type == "int";*/
-    if(left->get_type() == right->get_type())
-        type = left->get_type();
-    else if(left->get_type() == "string" || left->get_type()=="string")
-        type = "string";
-    else if(left->get_type() == "double" || right->get_type()=="double")
-        type = "double";
-    else if((left->get_type())=="int"&&(right->get_type())=="int")
-        type = "int";
+    switch(op) {
+        case PLUS:
+            if(left->get_type() == right->get_type())
+                type = left->get_type();
+            else if(left->get_type() == "string" || left->get_type()=="string")
+                type = "string";
+            else if(left->get_type() == "double" || right->get_type()=="double")
+                type = "double";
+            else if((left->get_type())=="int"&&(right->get_type())=="int")
+                type = "int";
+        case MINUS:
+            type = "int";
+        case MULTIPLY:
+            type = "int";
+        case DIVIDE:
+            type = "int";
+        case MOD:
+            type = "int";
+        case UNARY_MINUS:
+            type = "int";
+        case NOT:
+            type = "int";
+        case AND:
+            type = "int";
+        case OR:
+            type = "int";
+        case EQUAL:
+            type = "int";
+        case NOT_EQUAL:
+            type = "int";
+        case LESS_THAN:
+            type = "int";
+        case LESS_THAN_EQUAL:
+            type = "int";
+        case GREATER_THAN:
+            type = "int";
+        case GREATER_THAN_EQUAL:
+            type = "int";
+    }
     }
     else {
         std::cout<<left<<operator_to_string(op)<<right<<"left or right not define\n";
@@ -363,8 +389,9 @@ std::string Expr::eval_string() {
                 double d = (m_left->eval_double())+(m_right->eval_double());
                 ss<<d;
                 return ss.str();
-            }
-            else {
+            } else if (type=="string") {
+                return m_left->eval_string()+m_right->eval_string();
+            } else {
                 ss<<(m_left->eval_string()+m_right->eval_string());
                 return ss.str();
             }

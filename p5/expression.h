@@ -20,11 +20,11 @@ class Expr {
         std::string get_type();
         std::string get_kind() {return m_kind;}
         Expr *m_left, *m_right;
+        Operator_type m_op;
         
     private:
         int m_int;
         double m_double;
-        Operator_type m_op;
         Variable* m_var;
         std::string m_str;
         std::string type;

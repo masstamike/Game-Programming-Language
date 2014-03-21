@@ -16,7 +16,7 @@ No errors found (parser probably worked correctly).
 
 
 Printing the symbol table from main()
-string s "2.5"
+string s "0"
 string str "-- a string --"
 double x 1.2
 double y 1.3
