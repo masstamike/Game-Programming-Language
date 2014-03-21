@@ -169,6 +169,18 @@ int Expr::eval_int() {
             return (rand() % m_left->eval_int());
         } else if(m_op==DIVIDE) {
             return m_left->eval_int()/m_right->eval_int();
+        } else if(m_op==LESS_THAN_EQUAL && (m_left->get_type()=="string" ||
+            m_right->get_type()=="string")) {
+            return m_left->eval_string()<=m_right->eval_string()?1:0;
+        } else if(m_op==GREATER_THAN_EQUAL && (m_left->get_type()=="string" ||
+            m_right->get_type()=="string")) {
+            return m_left->eval_string()>=m_right->eval_string()?1:0;
+        } else if(m_op==GREATER_THAN && (m_left->get_type()=="string" ||
+            m_right->get_type()=="string")) {
+            return m_left->eval_string()>m_right->eval_string()?1:0;
+        } else if(m_op==LESS_THAN && (m_left->get_type()=="string" ||
+            m_right->get_type()=="string")) {
+            return m_left->eval_string()<m_right->eval_string()?1:0;
         }
         if(m_op == EQUAL && (m_left->get_type() == "string" ||
             m_right->get_type() == "string"))
@@ -227,6 +239,9 @@ int Expr::eval_int() {
                             1:0;
                     case NOT_EQUAL:
                         return (m_left->eval_string()!=m_right->eval_string())?
+                            1:0;
+                    case LESS_THAN_EQUAL:
+                        return (m_left->eval_string()<=m_right->eval_string())?
                             1:0;
                 }
             }
@@ -435,19 +450,20 @@ std::string Expr::eval_string() {
         return m_str;
     }
     else if (m_kind == "expr") {
-        if(operator_to_string(m_op) == "+") {
-//            int ileft, iright;
-//            double dleft, dright;
-            if(type == "double") {
-                double d = (m_left->eval_double())+(m_right->eval_double());
-                ss<<d;
-                return ss.str();
-            } else if (type=="string") {
-                return m_left->eval_string()+m_right->eval_string();
-            } else {
-                ss<<(m_left->eval_string()+m_right->eval_string());
-                return ss.str();
-            }
+        switch(m_op) {
+            case PLUS:
+                if(type == "double") {
+                    double d = (m_left->eval_double())+(m_right->eval_double());
+                    ss<<d;
+                    return ss.str();
+                } else if (type=="string") {
+                    return m_left->eval_string()+m_right->eval_string();
+                } else {
+                    ss<<(m_left->eval_string()+m_right->eval_string());
+                    return ss.str();
+                }
+            case LESS_THAN_EQUAL:
+                return m_left->eval_string()<=m_right->eval_string()?"1":"0";
         }
 /*        switch (m_op) {
             case EQUAL:
