@@ -338,7 +338,7 @@ double Expr::eval_double() {
             case SQRT:
                 return sqrt(m_left->eval_double());
             case ABS:
-                return abs(m_left->eval_double());
+                return fabs(m_left->eval_double());
             case FLOOR:
                 return floor(m_left->eval_double());
             case UNARY_MINUS:

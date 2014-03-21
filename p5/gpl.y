@@ -513,6 +513,11 @@ expression:
     }
     | expression T_AND expression
     {
+        if($1->get_type()=="string")
+            Error::error(Error::INVALID_LEFT_OPERAND_TYPE,"&&");
+        else if($3->get_type()=="string")
+            Error::error(Error::INVALID_RIGHT_OPERAND_TYPE,"&&");
+        else
         $$=new Expr(AND, $1, $3);
     }
     | expression T_LESS_EQUAL expression {$$=new Expr(LESS_THAN_EQUAL,$1,$3);}
@@ -529,10 +534,20 @@ expression:
         $$=new Expr(PLUS, $1, $3);
     }
     | expression T_MINUS expression {
-        $$=new Expr(MINUS, $1, $3);
+        if($1->get_type()=="string")
+            Error::error(Error::INVALID_LEFT_OPERAND_TYPE,"-");
+        else if($3->get_type()=="string")
+            Error::error(Error::INVALID_RIGHT_OPERAND_TYPE,"-");
+        else
+            $$=new Expr(MINUS, $1, $3);
     }
     | expression T_ASTERISK expression {
-        $$=new Expr(MULTIPLY, $1, $3);
+        if($1->get_type()=="string")
+            Error::error(Error::INVALID_LEFT_OPERAND_TYPE,"*");
+        else if($3->get_type()=="string")
+            Error::error(Error::INVALID_RIGHT_OPERAND_TYPE,"*");
+        else
+            $$=new Expr(MULTIPLY, $1, $3);
     }
     | expression T_DIVIDE expression {
         if($1->get_type() == "string" || $3->get_type() == "string");
@@ -548,6 +563,10 @@ expression:
         $$=new Expr(NOT, $2);
     }
     | math_operator T_LPAREN expression T_RPAREN {
+        if($1==SQRT && $3->get_type()=="string") {
+            Error::error(Error::INVALID_RIGHT_OPERAND_TYPE,"sqrt");
+            $$=new Expr(0);
+        }
         if($3->get_type()=="int" || $3->get_type()=="double")
             $$=new Expr($1,$3);
 //        else
