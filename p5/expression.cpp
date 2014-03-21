@@ -30,12 +30,28 @@ Expr::Expr(Operator_type op, Expr* ex) {
     m_kind = "expr";
     m_left = ex;
     m_right = NULL;
-    if (op == UNARY_MINUS)
-        type = ex->get_type();
-    else if (op == RANDOM)
-        type = "int";
-    else
-        type = "double";
+    switch(op) {
+        case UNARY_MINUS:
+            type=ex->get_type();
+            break;
+        case RANDOM:
+        case FLOOR:
+        case NOT:
+            type = "int";
+            break;
+        case SIN:
+        case COS:
+        case TAN:
+        case ASIN:
+        case ACOS:
+        case ATAN:
+        case SQRT:
+            type = "double";
+            break;
+        default:
+            type = ex->get_type();
+            break;
+    }
 }
 
 Expr::Expr(Operator_type op, Expr* left, Expr* right) {
@@ -51,34 +67,71 @@ Expr::Expr(Operator_type op, Expr* left, Expr* right) {
                 type = "double";
             else if((left->get_type())=="int"&&(right->get_type())=="int")
                 type = "int";
+            break;
         case MINUS:
+            if(left->get_type() == right->get_type() &&
+                left->get_type()!="string")
+                type = left->get_type();
+            else if(left->get_type() == "double" || right->get_type()=="double")
+                type = "double";
+            else if((left->get_type())=="int"&&(right->get_type())=="int")
+                type = "int";
+            break;
             type = "int";
+            break;
         case MULTIPLY:
-            type = "int";
+            if(left->get_type() == right->get_type())
+                type = left->get_type();
+            else if(left->get_type() == "string" || left->get_type()=="string")
+                type = "string";
+            else if(left->get_type() == "double" || right->get_type()=="double")
+                type = "double";
+            else if((left->get_type())=="int"&&(right->get_type())=="int")
+                type = "int";
+            break;
         case DIVIDE:
-            type = "int";
+            if(left->get_type() == right->get_type())
+                type = left->get_type();
+            else if(left->get_type() == "string" || left->get_type()=="string")
+                type = "string";
+            else if(left->get_type() == "double" || right->get_type()=="double")
+                type = "double";
+            else if((left->get_type())=="int"&&(right->get_type())=="int")
+                type = "int";
+            break;
         case MOD:
             type = "int";
+            break;
         case UNARY_MINUS:
             type = "int";
+            break;
         case NOT:
             type = "int";
+            break;
         case AND:
             type = "int";
+            break;
         case OR:
             type = "int";
+            break;
         case EQUAL:
             type = "int";
+            break;
         case NOT_EQUAL:
             type = "int";
+            break;
         case LESS_THAN:
             type = "int";
+            break;
         case LESS_THAN_EQUAL:
             type = "int";
+            break;
         case GREATER_THAN:
             type = "int";
+            break;
         case GREATER_THAN_EQUAL:
             type = "int";
+            break;
     }
     }
     else {
