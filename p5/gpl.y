@@ -220,8 +220,8 @@ variable_declaration:
             stringstream ss;
             if(!$3)
                 ss << "";
-            else if($3->get_type() == "int")
-                ss << $3->eval_int();
+            else if($3->get_type() == "int") {
+                ss << $3->eval_int();}
             else if($3->get_type() == "double")
                 ss << $3->eval_double();
             else

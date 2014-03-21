@@ -181,6 +181,9 @@ int Expr::eval_int() {
         } else if(m_op==LESS_THAN && (m_left->get_type()=="string" ||
             m_right->get_type()=="string")) {
             return m_left->eval_string()<m_right->eval_string()?1:0;
+        } else if(m_op==NOT_EQUAL && (m_left->get_type()=="string" ||
+            m_right->get_type()=="string")) {
+            return m_left->eval_string()!=m_right->eval_string()?1:0;
         }
         if(m_op == EQUAL && (m_left->get_type() == "string" ||
             m_right->get_type() == "string"))
@@ -204,6 +207,8 @@ int Expr::eval_int() {
                         return (m_left->eval_int()>m_right->eval_int())?1:0;
                     case GREATER_THAN_EQUAL:
                         return (m_left->eval_int()>=m_right->eval_int())?1:0;
+                    case PLUS:
+                        return m_left->eval_int()+m_right->eval_int();
                 }
             } else if(m_left->get_type() == "double") {
                 switch (m_op) {
