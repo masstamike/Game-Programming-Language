@@ -509,7 +509,12 @@ expression:
     primary_expression {$$=$1;}
     | expression T_OR expression
     {
-        $$=new Expr(OR, $1, $3);
+        if($1->get_type()=="string")
+            Error::error(Error::INVALID_LEFT_OPERAND_TYPE,"||");
+        else if($3->get_type()=="string")
+            Error::error(Error::INVALID_RIGHT_OPERAND_TYPE,"||");
+        else
+            $$=new Expr(OR, $1, $3);
     }
     | expression T_AND expression
     {
@@ -518,7 +523,7 @@ expression:
         else if($3->get_type()=="string")
             Error::error(Error::INVALID_RIGHT_OPERAND_TYPE,"&&");
         else
-        $$=new Expr(AND, $1, $3);
+            $$=new Expr(AND, $1, $3);
     }
     | expression T_LESS_EQUAL expression {$$=new Expr(LESS_THAN_EQUAL,$1,$3);}
     | expression T_GREATER_EQUAL  expression {
@@ -565,6 +570,15 @@ expression:
     | math_operator T_LPAREN expression T_RPAREN {
         if($1==SQRT && $3->get_type()=="string") {
             Error::error(Error::INVALID_RIGHT_OPERAND_TYPE,"sqrt");
+            $$=new Expr(0);
+        } else if($1==ABS && $3->get_type()=="string") {
+            Error::error(Error::INVALID_RIGHT_OPERAND_TYPE,"abs");
+            $$=new Expr(0);
+        } else if($1==FLOOR && $3->get_type()=="string") {
+            Error::error(Error::INVALID_RIGHT_OPERAND_TYPE,"floor");
+            $$=new Expr(0);
+        } else if($1==RANDOM && $3->get_type()=="string") {
+            Error::error(Error::INVALID_RIGHT_OPERAND_TYPE,"random");
             $$=new Expr(0);
         }
         if($3->get_type()=="int" || $3->get_type()=="double")
