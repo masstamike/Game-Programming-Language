@@ -159,35 +159,61 @@ int Expr::eval_int() {
     if(m_kind == "constant")
         return m_int;
     else if (m_kind == "expr") {
-        if(m_op==NOT) {
-            return m_left->eval_int()?0:1;
-        } else if(m_op==MULTIPLY) {
-            return m_left->eval_int()*m_right->eval_int();
-        } else if (m_op==UNARY_MINUS) {
-            return -(m_left->eval_int());
-        } else if (m_op==RANDOM) {
-            return (rand() % m_left->eval_int());
-        } else if(m_op==DIVIDE) {
-            return m_left->eval_int()/m_right->eval_int();
-        } else if(m_op==LESS_THAN_EQUAL && (m_left->get_type()=="string" ||
-            m_right->get_type()=="string")) {
-            return m_left->eval_string()<=m_right->eval_string()?1:0;
-        } else if(m_op==GREATER_THAN_EQUAL && (m_left->get_type()=="string" ||
-            m_right->get_type()=="string")) {
-            return m_left->eval_string()>=m_right->eval_string()?1:0;
-        } else if(m_op==GREATER_THAN && (m_left->get_type()=="string" ||
-            m_right->get_type()=="string")) {
-            return m_left->eval_string()>m_right->eval_string()?1:0;
-        } else if(m_op==LESS_THAN && (m_left->get_type()=="string" ||
-            m_right->get_type()=="string")) {
-            return m_left->eval_string()<m_right->eval_string()?1:0;
-        } else if(m_op==NOT_EQUAL && (m_left->get_type()=="string" ||
-            m_right->get_type()=="string")) {
-            return m_left->eval_string()!=m_right->eval_string()?1:0;
+        switch(m_op) {
+            case NOT:
+                if(m_left->get_type()=="int")
+                    return m_left->eval_int()?0:1;
+                else if(m_left->get_type()=="double")
+                    return m_left->eval_double()?0:1;
+                break;
+            case MULTIPLY:
+                return m_left->eval_int()*m_right->eval_int();
+            case UNARY_MINUS:
+                return -(m_left->eval_int());
+            case RANDOM:
+                return (rand() % m_left->eval_int());
+            case DIVIDE:
+                return m_left->eval_int()/m_right->eval_int();
+            case LESS_THAN_EQUAL: 
+                if(m_left->get_type()=="string" ||m_right->get_type()=="string")
+                    return m_left->eval_string()<=m_right->eval_string()?1:0;
+                break;
+            case GREATER_THAN_EQUAL:
+                if(m_left->get_type()=="string" ||
+                m_right->get_type()=="string")
+                    return m_left->eval_string()>=m_right->eval_string()?1:0;
+                break;
+            case GREATER_THAN:
+                if (m_left->get_type()=="string" ||
+                m_right->get_type()=="string")
+                    return m_left->eval_string()>m_right->eval_string()?1:0;
+                break;
+            case LESS_THAN:
+                if(m_left->get_type()=="string" ||
+                m_right->get_type()=="string")
+                    return m_left->eval_string()<m_right->eval_string()?1:0;
+                break;
+            case NOT_EQUAL:
+                if(m_left->get_type()=="string" ||
+                m_right->get_type()=="string")
+                    return m_left->eval_string()!=m_right->eval_string()?1:0;
+                break;
+            case FLOOR:
+                if(m_left->get_type() == "int")
+                    return m_left->eval_int();
+                else if (m_left->get_type() == "double")
+                    return (int) m_left->eval_double();
+                break;
+            case MOD:
+                return m_left->eval_int()%m_right->eval_int();
+            case EQUAL:
+                if (m_left->get_type() == "string" ||
+                m_right->get_type() == "string")
+                    return m_left->eval_string()==m_right->eval_string();
+                break;
+            case ABS:
+                return abs(m_left->eval_int());
         }
-        if(m_op == EQUAL && (m_left->get_type() == "string" ||
-            m_right->get_type() == "string"))
-            return m_left->eval_string()==m_right->eval_string();
         if(m_left->get_type()==m_right->get_type()) {
             if(m_left->get_type()=="int") {
                 switch (m_op) {
@@ -408,7 +434,9 @@ double Expr::eval_double() {
                     case OR:
                         return (m_left->eval_int()||m_right->eval_double())?1:0;
                     case DIVIDE:
-                        return (m_left->eval_double()/m_left->eval_double());
+                        return (m_left->eval_double()/m_right->eval_double());
+                    case MULTIPLY:
+                        return (m_left->eval_double()*m_right->eval_double());
                 }
             }
         } else if(m_left->get_type() == "double") {
@@ -423,7 +451,9 @@ double Expr::eval_double() {
                     case OR:
                         return (m_left->eval_double()||m_right->eval_int())?1:0;
                     case DIVIDE:
-                        return (m_left->eval_double()/m_left->eval_double());
+                        return (m_left->eval_double()/m_right->eval_double());
+                    case MULTIPLY:
+                        return (m_left->eval_double()*m_right->eval_double());
                 }
             }
         }
