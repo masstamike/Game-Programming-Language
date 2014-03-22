@@ -327,7 +327,7 @@ int Expr::eval_int() {
         //else
             //error
     }
-    return m_int; //just for now
+//    return m_int; //just for now
 }
 
 double Expr::eval_double() {
@@ -384,13 +384,17 @@ double Expr::eval_double() {
             if(m_left->get_type()=="int") {
                 switch (m_op) {
                     case EQUAL:
-                        return (m_left->eval_int()==m_right->eval_int())?1:0;
+                        return (m_left->eval_int()==m_right->eval_int())?
+                            1.0:0.0;
                     case NOT_EQUAL:
-                        return (m_left->eval_int()!=m_right->eval_int())?1:0;
+                        return (m_left->eval_int()!=m_right->eval_int())?
+                            1.0:0.0;
                     case AND:
-                        return (m_left->eval_int()&&m_right->eval_int())?1:0;
+                        return (m_left->eval_int()&&m_right->eval_int())?
+                            1.0:0.0;
                     case OR:
-                        return (m_left->eval_int()||m_right->eval_int())?1:0;
+                        return (m_left->eval_int()||m_right->eval_int())?
+                            1.0:0.0;
                     case DIVIDE:
                         return (double)(m_left->eval_int()/m_right->eval_int());
                 }
@@ -399,16 +403,28 @@ double Expr::eval_double() {
                 switch (m_op) {
                     case EQUAL:
                         return (m_left->eval_double()==m_right->eval_double())?
-                            1:0;
+                            1.0:0.0;
+                    case LESS_THAN:
+                        return (m_left->eval_double()<m_right->eval_double())?
+                            1.0:0.0;
+                    case LESS_THAN_EQUAL:
+                        return (m_left->eval_double()<=m_right->eval_double())?
+                            1.0:0.0;
+                    case GREATER_THAN:
+                        return (m_left->eval_double()>m_right->eval_double())?
+                            1.0:0.0;
+                    case GREATER_THAN_EQUAL:
+                        return (m_left->eval_double()>=m_right->eval_double())?
+                            1.0:0.0;
                     case NOT_EQUAL:
                         return (m_left->eval_double()!=m_right->eval_double())?
-                            1:0;
+                            1.0:0.0;
                     case AND:
                         return (m_left->eval_double()&&m_right->eval_double())?
-                            1:0;
+                            1.0:0.0;
                     case OR:
                         return (m_left->eval_double()||m_right->eval_double())?
-                            1:0;
+                            1.0:0.0;
                     case DIVIDE:
                         return m_left->eval_double()/m_right->eval_double();
                 }
@@ -416,23 +432,27 @@ double Expr::eval_double() {
                 switch (m_op) {
                     case EQUAL:
                         return (m_left->eval_string()==m_right->eval_string())?
-                            1:0;
+                            1.0:0.0;
                     case NOT_EQUAL:
                         return (m_left->eval_string()!=m_right->eval_string())?
-                            1:0;
+                            1.0:0.0;
                 }
             }
         } else if (m_left->get_type() == "int") {
             if(m_right->get_type() == "double") {
                 switch (m_op) {
                     case EQUAL:
-                        return (m_left->eval_int()==m_right->eval_double())?1:0;
+                        return (m_left->eval_int()==m_right->eval_double())?
+                            1.0:0.0;
                     case NOT_EQUAL:
-                        return (m_left->eval_int()!=m_right->eval_double())?1:0;
+                        return (m_left->eval_int()!=m_right->eval_double())?
+                            1.0:0.0;
                     case AND:
-                        return (m_left->eval_int()&&m_right->eval_double())?1:0;
+                        return (m_left->eval_int()&&m_right->eval_double())?
+                            1.0:0.0;
                     case OR:
-                        return (m_left->eval_int()||m_right->eval_double())?1:0;
+                        return (m_left->eval_int()||m_right->eval_double())?
+                            1.0:0.0;
                     case DIVIDE:
                         return (m_left->eval_double()/m_right->eval_double());
                     case MULTIPLY:
@@ -443,13 +463,17 @@ double Expr::eval_double() {
             if(m_right->get_type() == "int") {
                 switch (m_op) {
                     case EQUAL:
-                        return (m_left->eval_double()==m_right->eval_int())?1:0;
+                        return (m_left->eval_double()==m_right->eval_int())?
+                            1.0:0.0;
                     case NOT_EQUAL:
-                        return (m_left->eval_double()!=m_right->eval_int())?1:0;
+                        return (m_left->eval_double()!=m_right->eval_int())?
+                            1.0:0.0;
                     case AND:
-                        return (m_left->eval_double()&&m_right->eval_int())?1:0;
+                        return (m_left->eval_double()&&m_right->eval_int())?
+                            1.0:0.0;
                     case OR:
-                        return (m_left->eval_double()||m_right->eval_int())?1:0;
+                        return (m_left->eval_double()||m_right->eval_int())?
+                            1.0:0.0;
                     case DIVIDE:
                         return (m_left->eval_double()/m_right->eval_double());
                     case MULTIPLY:
