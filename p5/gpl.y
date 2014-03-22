@@ -195,8 +195,6 @@ declaration:
 variable_declaration:
     simple_type  T_ID  optional_initializer
     {
-        if(*$2=="var006")
-            std::cout<<"here\n";
         string array = *$2;
         array = array + "[0]";
         if(symbol_table->find(*$2) || symbol_table->find(array)){
