@@ -110,7 +110,7 @@ double var068 0
 double var069 1
 double var070 0
 double var071 1
-double var072 6.42285e-323
+double var072 0
 double var073 1
 double var074 1
 double var075 1
@@ -262,7 +262,7 @@ double var220 1
 double var221 1
 double var222 0
 double var223 0
-double var224 6.91692e-323
+double var224 0
 double var225 1
 double var226 1
 double var227 1
@@ -367,7 +367,7 @@ double var325 1
 double var326 1
 double var327 1
 double var328 1
-double var329 5.92879e-323
+double var329 1
 double var330 1
 double var331 1
 double var332 1
@@ -445,7 +445,7 @@ double var403 1
 double var404 1
 double var405 1
 double var406 1
-double var407 5.43472e-323
+double var407 1
 double var408 1
 double var409 1
 double var410 1
@@ -481,7 +481,7 @@ double var439 1
 double var440 1
 double var441 1
 double var442 0
-double var443 6.42285e-323
+double var443 0
 double var444 1
 double var445 1
 double var446 0
@@ -546,7 +546,7 @@ double var504 1
 double var505 1
 double var506 1
 double var507 1
-double var508 6.42285e-323
+double var508 0
 double var509 1
 double var510 1
 double var511 0
@@ -660,7 +660,7 @@ double var618 1
 double var619 1
 double var620 0
 double var621 0
-double var622 5.92879e-323
+double var622 1
 double var623 1
 double var624 1
 double var625 1
@@ -668,7 +668,7 @@ double var626 1
 double var627 1
 double var628 1
 double var629 1
-double var630 5.43472e-323
+double var630 1
 double var631 0
 double var632 1
 double var633 1
@@ -769,7 +769,7 @@ double var727 1
 double var728 1
 double var729 1
 double var730 1
-double var731 6.42285e-323
+double var731 0
 double var732 1
 double var733 1
 double var734 1
@@ -904,7 +904,7 @@ double var862 1
 double var863 1
 double var864 0
 double var865 1
-double var866 5.43472e-323
+double var866 1
 double var867 1
 double var868 1
 double var869 1
@@ -972,7 +972,7 @@ double var930 1
 double var931 1
 double var932 1
 double var933 1
-double var934 6.91692e-323
+double var934 0
 double var935 1
 double var936 0
 double var937 0
@@ -1002,7 +1002,7 @@ double var960 1
 double var961 1
 double var962 1
 double var963 1
-double var964 5.92879e-323
+double var964 1
 double var965 1
 double var966 1
 double var967 1

@@ -373,6 +373,34 @@ double Expr::eval_double() {
                 return -(m_left->eval_double());
             case RANDOM:
                 return (rand() % m_left->eval_int());
+            case LESS_THAN:
+                if(m_left->get_type() == "string" ||
+                    m_right->get_type() == "string")
+                    return m_left->eval_string()<m_right->eval_string()?1.0:0.0;
+                else
+                    return m_left->eval_double()<m_right->eval_double()?1.0:0.0;
+            case GREATER_THAN:
+                if(m_left->get_type() == "string" ||
+                    m_right->get_type() == "string")
+                    return m_left->eval_string()>m_right->eval_string()?1.0:0.0;
+                else
+                    return m_left->eval_double()>m_right->eval_double()?1.0:0.0;
+            case LESS_THAN_EQUAL:
+                if(m_left->get_type() == "string" ||
+                    m_right->get_type() == "string")
+                    return m_left->eval_string()<=m_right->eval_string()?
+                        1.0:0.0;
+                else
+                    return m_left->eval_double()<=m_right->eval_double()?
+                        1.0:0.0;
+            case GREATER_THAN_EQUAL:
+                if(m_left->get_type() == "string" ||
+                    m_right->get_type() == "string")
+                    return m_left->eval_string()>=m_right->eval_string()?
+                        1.0:0.0;
+                else
+                    return m_left->eval_double()>=m_right->eval_double()?
+                        1.0:0.0;
 /*            case DIVIDE:
                 return m_left->eval_double()/m_right->eval_double();
 
