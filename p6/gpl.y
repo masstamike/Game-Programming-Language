@@ -290,8 +290,12 @@ optional_initializer:
 
 //---------------------------------------------------------------------
 object_declaration:
-    object_type T_ID T_LPAREN parameter_list_or_empty T_RPAREN
-    | object_type T_ID T_LBRACKET expression T_RBRACKET
+    object_type T_ID T_LPAREN parameter_list_or_empty T_RPAREN {
+        
+    }
+    | object_type T_ID T_LBRACKET expression T_RBRACKET {
+        
+    }
     ;
 
 //---------------------------------------------------------------------

@@ -1,0 +1,59 @@
+object_declaration:
+    rectangle rect(x=42, y=18, ...);
+
+    object_type T_ID
+    {
+        cur_object_under_construction = new Rectangle()
+        // insert into the symbol table
+    }
+
+    T_LPAREN parameter_list
+
+    parameter_list_or_empty:
+        parameter_list|
+        empty;
+
+    parameter_list:
+        parameter_list T_COMMA parameter |
+        parameter;
+
+    parameter:
+        T_ID T_ASSIGN expression
+
+        // set the T_ID field of cur_game_object_under_construction to
+        // $3->eval_???
+    // call Status get_member_variable_type(std::string name, Gpl_type &type);
+    // then set_member_variable(std::string name, int/double/string/etc...);
+
+// at the top in c++ part
+// GLOBAL VARIABLE
+Game_object *cur_object_under_construction;
+
+Animation_block * Symbol::get_animation_block_value()
+{
+    assert (m_type == ANIMATION_BLOCK);
+    return (Animation_block *) my_value;
+}
+
+Expression::eval_animation_block{
+
+//"Somewhere down here..."
+rectangle rect(animation_block = bounce);
+
+//"But what if someone did..."
+forward animation bounce(circle cur_circle);
+
+parameter:
+    T_ID T_ASSIGN expression
+    {
+        Gpl_type gpl_type;
+
+        cur_object_under_construction->get_member_variable_type(*$1, gpl_type)
+
+        if(gpl_type == ANIMATION_BLOCK) {
+            cur_object_under_construction->set_member_variable(*$1,
+            $3->eval_animation_block();
+        }
+    }
+
+Animation_block *animation_block = eval_animation_block???

@@ -2,6 +2,7 @@
 #include <map>
 #include "symbol.h"
 #include "string"
+#include "game_object.h"
 //using namespace std;
 
 // class Symbol_table is a singleton
@@ -12,6 +13,7 @@ class Symbol_table
     void print(std::ostream& stream);
     void add(std::string, Symbol*);
     Symbol* find(std::string);
+    void set(std::string, int);
   private:
     std::map<std::string, Symbol*> sym_table;
     static Symbol_table *m_instance;

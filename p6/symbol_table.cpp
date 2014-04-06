@@ -27,6 +27,9 @@ void Symbol_table::print(std::ostream& stream) {
             stream<<*(double*)it->second->m_value<<'\n';
         else if(it->second->m_type == "string")
             stream<<"\""<<*(std::string*)it->second->m_value<<"\"\n";
+        else {
+            stream<<it->second;
+        }
 
     }
 }
@@ -40,4 +43,9 @@ Symbol* Symbol_table::find(std::string s) {
     if(it == sym_table.end())
         return NULL;
     return it->second;
+}
+
+void Symbol_table::set(std::string s, int x) {
+    Symbol* sym = find(s);
+    sym->m_value = &x;
 }
