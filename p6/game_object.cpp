@@ -468,7 +468,6 @@ bool Game_object::valid() const
 
 ostream & Game_object::print(ostream &os) const
 {
-  indent++;
   os << indent << m_object_type_name /* << "<" << (void *) this << ">" */
      << endl << indent << "{" << endl;
   os.flush();

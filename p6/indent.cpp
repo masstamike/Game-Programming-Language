@@ -8,7 +8,7 @@ Indent indent; // this is the global indent everyone will use
 
 Indent::Indent()
 {
-  m_level = 0;
+  m_level = 2;
 
   // prevents more than one instance from ever being created
   // not as elegant as implementing a singleton... quick and dirty
@@ -19,6 +19,6 @@ Indent::Indent()
 ostream & operator<<(ostream &os, const Indent &indent)
 {
   for (int i = 0; i < indent.m_level; i++)
-    os << " ";
+    os << ' ';
   return os;
 }

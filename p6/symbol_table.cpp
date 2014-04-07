@@ -29,7 +29,7 @@ void Symbol_table::print(std::ostream& stream) {
             stream<<' '<<"\""<<*(std::string*)it->second->m_value<<"\"\n";
         else {
             stream<<'\n';
-            it->second->get_game_object_value()->print(stream);
+            stream<<it->second->get_game_object_value();
             stream<<"\n";
         }
         
