@@ -14,6 +14,10 @@ class Symbol_table
     void add(std::string, Symbol*);
     Symbol* find(std::string);
     void set(std::string, int);
+    bool get_type(std::string, Gpl_type&);
+    void get(std::string, int&);
+    void get(std::string, double&);
+    void get(std::string, std::string&);
   private:
     std::map<std::string, Symbol*> sym_table;
     static Symbol_table *m_instance;

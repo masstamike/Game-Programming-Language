@@ -20,16 +20,19 @@ void Symbol_table::print(std::ostream& stream) {
         it!=sym_table.end(); it++) {
 
 //        stream<<it->second->m_name<<" "<<*(int*)it->second->m_value<<"\n";
-        stream<<it->second->m_type<<' '<<it->first<<' ';
+        stream<<it->second->m_type<<' '<<it->first;
         if(it->second->m_type == "int")
-            stream<<*(int*)it->second->m_value<<'\n';
+            stream<<' '<<*(int*)it->second->m_value<<'\n';
         else if(it->second->m_type == "double")
-            stream<<*(double*)it->second->m_value<<'\n';
+            stream<<' '<<*(double*)it->second->m_value<<'\n';
         else if(it->second->m_type == "string")
-            stream<<"\""<<*(std::string*)it->second->m_value<<"\"\n";
+            stream<<' '<<"\""<<*(std::string*)it->second->m_value<<"\"\n";
         else {
-            stream<<it->second;
+            stream<<'\n';
+            it->second->get_game_object_value()->print(stream);
+            stream<<"\n";
         }
+        
 
     }
 }
@@ -47,5 +50,47 @@ Symbol* Symbol_table::find(std::string s) {
 
 void Symbol_table::set(std::string s, int x) {
     Symbol* sym = find(s);
-    sym->m_value = &x;
+    if(sym)
+        sym->m_value = &x;
+}
+
+bool Symbol_table::get_type(std::string s, Gpl_type& type) {
+    Symbol* sym = find(s);
+    if (sym) {
+       std::string s_type = sym->m_type;
+        if (s_type == "int")
+            type = INT;
+        else if (s_type == "double")
+            type = DOUBLE;
+        else if (s_type == "string")
+            type = STRING;
+        else if (s_type == "game_object")
+            type = GAME_OBJECT;
+        else if (s_type == "animation_block")
+            type = ANIMATION_BLOCK;
+        return true;
+    }
+    else
+        return false;
+}
+
+void Symbol_table::get(std::string s, int& i) {
+    Symbol* sym = find(s);
+    if (sym->m_type == "int") {
+        i = *((int*) sym->m_value);
+    }
+}
+
+void Symbol_table::get(std::string s, double& d) {
+    Symbol* sym = find(s);
+    if (sym->m_type == "double") {
+        d = *((double*) sym->m_value);
+    }
+}
+
+void Symbol_table::get(std::string s, std::string& ret) {
+    Symbol* sym = find(s);
+    if (sym->m_type == "string") {
+        ret = *((std::string*) sym->m_value);
+    }
 }

@@ -45,12 +45,13 @@ LIBS = -lX11 -lglut -lGL -lGLU -lm -lfl
 C++SRC = error.cpp gpl_assert.cpp gpl.cpp indent.cpp symbol.cpp\
          symbol_table.cpp expression.cpp variable.cpp gpl_type.cpp\
          animation_block.cpp circle.cpp event_manager.cpp pixmap.cpp\
-         rectangle.cpp statement_block.cpp textbox.cpp triangle.cpp window.cpp
+         rectangle.cpp statement_block.cpp textbox.cpp triangle.cpp window.cpp\
+         game_object.cpp
 	 
 C++OBJ = error.o gpl_assert.o gpl.o indent.o symbol.o symbol_table.o\
          expression.o variable.o gpl_type.o animation_block.o circle.o\
          event_manager.o pixmap.o rectangle.o statement_block.o textbox.o\
-         triangle.o window.o
+         triangle.o window.o game_object.o
 
 # command to compile the gpl executable
 gpl: y.tab.o lex.yy.o $(C++OBJ)
@@ -72,12 +73,12 @@ gpl: y.tab.o lex.yy.o $(C++OBJ)
 #	g++ $(CPPFLAGS) -c gpl.cpp -o gpl.o
 
 # Phase 4 & 5: symbol table AND print the symbol table, no graphics
-gpl.o: gpl.cpp Makefile
-	g++ -DSYMBOL_TABLE -DPRINT_SYMBOL_TABLE $(CPPFLAGS) -c gpl.cpp
+#gpl.o: gpl.cpp Makefile
+#	g++ -DSYMBOL_TABLE -DPRINT_SYMBOL_TABLE $(CPPFLAGS) -c gpl.cpp
 
 # Phase 6, 7 : symbol table AND print the symbol table, with graphics
-#gpl.o: gpl.cpp Makefile
-#	g++ -DSYMBOL_TABLE -DPRINT_SYMBOL_TABLE -DGRAPHICS $(CPPFLAGS) -c gpl.cpp
+gpl.o: gpl.cpp Makefile
+	g++ -DSYMBOL_TABLE -DPRINT_SYMBOL_TABLE -DGRAPHICS $(CPPFLAGS) -c gpl.cpp
 
 # Phase 8 : symbol table with graphics
 #gpl.o: gpl.cpp Makefile

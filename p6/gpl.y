@@ -19,11 +19,18 @@ extern int line_count;      // the current line in the input; from arary.l
 #include "gpl_type.h"
 #include "variable.h"
 #include "game_object.h"
+#include "triangle.h"
+#include "pixmap.h"
+#include "circle.h"
+#include "rectangle.h"
+#include "textbox.h"
+
 //#include <map>
 using namespace std;
 
 vector<int> *int_vector;
 Symbol_table* symbol_table = Symbol_table::instance();
+Game_object* cur_object_under_construction;
 %}
 
 // Bison fundamentally works by asking flex to get the next token, which it
@@ -40,6 +47,7 @@ Symbol_table* symbol_table = Symbol_table::instance();
  Variable*       union_variable;
  Operator_type  union_operator_type;
  Expr*          union_expr;
+ 
 }
 // Precedence Levels:
 %left T_OR
@@ -164,6 +172,8 @@ Symbol_table* symbol_table = Symbol_table::instance();
 %type <union_expr> expression
 %type <union_variable> variable
 %type <union_operator_type> math_operator
+%type <union_string> parameter_list_or_empty
+%type <union_int> object_type
 
 // special token that does not match any production
 // used for characters that are not part of the language
@@ -290,27 +300,100 @@ optional_initializer:
 
 //---------------------------------------------------------------------
 object_declaration:
-    object_type T_ID T_LPAREN parameter_list_or_empty T_RPAREN {
+    object_type T_ID {
+        switch($1) {
+            case T_TRIANGLE: cur_object_under_construction = new Triangle();
+                symbol_table->add(*$2, new Symbol(*$2, new Triangle(),
+                    "game_object"));
+                break;
+            case T_PIXMAP: cur_object_under_construction = new Pixmap();
+                symbol_table->add(*$2, new Symbol(*$2, new Pixmap(),
+                    "game_object"));
+                break;
+            case T_CIRCLE: cur_object_under_construction = new Circle();
+                symbol_table->add(*$2, new Symbol(*$2, new Circle(),
+                    "game_object"));
+                break;
+            case T_RECTANGLE: cur_object_under_construction = new Rectangle();
+                symbol_table->add(*$2, new Symbol(*$2, new Rectangle(),
+                    "game_object"));
+                break;
+            case T_TEXTBOX: cur_object_under_construction = new Textbox();
+                symbol_table->add(*$2, new Symbol(*$2, new Textbox(),
+                    "game_object"));
+                break;
+        }
+    } T_LPAREN parameter_list_or_empty T_RPAREN {
         
     }
     | object_type T_ID T_LBRACKET expression T_RBRACKET {
-        
+        int size = $4->eval_int();
+        string array = *$2;
+        array = array + "[0]";
+        if(symbol_table->find(*$2) || symbol_table->find(array)){
+            Error::error(Error::PREVIOUSLY_DECLARED_VARIABLE,
+                *$2);
+        }
+        if($4->get_type()=="int" && $4->eval_int() <1) {
+            if($4->get_type() == "int") {
+                stringstream ss;
+                ss<<$4->eval_int();
+                Error::error(Error::INVALID_ARRAY_SIZE,*$2,ss.str());
+            } else if($4->get_type() == "double") {
+                stringstream ss;
+                ss<<$4->eval_double();
+                Error::error(Error::INVALID_ARRAY_SIZE,*$2,ss.str());
+            } else if($4->get_type() == "string") {
+                Error::error(Error::INVALID_ARRAY_SIZE,*$2,$4->eval_string());
+            }
+        }
+        if($4->get_type() != "int") {
+            Error::error(Error::INVALID_ARRAY_SIZE,*$2,$4->eval_string());
+        }
+        for (int x = 0; x<size; x++) {
+            string name = *$2;
+            std::stringstream out;
+            out<<x;
+            name = name + '['+out.str()+']';
+            switch ($1) {
+                case T_TRIANGLE:
+                    symbol_table->add(name, new Symbol(name,
+                        new Triangle(), "game_object"));
+                    break;
+                case T_PIXMAP:
+                    symbol_table->add(name, new Symbol(name,
+                        new Pixmap(), "game_object"));
+                    break;
+                case T_CIRCLE:
+                    symbol_table->add(name, new Symbol(name,
+                        new Circle(), "game_object"));
+                    break;
+                case T_RECTANGLE:
+                    symbol_table->add(name, new Symbol(name,
+                        new Rectangle(), "game_object"));
+                    break;
+                case T_TEXTBOX:
+                    symbol_table->add(name, new Symbol(name,
+                        new Textbox(), "game_object"));
+                    break;
+            }
+        }
     }
     ;
 
 //---------------------------------------------------------------------
 object_type:
-    T_TRIANGLE
-    | T_PIXMAP
-    | T_CIRCLE
-    | T_RECTANGLE
-    | T_TEXTBOX
+    T_TRIANGLE {$$=T_TRIANGLE;}
+    | T_PIXMAP {$$=T_PIXMAP;}
+    | T_CIRCLE {$$=T_CIRCLE;}
+    | T_RECTANGLE {$$=T_RECTANGLE;}
+    | T_TEXTBOX {$$=T_TEXTBOX;}
     ;
 
 //---------------------------------------------------------------------
 parameter_list_or_empty :
     parameter_list
-    | empty
+    | empty {return NULL;}
     ;
 
 //---------------------------------------------------------------------

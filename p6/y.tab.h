@@ -234,7 +234,7 @@ extern int yydebug;
 typedef union YYSTYPE
 {
 /* Line 2053 of yacc.c  */
-#line 35 "gpl.y"
+#line 42 "gpl.y"
 
  int            union_int;
  std::string    *union_string;  // MUST be a pointer to a string (this sucks!)
@@ -243,10 +243,11 @@ typedef union YYSTYPE
  Variable*       union_variable;
  Operator_type  union_operator_type;
  Expr*          union_expr;
+ 
 
 
 /* Line 2053 of yacc.c  */
-#line 250 "y.tab.h"
+#line 251 "y.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
