@@ -303,23 +303,28 @@ object_declaration:
     object_type T_ID {
         switch($1) {
             case T_TRIANGLE: cur_object_under_construction = new Triangle();
-                symbol_table->add(*$2, new Symbol(*$2, new Triangle(),
+                symbol_table->add(*$2, new Symbol(*$2,
+                    cur_object_under_construction,
                     "game_object"));
                 break;
             case T_PIXMAP: cur_object_under_construction = new Pixmap();
-                symbol_table->add(*$2, new Symbol(*$2, new Pixmap(),
+                symbol_table->add(*$2, new Symbol(*$2,
+                    cur_object_under_construction,
                     "game_object"));
                 break;
             case T_CIRCLE: cur_object_under_construction = new Circle();
-                symbol_table->add(*$2, new Symbol(*$2, new Circle(),
+                symbol_table->add(*$2, new Symbol(*$2,
+                    cur_object_under_construction,
                     "game_object"));
                 break;
             case T_RECTANGLE: cur_object_under_construction = new Rectangle();
-                symbol_table->add(*$2, new Symbol(*$2, new Rectangle(),
+                symbol_table->add(*$2, new Symbol(*$2,
+                    cur_object_under_construction,
                     "game_object"));
                 break;
             case T_TEXTBOX: cur_object_under_construction = new Textbox();
-                symbol_table->add(*$2, new Symbol(*$2, new Textbox(),
+                symbol_table->add(*$2, new Symbol(*$2,
+                    cur_object_under_construction,
                     "game_object"));
                 break;
         }
@@ -393,7 +398,7 @@ object_type:
 //---------------------------------------------------------------------
 parameter_list_or_empty :
     parameter_list
-    | empty {return NULL;}
+    | empty
     ;
 
 //---------------------------------------------------------------------
@@ -404,7 +409,18 @@ parameter_list :
 
 //---------------------------------------------------------------------
 parameter:
-    T_ID T_ASSIGN expression
+    T_ID T_ASSIGN expression {
+        if($3->get_type() == "int") {
+            cur_object_under_construction->set_member_variable(*$1,
+                $3->eval_int());
+        } else if($3->get_type() == "double") {
+            cur_object_under_construction->set_member_variable(*$1,
+                $3->eval_double());
+        } else if($3->get_type() == "string") {
+            cur_object_under_construction->set_member_variable(*$1,
+                $3->eval_string());
+        }
+    }
     ;
 
 //---------------------------------------------------------------------
