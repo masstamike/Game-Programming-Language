@@ -419,13 +419,25 @@ parameter:
         } else if($3->get_type() == "string") {
             cur_object_under_construction->set_member_variable(*$1,
                 $3->eval_string());
+        } else if($3->get_type() == "animation_block"){
+            cur_object_under_construction->set_member_variable(*$1,
+                $3->eval_animation_block());
         }
     }
     ;
 
 //---------------------------------------------------------------------
 forward_declaration:
-    T_FORWARD T_ANIMATION T_ID T_LPAREN animation_parameter T_RPAREN
+    T_FORWARD T_ANIMATION T_ID T_LPAREN animation_parameter T_RPAREN {
+        if(symbol_table->find(*$3)) {
+            Error::error(Error::PREVIOUSLY_DECLARED_VARIABLE,
+                *$3);
+        }
+        Animation_block* anim = new Animation_block(0,NULL,*$3);
+        symbol_table->add(*$3, new Symbol(*$3, anim,
+            "animation_block"));
+        
+    }
     ;
 
 //---------------------------------------------------------------------
@@ -453,7 +465,46 @@ animation_block:
 
 //---------------------------------------------------------------------
 animation_parameter:
-    object_type T_ID
+    object_type T_ID{
+        switch($1) {
+            case T_TRIANGLE: cur_object_under_construction = new Triangle();
+                symbol_table->add(*$2, new Symbol(*$2,
+                    cur_object_under_construction,
+                    "game_object"));
+                cur_object_under_construction->never_animate();
+                cur_object_under_construction->never_draw();
+                break;
+            case T_PIXMAP: cur_object_under_construction = new Pixmap();
+                symbol_table->add(*$2, new Symbol(*$2,
+                    cur_object_under_construction,
+                    "game_object"));
+                cur_object_under_construction->never_animate();
+                cur_object_under_construction->never_draw();
+                break;
+            case T_CIRCLE: cur_object_under_construction = new Circle();
+                symbol_table->add(*$2, new Symbol(*$2,
+                    cur_object_under_construction,
+                    "game_object"));
+                cur_object_under_construction->never_animate();
+                cur_object_under_construction->never_draw();
+                break;
+            case T_RECTANGLE: 
+                cur_object_under_construction = new Rectangle();
+                symbol_table->add(*$2, new Symbol(*$2,
+                    cur_object_under_construction,
+                    "game_object"));
+                cur_object_under_construction->never_animate();
+                cur_object_under_construction->never_draw();
+                break;
+            case T_TEXTBOX: cur_object_under_construction = new Textbox();
+                symbol_table->add(*$2, new Symbol(*$2,
+                    cur_object_under_construction,
+                    "game_object"));
+                cur_object_under_construction->never_animate();
+                cur_object_under_construction->never_draw();
+                break;
+        }
+    }
     ;
 
 //---------------------------------------------------------------------
@@ -572,6 +623,8 @@ variable:
                 $$=new Variable(*$1,var,"double");
             else if(var->m_type == "string")
                 $$=new Variable(*$1,var,"string");
+            else if(var->m_type == "animation_block")
+                $$=new Variable(*$1,var,"animation_block");
         } else {
             Error::error(Error::UNDECLARED_VARIABLE,*$1);
             $$=NULL;

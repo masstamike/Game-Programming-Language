@@ -57,3 +57,5 @@ parameter:
     }
 
 Animation_block *animation_block = eval_animation_block???
+
+Lecture from 4/11 pages 221-236 in red dragon book

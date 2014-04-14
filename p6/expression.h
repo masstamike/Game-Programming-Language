@@ -1,6 +1,7 @@
 #include <string>
 #include "gpl_type.h"
 #include "variable.h"
+#include "animation_block.h"
 #ifndef EXPRESSION_H
 #define EXPRESSION_H
 
@@ -12,11 +13,12 @@ class Expr {
         Expr(Operator_type, Expr*, Expr*);
         Expr(Operator_type, Expr*);
         Expr(Variable*);
-//        Expr();
+        Expr(Animation_block*);
         ~Expr();
         int eval_int();
         double eval_double();
         std::string eval_string();
+        Animation_block* eval_animation_block();
         std::string get_type();
         std::string get_kind() {return m_kind;}
         Expr *m_left, *m_right;
@@ -26,6 +28,7 @@ class Expr {
         int m_int;
         double m_double;
         Variable* m_var;
+        Animation_block* m_animation;
         std::string m_str;
         std::string type;
         std::string m_kind;

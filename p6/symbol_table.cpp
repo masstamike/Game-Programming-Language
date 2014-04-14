@@ -27,13 +27,16 @@ void Symbol_table::print(std::ostream& stream) {
             stream<<' '<<*(double*)it->second->m_value<<'\n';
         else if(it->second->m_type == "string")
             stream<<' '<<"\""<<*(std::string*)it->second->m_value<<"\"\n";
-        else {
+        else if(it->second->m_type == "game_object") {
             stream<<'\n';
             stream<<it->second->get_game_object_value();
             stream<<"\n";
         }
-        
-
+        else {
+            stream<<"\n";
+            stream<<it->second->get_animation_block();
+            stream<<"\n";
+        }
     }
 }
 

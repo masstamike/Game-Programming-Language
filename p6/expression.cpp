@@ -25,6 +25,12 @@ Expr::Expr(std::string s) {
     m_kind = "constant";
 }
 
+Expr::Expr(Animation_block* animation) {
+    m_animation = animation;
+    type = "animation_block";
+    m_kind = "animation_block";
+}
+
 Expr::Expr(Operator_type op, Expr* ex) {
     m_op = op;
     m_kind = "expr";
@@ -132,6 +138,7 @@ Expr::Expr(Operator_type op, Expr* left, Expr* right) {
         case GREATER_THAN_EQUAL:
             type = "int";
             break;
+        default:break;
     }
     }
     else {
@@ -144,6 +151,7 @@ Expr::Expr(Operator_type op, Expr* left, Expr* right) {
 }
 
 Expr::Expr(Variable* var) {
+    std::cout<<var->m_id<<std::endl;
     m_var = var;
     type = var->m_type;
     m_kind = "variable";
@@ -213,6 +221,7 @@ int Expr::eval_int() {
                 break;
             case ABS:
                 return abs(m_left->eval_int());
+            default:break;
         }
         if(m_left->get_type()==m_right->get_type()) {
             if(m_left->get_type()=="int") {
@@ -237,6 +246,7 @@ int Expr::eval_int() {
                         return m_left->eval_int()+m_right->eval_int();
                     case MINUS:
                         return m_left->eval_int()-m_right->eval_int();
+                    default:break;
                 }
             } else if(m_left->get_type() == "double") {
                 switch (m_op) {
@@ -264,6 +274,7 @@ int Expr::eval_int() {
                     case GREATER_THAN_EQUAL:
                         return (m_left->eval_double()>=m_right->eval_double())?
                             1:0;
+                    default:break;
                 }
             } else {
                 switch (m_op) {
@@ -276,6 +287,7 @@ int Expr::eval_int() {
                     case LESS_THAN_EQUAL:
                         return (m_left->eval_string()<=m_right->eval_string())?
                             1:0;
+                    default:break;
                 }
             }
         } else if(m_left->get_type() == "int") {
@@ -297,6 +309,7 @@ int Expr::eval_int() {
                         return (m_left->eval_int()>m_right->eval_double())?1:0;
                     case GREATER_THAN_EQUAL:
                         return (m_left->eval_int()>=m_right->eval_double())?1:0;
+                    default:break;
                 }
             }
         } else if(m_left->get_type() == "double") {
@@ -318,6 +331,7 @@ int Expr::eval_int() {
                         return (m_left->eval_double()>m_right->eval_int())?1:0;
                     case GREATER_THAN_EQUAL:
                         return (m_left->eval_double()>=m_right->eval_int())?1:0;
+                    default:break;
                 }
             }
         }
@@ -327,7 +341,6 @@ int Expr::eval_int() {
         //else
             //error
     }
-//    return m_int; //just for now
 }
 
 double Expr::eval_double() {
@@ -401,12 +414,7 @@ double Expr::eval_double() {
                 else
                     return m_left->eval_double()>=m_right->eval_double()?
                         1.0:0.0;
-/*            case DIVIDE:
-                return m_left->eval_double()/m_right->eval_double();
-
-    ---Moving to down below---
-
-*/
+            default:break;
         }
         if(m_left->get_type()==m_right->get_type()) {
             if(m_left->get_type()=="int") {
@@ -425,6 +433,7 @@ double Expr::eval_double() {
                             1.0:0.0;
                     case DIVIDE:
                         return (double)(m_left->eval_int()/m_right->eval_int());
+                    default:break;
                 }
             }
             else if(m_left->get_type() == "double")
@@ -455,6 +464,7 @@ double Expr::eval_double() {
                             1.0:0.0;
                     case DIVIDE:
                         return m_left->eval_double()/m_right->eval_double();
+                    default:break;
                 }
             else {
                 switch (m_op) {
@@ -464,6 +474,7 @@ double Expr::eval_double() {
                     case NOT_EQUAL:
                         return (m_left->eval_string()!=m_right->eval_string())?
                             1.0:0.0;
+                    default:break;
                 }
             }
         } else if (m_left->get_type() == "int") {
@@ -485,6 +496,7 @@ double Expr::eval_double() {
                         return (m_left->eval_double()/m_right->eval_double());
                     case MULTIPLY:
                         return (m_left->eval_double()*m_right->eval_double());
+                    default:break;
                 }
             }
         } else if(m_left->get_type() == "double") {
@@ -506,6 +518,7 @@ double Expr::eval_double() {
                         return (m_left->eval_double()/m_right->eval_double());
                     case MULTIPLY:
                         return (m_left->eval_double()*m_right->eval_double());
+                    default:break;
                 }
             }
         }
@@ -553,11 +566,8 @@ std::string Expr::eval_string() {
                 }
             case LESS_THAN_EQUAL:
                 return m_left->eval_string()<=m_right->eval_string()?"1":"0";
+            default:break;
         }
-/*        switch (m_op) {
-            case EQUAL:
-                return eval_int()?"1":"0";
-        }*/
     } else if (m_kind=="variable") {
         if(m_var->m_sym->m_type == "string") {
             std::string s=*(std::string*) m_var->m_sym->m_value;
@@ -574,6 +584,10 @@ std::string Expr::eval_string() {
     } else {
         return m_str; //just for now
     }
+}
+
+Animation_block* Expr::eval_animation_block() {
+    return m_var->m_sym->get_animation_block();
 }
 
 std::string Expr::get_type() {
