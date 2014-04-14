@@ -151,7 +151,6 @@ Expr::Expr(Operator_type op, Expr* left, Expr* right) {
 }
 
 Expr::Expr(Variable* var) {
-    std::cout<<var->m_id<<std::endl;
     m_var = var;
     type = var->m_type;
     m_kind = "variable";
