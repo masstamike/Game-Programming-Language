@@ -657,7 +657,12 @@ variable:
             $$=NULL;
         }
     }
-    | T_ID T_PERIOD T_ID
+    | T_ID T_PERIOD T_ID {
+        /* This is where work needs to be done */
+        string tid = *$1;
+        string s_var = *$3;
+        cout<<tid<<'.'<<s_var<<endl;
+    }
     | T_ID T_LBRACKET expression T_RBRACKET T_PERIOD T_ID
     ;
 
