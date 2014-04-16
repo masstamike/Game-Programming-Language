@@ -31,6 +31,7 @@ using namespace std;
 vector<int> *int_vector;
 Symbol_table* symbol_table = Symbol_table::instance();
 Game_object* cur_object_under_construction;
+string cur_object_name;
 %}
 
 // Bison fundamentally works by asking flex to get the next token, which it
@@ -301,6 +302,7 @@ optional_initializer:
 //---------------------------------------------------------------------
 object_declaration:
     object_type T_ID {
+        cur_object_name = *$2;
         switch($1) {
             case T_TRIANGLE: cur_object_under_construction = new Triangle();
                 symbol_table->add(*$2, new Symbol(*$2,
@@ -332,6 +334,7 @@ object_declaration:
         
     }
     | object_type T_ID T_LBRACKET expression T_RBRACKET {
+        cur_object_name = *$2;
         int size = $4->eval_int();
         string array = *$2;
         array = array + "[0]";
@@ -411,17 +414,53 @@ parameter_list :
 parameter:
     T_ID T_ASSIGN expression {
         if($3->get_type() == "int") {
-            cur_object_under_construction->set_member_variable(*$1,
-                $3->eval_int());
+            switch(cur_object_under_construction->set_member_variable(*$1,
+                $3->eval_int())) {
+                case MEMBER_NOT_DECLARED:
+                    Error::error(Error::UNKNOWN_CONSTRUCTOR_PARAMETER,
+                        cur_object_name, *$1);
+                    break;
+                case MEMBER_NOT_OF_GIVEN_TYPE:
+                    Error::error(Error::INCORRECT_CONSTRUCTOR_PARAMETER_TYPE,
+                        cur_object_name, *$1);
+                    break;
+            }
         } else if($3->get_type() == "double") {
-            cur_object_under_construction->set_member_variable(*$1,
-                $3->eval_double());
+            switch(cur_object_under_construction->set_member_variable(*$1,
+                $3->eval_double())) {
+                case MEMBER_NOT_DECLARED:
+                    Error::error(Error::UNKNOWN_CONSTRUCTOR_PARAMETER,
+                        cur_object_name, *$1);
+                    break;
+                case MEMBER_NOT_OF_GIVEN_TYPE:
+                    Error::error(Error::INCORRECT_CONSTRUCTOR_PARAMETER_TYPE,
+                        cur_object_name, *$1);
+                    break;
+            }
         } else if($3->get_type() == "string") {
-            cur_object_under_construction->set_member_variable(*$1,
-                $3->eval_string());
+            switch(cur_object_under_construction->set_member_variable(*$1,
+                $3->eval_string())) {
+                case MEMBER_NOT_DECLARED:
+                    Error::error(Error::UNKNOWN_CONSTRUCTOR_PARAMETER,
+                        cur_object_name, *$1);
+                    break;
+                case MEMBER_NOT_OF_GIVEN_TYPE:
+                    Error::error(Error::INCORRECT_CONSTRUCTOR_PARAMETER_TYPE,
+                        cur_object_name, *$1);
+                    break;
+            }
         } else if($3->get_type() == "animation_block"){
-            cur_object_under_construction->set_member_variable(*$1,
-                $3->eval_animation_block());
+            switch(cur_object_under_construction->set_member_variable(*$1,
+                $3->eval_animation_block())) {
+                case MEMBER_NOT_DECLARED:
+                    Error::error(Error::UNKNOWN_CONSTRUCTOR_PARAMETER,
+                        cur_object_name, *$1);
+                    break;
+                case MEMBER_NOT_OF_GIVEN_TYPE:
+                    Error::error(Error::INCORRECT_CONSTRUCTOR_PARAMETER_TYPE,
+                        cur_object_name, *$1);
+                    break;
+            }
         }
     }
     ;
@@ -665,8 +704,18 @@ variable:
             switch(g_type) {
                 case INT: {
                     int var_int;
-                    var->get_game_object_value()->
-                        get_member_variable(*$3,var_int);
+                    switch(var->get_game_object_value()->
+                        get_member_variable(*$3,var_int)) {
+                        case MEMBER_NOT_DECLARED:
+                            Error::error(Error::UNKNOWN_CONSTRUCTOR_PARAMETER,
+                                *$1, *$3);
+                            break;
+                        case MEMBER_NOT_OF_GIVEN_TYPE:
+                            Error::error(
+                                Error::INCORRECT_CONSTRUCTOR_PARAMETER_TYPE,
+                                *$1, *$3);
+                            break;
+                    }
                     int* val_int = new int(var_int);
                     $$=new Variable(*$3, new Symbol(*$3,val_int,"int"),
                         "int");
@@ -674,8 +723,18 @@ variable:
                 }
                 case DOUBLE: {
                     double var_double;
-                    var->get_game_object_value()->
-                        get_member_variable(*$3,var_double);
+                    switch(var->get_game_object_value()->
+                        get_member_variable(*$3,var_double)) {
+                        case MEMBER_NOT_DECLARED:
+                            Error::error(Error::UNKNOWN_CONSTRUCTOR_PARAMETER,
+                                *$1, *$3);
+                            break;
+                        case MEMBER_NOT_OF_GIVEN_TYPE:
+                            Error::error(
+                                Error::INCORRECT_CONSTRUCTOR_PARAMETER_TYPE,
+                                *$1, *$3);
+                            break;
+                    }
                     double* val_double = new double(var_double);
                     $$=new Variable(*$3, new Symbol(*$3,val_double,"double"),
                        "double");
@@ -683,8 +742,18 @@ variable:
                 }
                 case STRING: {
                     string var_string;
-                    var->get_game_object_value()->
-                        get_member_variable(*$3,var_string);
+                    switch(var->get_game_object_value()->
+                        get_member_variable(*$3,var_string)) {
+                        case MEMBER_NOT_DECLARED:
+                            Error::error(Error::UNKNOWN_CONSTRUCTOR_PARAMETER,
+                                *$1, *$3);
+                            break;
+                        case MEMBER_NOT_OF_GIVEN_TYPE:
+                            Error::error(
+                                Error::INCORRECT_CONSTRUCTOR_PARAMETER_TYPE,
+                                *$1, *$3);
+                            break;
+                    }
                     string* val_str = new string(var_string);
                     $$=new Variable(*$3, new Symbol(*$3,val_str, "string"),
                        "string");
