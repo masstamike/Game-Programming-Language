@@ -658,10 +658,38 @@ variable:
         }
     }
     | T_ID T_PERIOD T_ID {
-        /* This is where work needs to be done */
-        string tid = *$1;
-        string s_var = *$3;
-        cout<<tid<<'.'<<s_var<<endl;
+        Symbol* var = symbol_table->find(*$1);
+        if(var) {
+            Gpl_type g_type;
+            var->get_game_object_value()->get_member_variable_type(*$3, g_type);
+            switch(g_type) {
+                case INT:
+                    int var_int;
+                    var->get_game_object_value()->
+                        get_member_variable(*$3,var_int);
+                    $$=new Variable(*$3, new Symbol(*$3,&var_int,"int"),
+                        "int");
+                    break;
+                case DOUBLE:
+                    double var_double;
+                    var->get_game_object_value()->
+                        get_member_variable(*$3,var_double);
+                    $$=new Variable(*$3, new Symbol(*$3,&var_double,"double"),
+                       "double");
+                    break;
+                case STRING:
+                    string var_string;
+                    var->get_game_object_value()->
+                        get_member_variable(*$3,var_string);
+                    $$=new Variable(*$3, new Symbol(*$3,&var_string, "string"),
+                       "string");
+                    break;
+            }
+            //  $$=new Variable(*$1,sym,"string");
+        } else {
+            Error::error(Error::UNDECLARED_VARIABLE,*$1);
+            $$=NULL;
+        }
     }
     | T_ID T_LBRACKET expression T_RBRACKET T_PERIOD T_ID
     ;
