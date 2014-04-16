@@ -691,7 +691,6 @@ variable:
                     break;
                 }
             }
-            //  $$=new Variable(*$1,sym,"string");
         } else {
             Error::error(Error::UNDECLARED_VARIABLE,*$1);
             $$=NULL;
