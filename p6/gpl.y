@@ -696,7 +696,58 @@ variable:
             $$=NULL;
         }
     }
-    | T_ID T_LBRACKET expression T_RBRACKET T_PERIOD T_ID
+    | T_ID T_LBRACKET expression T_RBRACKET T_PERIOD T_ID {
+        if($3->get_type() !=  "int") {
+            string s2=$3->get_type();
+            s2="A "+s2+" expression";
+            Error::error(Error::ARRAY_INDEX_MUST_BE_AN_INTEGER,*$1,s2);
+            $$=NULL;
+        }
+        string array = *$1;
+        int index = $3->eval_int();
+        stringstream ss;
+        ss<<index;
+        array = array + "[" + ss.str() + "]";
+        Symbol* sym = symbol_table->find(array);
+        if(sym) {
+            Gpl_type g_type;
+            sym->get_game_object_value()->get_member_variable_type(*$6, g_type);
+            switch(g_type) {
+                case INT: {
+                    int var_int;
+                    sym->get_game_object_value()->
+                        get_member_variable(*$6,var_int);
+                    int* val_int = new int(var_int);
+                    $$=new Variable(*$6, new Symbol(*$6,val_int,"int"),
+                        "int");
+                    break;
+                }
+                case DOUBLE: {
+                    double var_double;
+                    sym->get_game_object_value()->
+                        get_member_variable(*$6,var_double);
+                    double* val_double = new double(var_double);
+                    $$=new Variable(*$6, new Symbol(*$6,val_double,"double"),
+                        "double");
+                    break;
+                }
+                case STRING: {
+                    string var_string;
+                    sym->get_game_object_value()->
+                        get_member_variable(*$6,var_string);
+                    string* val_str = new string(var_string);
+                    $$=new Variable(*$6, new Symbol(*$6,val_str, "string"),
+                       "string");
+                    break;
+                }
+            }
+        } else {
+            stringstream ss;
+            ss<<$3->eval_int();
+            Error::error(Error::ARRAY_INDEX_OUT_OF_BOUNDS,*$1,ss.str());
+            $$=NULL;
+        }
+    }
     ;
 
 //---------------------------------------------------------------------
