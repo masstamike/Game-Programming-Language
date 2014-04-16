@@ -663,27 +663,33 @@ variable:
             Gpl_type g_type;
             var->get_game_object_value()->get_member_variable_type(*$3, g_type);
             switch(g_type) {
-                case INT:
+                case INT: {
                     int var_int;
                     var->get_game_object_value()->
                         get_member_variable(*$3,var_int);
-                    $$=new Variable(*$3, new Symbol(*$3,&var_int,"int"),
+                    int* val_int = new int(var_int);
+                    $$=new Variable(*$3, new Symbol(*$3,val_int,"int"),
                         "int");
                     break;
-                case DOUBLE:
+                }
+                case DOUBLE: {
                     double var_double;
                     var->get_game_object_value()->
                         get_member_variable(*$3,var_double);
-                    $$=new Variable(*$3, new Symbol(*$3,&var_double,"double"),
+                    double* val_double = new double(var_double);
+                    $$=new Variable(*$3, new Symbol(*$3,val_double,"double"),
                        "double");
                     break;
-                case STRING:
+                }
+                case STRING: {
                     string var_string;
                     var->get_game_object_value()->
                         get_member_variable(*$3,var_string);
-                    $$=new Variable(*$3, new Symbol(*$3,&var_string, "string"),
+                    string* val_str = new string(var_string);
+                    $$=new Variable(*$3, new Symbol(*$3,val_str, "string"),
                        "string");
                     break;
+                }
             }
             //  $$=new Variable(*$1,sym,"string");
         } else {
