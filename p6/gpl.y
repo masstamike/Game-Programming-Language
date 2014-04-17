@@ -494,6 +494,8 @@ animation_block:
 //---------------------------------------------------------------------
 animation_parameter:
     object_type T_ID{
+        if(symbol_table->find(*$2))
+            Error::error(Error::ANIMATION_PARAMETER_NAME_NOT_UNIQUE,*$2);
         switch($1) {
             case T_TRIANGLE: cur_object_under_construction = new Triangle();
                 symbol_table->add(*$2, new Symbol(*$2,
