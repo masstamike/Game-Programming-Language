@@ -243,11 +243,12 @@ typedef union YYSTYPE
  Variable*       union_variable;
  Operator_type  union_operator_type;
  Expr*          union_expr;
+ Symbol*        union_symbol;
  
 
 
 /* Line 2053 of yacc.c  */
-#line 251 "y.tab.h"
+#line 252 "y.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

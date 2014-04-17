@@ -48,6 +48,7 @@ string cur_object_name;
  Variable*       union_variable;
  Operator_type  union_operator_type;
  Expr*          union_expr;
+ Symbol*        union_symbol;
  
 }
 // Precedence Levels:
@@ -175,6 +176,7 @@ string cur_object_name;
 %type <union_operator_type> math_operator
 %type <union_string> parameter_list_or_empty
 %type <union_int> object_type
+%type <union_symbol> animation_parameter
 
 // special token that does not match any production
 // used for characters that are not part of the language
@@ -414,6 +416,15 @@ parameter_list :
 parameter:
     T_ID T_ASSIGN expression {
         Gpl_type g_type;
+        if($3->get_type() == "animation_block") {
+            if(($3->eval_animation_block()->get_parameter_symbol()->
+                get_game_object_value()->type())!=
+                (cur_object_under_construction->type())) {
+                Error::error(
+                    Error::TYPE_MISMATCH_BETWEEN_ANIMATION_BLOCK_AND_OBJECT,
+                    cur_object_name, $3->eval_animation_block()->name());
+                }
+        }
         if(cur_object_under_construction->get_member_variable_type(*$1,g_type)
             == MEMBER_NOT_DECLARED) {
                     Error::error(Error::UNKNOWN_CONSTRUCTOR_PARAMETER,
@@ -461,7 +472,7 @@ forward_declaration:
             Error::error(Error::PREVIOUSLY_DECLARED_VARIABLE,
                 *$3);
         }
-        Animation_block* anim = new Animation_block(0,NULL,*$3);
+        Animation_block* anim = new Animation_block(0,$5,*$3);
         symbol_table->add(*$3, new Symbol(*$3, anim,
             "animation_block"));
         
@@ -496,44 +507,55 @@ animation_parameter:
     object_type T_ID{
         if(symbol_table->find(*$2))
             Error::error(Error::ANIMATION_PARAMETER_NAME_NOT_UNIQUE,*$2);
+        Symbol* param;
         switch($1) {
-            case T_TRIANGLE: cur_object_under_construction = new Triangle();
-                symbol_table->add(*$2, new Symbol(*$2,
-                    cur_object_under_construction,
-                    "game_object"));
+            case T_TRIANGLE: {
+                cur_object_under_construction = new Triangle();
+                param = new Symbol(*$2, cur_object_under_construction,
+                "game_object");
+                symbol_table->add(*$2,param);
                 cur_object_under_construction->never_animate();
                 cur_object_under_construction->never_draw();
                 break;
-            case T_PIXMAP: cur_object_under_construction = new Pixmap();
-                symbol_table->add(*$2, new Symbol(*$2,
-                    cur_object_under_construction,
-                    "game_object"));
+            }
+            case T_PIXMAP: {
+                cur_object_under_construction = new Pixmap();
+                param = new Symbol(*$2, cur_object_under_construction,
+                "game_object");
+                symbol_table->add(*$2,param);
                 cur_object_under_construction->never_animate();
                 cur_object_under_construction->never_draw();
                 break;
-            case T_CIRCLE: cur_object_under_construction = new Circle();
-                symbol_table->add(*$2, new Symbol(*$2,
-                    cur_object_under_construction,
-                    "game_object"));
+            }
+            case T_CIRCLE: {
+                cur_object_under_construction = new Circle();
+                param = new Symbol(*$2, cur_object_under_construction,
+                "game_object");
+                symbol_table->add(*$2,param);
                 cur_object_under_construction->never_animate();
                 cur_object_under_construction->never_draw();
                 break;
-            case T_RECTANGLE: 
+            }
+            case T_RECTANGLE: {
                 cur_object_under_construction = new Rectangle();
-                symbol_table->add(*$2, new Symbol(*$2,
-                    cur_object_under_construction,
-                    "game_object"));
+                param = new Symbol(*$2, cur_object_under_construction,
+                "game_object");
+                symbol_table->add(*$2,param);
                 cur_object_under_construction->never_animate();
                 cur_object_under_construction->never_draw();
                 break;
-            case T_TEXTBOX: cur_object_under_construction = new Textbox();
-                symbol_table->add(*$2, new Symbol(*$2,
-                    cur_object_under_construction,
-                    "game_object"));
+            }
+            case T_TEXTBOX: {
+                cur_object_under_construction = new Textbox();
+                param = new Symbol(*$2, cur_object_under_construction,
+                "game_object");
+                symbol_table->add(*$2,param);
                 cur_object_under_construction->never_animate();
                 cur_object_under_construction->never_draw();
                 break;
+            }
         }
+        $$=param;
     }
     ;
 
