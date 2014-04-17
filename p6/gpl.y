@@ -421,20 +421,21 @@ parameter:
         }
         else {
         if(/*$3->get_type() == "int"*/g_type==INT) {
-            switch(cur_object_under_construction->set_member_variable(*$1,
-                $3->eval_int())) {
-                case MEMBER_NOT_OF_GIVEN_TYPE:
-                    Error::error(Error::INCORRECT_CONSTRUCTOR_PARAMETER_TYPE,
-                        cur_object_name, *$1);
-                    break;
+            if($3->get_type() == "int") {
+                cur_object_under_construction->set_member_variable(*$1,
+                $3->eval_int());
             }
-        } else if(/*$3->get_type() == "double"*/g_type==DOUBLE) {
-            switch(cur_object_under_construction->set_member_variable(*$1,
-                $3->eval_double())) {
-                case MEMBER_NOT_OF_GIVEN_TYPE:
+            else
                     Error::error(Error::INCORRECT_CONSTRUCTOR_PARAMETER_TYPE,
                         cur_object_name, *$1);
-                    break;
+        } else if(/*$3->get_type() == "double"*/g_type==DOUBLE) {
+            if($3->get_type() == "string") {
+                Error::error(Error::INCORRECT_CONSTRUCTOR_PARAMETER_TYPE,
+                    cur_object_name, *$1);
+            }
+            else {
+            cur_object_under_construction->set_member_variable(*$1,
+                $3->eval_double());
             }
         } else if(g_type==STRING) {
             cur_object_under_construction->set_member_variable(*$1,

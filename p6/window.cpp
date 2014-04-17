@@ -291,7 +291,7 @@ void Window::set_width(int width)
   m_w = width;
 
   // if there is a symbol window_width, update it
-  symbol_table->set("window_width", width);
+//  symbol_table->set("window_width", width);
 }
 
 void Window::set_height(int height)
@@ -299,7 +299,7 @@ void Window::set_height(int height)
   m_h = height;
 
   // if there is a symbol window_height, update it
-  symbol_table->set("window_height", height);
+//  symbol_table->set("window_height", height);
 }
 
 // dump the current front openGL color buffer to 
