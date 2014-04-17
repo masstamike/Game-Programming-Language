@@ -781,6 +781,11 @@ variable:
         ss<<index;
         array = array + "[" + ss.str() + "]";
         Symbol* sym = symbol_table->find(array);
+        if(sym->m_type == "int" || sym->m_type == "double" ||
+            sym->m_type == "string" || sym->m_type == "animation_block") {
+            Error::error(Error::LHS_OF_PERIOD_MUST_BE_OBJECT, *$1);
+            $$=NULL;
+        }
         if(sym) {
             Gpl_type g_type;
             sym->get_game_object_value()->get_member_variable_type(*$6, g_type);
