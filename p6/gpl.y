@@ -691,7 +691,12 @@ variable:
         Symbol* var = symbol_table->find(*$1);
         if(var) {
             Gpl_type g_type;
-            if(var->get_game_object_value()->get_member_variable_type(*$3,
+            if(var->m_type == "int" || var->m_type == "double" ||
+                var->m_type == "string" || var->m_type == "animation_block") {
+                Error::error(Error::LHS_OF_PERIOD_MUST_BE_OBJECT, *$1);
+                $$=NULL;
+            }
+            else if(var->get_game_object_value()->get_member_variable_type(*$3,
                 g_type) == MEMBER_NOT_DECLARED) {
                 Error::error(Error::UNDECLARED_MEMBER, *$1, *$3);
                 $$=NULL;
