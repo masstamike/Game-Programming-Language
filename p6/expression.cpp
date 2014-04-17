@@ -209,7 +209,7 @@ int Expr::eval_int() {
                 if(m_left->get_type() == "int")
                     return m_left->eval_int();
                 else if (m_left->get_type() == "double")
-                    return (int) m_left->eval_double();
+                    return floor(m_left->eval_double());
                 break;
             case MOD:
                 return m_left->eval_int()%m_right->eval_int();

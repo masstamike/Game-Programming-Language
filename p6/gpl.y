@@ -413,54 +413,42 @@ parameter_list :
 //---------------------------------------------------------------------
 parameter:
     T_ID T_ASSIGN expression {
-        if($3->get_type() == "int") {
+        Gpl_type g_type;
+        if(cur_object_under_construction->get_member_variable_type(*$1,g_type)
+            == MEMBER_NOT_DECLARED) {
+                    Error::error(Error::UNKNOWN_CONSTRUCTOR_PARAMETER,
+                        cur_object_under_construction->type(), *$1);
+        }
+        else {
+        if(/*$3->get_type() == "int"*/g_type==INT) {
             switch(cur_object_under_construction->set_member_variable(*$1,
                 $3->eval_int())) {
-                case MEMBER_NOT_DECLARED:
-                    Error::error(Error::UNKNOWN_CONSTRUCTOR_PARAMETER,
-                        cur_object_name, *$1);
-                    break;
                 case MEMBER_NOT_OF_GIVEN_TYPE:
                     Error::error(Error::INCORRECT_CONSTRUCTOR_PARAMETER_TYPE,
                         cur_object_name, *$1);
                     break;
             }
-        } else if($3->get_type() == "double") {
+        } else if(/*$3->get_type() == "double"*/g_type==DOUBLE) {
             switch(cur_object_under_construction->set_member_variable(*$1,
                 $3->eval_double())) {
-                case MEMBER_NOT_DECLARED:
-                    Error::error(Error::UNKNOWN_CONSTRUCTOR_PARAMETER,
-                        cur_object_name, *$1);
-                    break;
                 case MEMBER_NOT_OF_GIVEN_TYPE:
                     Error::error(Error::INCORRECT_CONSTRUCTOR_PARAMETER_TYPE,
                         cur_object_name, *$1);
                     break;
             }
-        } else if($3->get_type() == "string") {
-            switch(cur_object_under_construction->set_member_variable(*$1,
-                $3->eval_string())) {
-                case MEMBER_NOT_DECLARED:
-                    Error::error(Error::UNKNOWN_CONSTRUCTOR_PARAMETER,
-                        cur_object_name, *$1);
-                    break;
-                case MEMBER_NOT_OF_GIVEN_TYPE:
-                    Error::error(Error::INCORRECT_CONSTRUCTOR_PARAMETER_TYPE,
-                        cur_object_name, *$1);
-                    break;
-            }
-        } else if($3->get_type() == "animation_block"){
+        } else if(g_type==STRING) {
+            cur_object_under_construction->set_member_variable(*$1,
+                $3->eval_string());
+        } else if(/*$3->get_type() == "animation_block"*/g_type==
+            ANIMATION_BLOCK){
             switch(cur_object_under_construction->set_member_variable(*$1,
                 $3->eval_animation_block())) {
-                case MEMBER_NOT_DECLARED:
-                    Error::error(Error::UNKNOWN_CONSTRUCTOR_PARAMETER,
-                        cur_object_name, *$1);
-                    break;
                 case MEMBER_NOT_OF_GIVEN_TYPE:
                     Error::error(Error::INCORRECT_CONSTRUCTOR_PARAMETER_TYPE,
                         cur_object_name, *$1);
                     break;
             }
+        }
         }
     }
     ;
@@ -709,6 +697,7 @@ variable:
                         case MEMBER_NOT_DECLARED:
                             Error::error(Error::UNKNOWN_CONSTRUCTOR_PARAMETER,
                                 *$1, *$3);
+                            $$=NULL;
                             break;
                         case MEMBER_NOT_OF_GIVEN_TYPE:
                             Error::error(
@@ -728,6 +717,7 @@ variable:
                         case MEMBER_NOT_DECLARED:
                             Error::error(Error::UNKNOWN_CONSTRUCTOR_PARAMETER,
                                 *$1, *$3);
+                            $$=NULL;
                             break;
                         case MEMBER_NOT_OF_GIVEN_TYPE:
                             Error::error(
@@ -747,6 +737,7 @@ variable:
                         case MEMBER_NOT_DECLARED:
                             Error::error(Error::UNKNOWN_CONSTRUCTOR_PARAMETER,
                                 *$1, *$3);
+                            $$=NULL;
                             break;
                         case MEMBER_NOT_OF_GIVEN_TYPE:
                             Error::error(
