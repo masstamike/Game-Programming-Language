@@ -691,7 +691,11 @@ variable:
         Symbol* var = symbol_table->find(*$1);
         if(var) {
             Gpl_type g_type;
-            var->get_game_object_value()->get_member_variable_type(*$3, g_type);
+            if(var->get_game_object_value()->get_member_variable_type(*$3,
+                g_type) == MEMBER_NOT_DECLARED) {
+                Error::error(Error::UNDECLARED_MEMBER, *$1, *$3);
+                $$=NULL;
+            }
             switch(g_type) {
                 case INT: {
                     int var_int;
