@@ -41,7 +41,7 @@ class Pixmap : public Game_object
   public:
     Pixmap();
     void draw();
-    ~Pixmap() {}
+//    ~Pixmap() {}
   private:
     class Pixmap_data
     {
