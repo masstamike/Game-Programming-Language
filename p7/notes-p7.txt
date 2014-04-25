@@ -1,0 +1,21 @@
+For_statement::execute()
+{
+    for(m_init->execute(); m_expression->eval_int(); m_incrementor->execute;
+}
+    m_body_block_execute;
+printf_statement:
+    T_PRINT T_LPAREN expression T_RPAREN
+    {
+        new Print_stmt($1,$3);
+    };
+
+|===============|
+|  Print_stmt   |
+|---------------|
+|int m_line_no; |   |=======|
+|Expr *m_expr;--|-->|"hello"|
+|void execute();|   |-------|
+|===============|   |   |   |
+                    =========
+
+
