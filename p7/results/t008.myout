@@ -119,14 +119,14 @@ string strings[2] ""
 gpl.cpp::main() Calling window->initialize().
 gpl.cpp::main() Passing control to window->main_loop().
 gpl[24]: ints[0] = 0
-gpl[25]: ints[1] = 0
-gpl[26]: ints[2] = 0
+gpl[25]: ints[1] = 1
+gpl[26]: ints[2] = 2
 gpl[27]: doubles[0] = 0
-gpl[28]: doubles[1] = 0
-gpl[29]: doubles[2] = 0
-gpl[30]: strings[0] = 
-gpl[31]: strings[1] = 
-gpl[32]: strings[2] = 
+gpl[28]: doubles[1] = 1
+gpl[29]: doubles[2] = 2
+gpl[30]: strings[0] = zero
+gpl[31]: strings[1] = one
+gpl[32]: strings[2] = two
 gpl[33]: circles[0].x = 0
 gpl[34]: circles[1].x = 0
 gpl[35]: circles[2].x = 0
@@ -226,11 +226,11 @@ game_object circles[2]
     y = int(0)
   }
 double doubles[0] 0
-double doubles[1] 0
-double doubles[2] 0
+double doubles[1] 1
+double doubles[2] 2
 int ints[0] 0
-int ints[1] 0
-int ints[2] 0
-string strings[0] ""
-string strings[1] ""
-string strings[2] ""
+int ints[1] 1
+int ints[2] 2
+string strings[0] "zero"
+string strings[1] "one"
+string strings[2] "two"

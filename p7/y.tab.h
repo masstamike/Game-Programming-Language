@@ -234,7 +234,7 @@ extern int yydebug;
 typedef union YYSTYPE
 {
 /* Line 2053 of yacc.c  */
-#line 49 "gpl.y"
+#line 52 "gpl.y"
 
  int            union_int;
  std::string    *union_string;  // MUST be a pointer to a string (this sucks!)

@@ -3,6 +3,7 @@
 #include "expression.h"
 #include "statement.h"
 #include "print_stmt.h"
+#include "assign_stmt.h"
 extern int yylex();         // this lexer function returns next token
 extern int yyerror(char *); // used to print errors
 extern int line_count;      // the current line in the input; from arary.l
@@ -37,6 +38,8 @@ Symbol_table* symbol_table = Symbol_table::instance();
 Game_object* cur_object_under_construction;
 string cur_object_name;
 stack<Statement_block*> block_stack;
+string cur_member_name;
+bool game_flag;
 
 %}
 
@@ -756,7 +759,14 @@ exit_statement:
 
 //---------------------------------------------------------------------
 assign_statement:
-    variable T_ASSIGN expression
+    variable T_ASSIGN expression {
+        if(game_flag) {
+            block_stack.top()->add(new Assign_stmt(cur_object_name,
+            cur_member_name, $3));
+            game_flag = false;
+        }
+        block_stack.top()->add(new Assign_stmt($1,$3));
+    }
     | variable T_PLUS_ASSIGN expression
     | variable T_MINUS_ASSIGN expression
     ;
@@ -807,6 +817,9 @@ variable:
         }
     }
     | T_ID T_PERIOD T_ID {
+        game_flag=true;
+        cur_object_name = *$1;
+        cur_member_name = *$3;
         Symbol* var = symbol_table->find(*$1);
         if(var) {
             Gpl_type g_type;
