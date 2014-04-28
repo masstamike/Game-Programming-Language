@@ -15,8 +15,9 @@
 #define STATEMENT_BLOCK_H
 
 #include <iostream>
-
+#include <vector>
 #include "indent.h"
+#include "statement.h"
 
 class Game_object;
 
@@ -24,7 +25,7 @@ class Statement_block
 {
   public:
     Statement_block(int block_line);
-
+    void add(Statement*);
     // Implement this function
     bool empty();
 
@@ -38,6 +39,7 @@ class Statement_block
 
     // line number statement block starts on (only used for debugging)
     int m_line; 
+    std::vector<Statement*> m_stmts;
 };
 
 

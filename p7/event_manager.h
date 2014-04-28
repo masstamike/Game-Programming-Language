@@ -19,7 +19,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include "statement_block.h"
 #include "window.h" // for Keystroke enum
 
 class Statement_block;
@@ -31,12 +31,14 @@ class Event_manager
     static Event_manager *instance();
 
     void execute_handlers(Window::Keystroke keystroke);
+    void add_block(int, Statement_block*);
 
     ~Event_manager();
 
   private:
     // hide default constructor because this is a singleton
     Event_manager();
+    std::vector<Statement_block*> block_handler[Window::NUMBER_OF_KEYS];
 
     static Event_manager *m_instance;
 

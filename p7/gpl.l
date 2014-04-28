@@ -5,6 +5,7 @@
 #include "parser.h"
 #include <iostream>
 #include "expression.h"
+#include "statement.h"
 using namespace std;
 //#define YY_DECL extern "C" int yylex()
 int line_count=1;

@@ -789,6 +789,7 @@ char *yytext;
 #include "parser.h"
 #include <iostream>
 #include "expression.h"
+#include "statement.h"
 using namespace std;
 //#define YY_DECL extern "C" int yylex()
 int line_count=1;
@@ -814,7 +815,7 @@ int emit_with_line_number(int token) {
     return token;
 }
 
-#line 818 "lex.yy.c"
+#line 819 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -1001,9 +1002,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 34 "gpl.l"
+#line 35 "gpl.l"
 
-#line 1007 "lex.yy.c"
+#line 1008 "lex.yy.c"
 
 	if ( !(yy_init) )
 		{
@@ -1088,260 +1089,260 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 35 "gpl.l"
+#line 36 "gpl.l"
 return T_INT;
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 36 "gpl.l"
+#line 37 "gpl.l"
 return T_DOUBLE;
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 37 "gpl.l"
+#line 38 "gpl.l"
 return T_STRING;
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 38 "gpl.l"
+#line 39 "gpl.l"
 return T_TRIANGLE;
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 39 "gpl.l"
+#line 40 "gpl.l"
 return T_PIXMAP;
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 40 "gpl.l"
+#line 41 "gpl.l"
 return T_CIRCLE;
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 41 "gpl.l"
+#line 42 "gpl.l"
 return T_RECTANGLE;
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 42 "gpl.l"
+#line 43 "gpl.l"
 return T_TEXTBOX;
 	YY_BREAK
 /*keywords*/
 case 9:
 YY_RULE_SETUP
-#line 46 "gpl.l"
+#line 47 "gpl.l"
 return emit_string(T_FORWARD);
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 47 "gpl.l"
+#line 48 "gpl.l"
 return emit_string(T_INITIALIZATION);
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 48 "gpl.l"
+#line 49 "gpl.l"
 return emit_string(T_ON);
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 49 "gpl.l"
+#line 50 "gpl.l"
 return emit_string(T_ANIMATION);
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 50 "gpl.l"
+#line 51 "gpl.l"
 return emit_string(T_IF);
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 51 "gpl.l"
+#line 52 "gpl.l"
 return emit_string(T_FOR);
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 52 "gpl.l"
+#line 53 "gpl.l"
 return emit_string(T_ELSE);
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 53 "gpl.l"
+#line 54 "gpl.l"
 return emit_string(T_EXIT);
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 54 "gpl.l"
+#line 55 "gpl.l"
 return emit_with_line_number(T_PRINT);
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 55 "gpl.l"
+#line 56 "gpl.l"
 return emit_string(T_TRUE);
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 56 "gpl.l"
+#line 57 "gpl.l"
 return emit_string(T_FALSE);
 	YY_BREAK
 /*event keys*/
 case 20:
 YY_RULE_SETUP
-#line 59 "gpl.l"
+#line 60 "gpl.l"
 return emit_string(T_SPACE);
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 60 "gpl.l"
+#line 61 "gpl.l"
 return emit_string(T_LEFTARROW);
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 61 "gpl.l"
+#line 62 "gpl.l"
 return emit_string(T_RIGHTARROW);
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 62 "gpl.l"
+#line 63 "gpl.l"
 return emit_string(T_UPARROW);
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 63 "gpl.l"
+#line 64 "gpl.l"
 return emit_string(T_DOWNARROW);
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 64 "gpl.l"
+#line 65 "gpl.l"
 return emit_string(T_LEFTMOUSE_DOWN);
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 65 "gpl.l"
+#line 66 "gpl.l"
 return emit_string(T_MIDDLEMOUSE_DOWN);
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 66 "gpl.l"
+#line 67 "gpl.l"
 return emit_string(T_RIGHTMOUSE_DOWN);
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 67 "gpl.l"
+#line 68 "gpl.l"
 return emit_string(T_LEFTMOUSE_UP);
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 68 "gpl.l"
+#line 69 "gpl.l"
 return emit_string(T_MIDDLEMOUSE_UP);
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 69 "gpl.l"
+#line 70 "gpl.l"
 return emit_string(T_RIGHTMOUSE_UP);
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 70 "gpl.l"
+#line 71 "gpl.l"
 return emit_string(T_MOUSE_MOVE);
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 71 "gpl.l"
+#line 72 "gpl.l"
 return emit_string(T_MOUSE_DRAG);
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 72 "gpl.l"
+#line 73 "gpl.l"
 return emit_string(T_F1);
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 73 "gpl.l"
+#line 74 "gpl.l"
 return emit_string(T_AKEY);
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 74 "gpl.l"
+#line 75 "gpl.l"
 return emit_string(T_SKEY);
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 75 "gpl.l"
+#line 76 "gpl.l"
 return emit_string(T_DKEY);
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 76 "gpl.l"
+#line 77 "gpl.l"
 return emit_string(T_FKEY);
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 77 "gpl.l"
+#line 78 "gpl.l"
 return emit_string(T_HKEY);
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 78 "gpl.l"
+#line 79 "gpl.l"
 return emit_string(T_JKEY);
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 79 "gpl.l"
+#line 80 "gpl.l"
 return emit_string(T_KKEY);
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 80 "gpl.l"
+#line 81 "gpl.l"
 return emit_string(T_LKEY);
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 81 "gpl.l"
+#line 82 "gpl.l"
 return emit_string(T_WKEY);
 	YY_BREAK
 /*punctuation*/
 case 43:
 YY_RULE_SETUP
-#line 84 "gpl.l"
+#line 85 "gpl.l"
 return T_LPAREN;
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 85 "gpl.l"
+#line 86 "gpl.l"
 return T_RPAREN;
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 86 "gpl.l"
+#line 87 "gpl.l"
 return T_LBRACE;
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 87 "gpl.l"
+#line 88 "gpl.l"
 return T_RBRACE;
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 88 "gpl.l"
+#line 89 "gpl.l"
 return T_LBRACKET;
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 89 "gpl.l"
+#line 90 "gpl.l"
 return T_RBRACKET;
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 90 "gpl.l"
+#line 91 "gpl.l"
 return T_SEMIC;
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 91 "gpl.l"
+#line 92 "gpl.l"
 return T_COMMA;
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 92 "gpl.l"
+#line 93 "gpl.l"
 return T_PERIOD;
 	YY_BREAK
 /* assignment operators*/
@@ -1349,17 +1350,17 @@ return T_PERIOD;
   * thus they don't need to be assigned a precedence level*/
 case 52:
 YY_RULE_SETUP
-#line 97 "gpl.l"
+#line 98 "gpl.l"
 return T_ASSIGN;
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 98 "gpl.l"
+#line 99 "gpl.l"
 return T_PLUS_ASSIGN;
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 99 "gpl.l"
+#line 100 "gpl.l"
 return T_MINUS_ASSIGN;
 	YY_BREAK
 /*unary operators with textual names*/
@@ -1368,52 +1369,52 @@ return T_MINUS_ASSIGN;
   */
 case 55:
 YY_RULE_SETUP
-#line 105 "gpl.l"
+#line 106 "gpl.l"
 return emit_string(T_SIN);
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 106 "gpl.l"
+#line 107 "gpl.l"
 return emit_string(T_COS);
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 107 "gpl.l"
+#line 108 "gpl.l"
 return emit_string(T_TAN);
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 108 "gpl.l"
+#line 109 "gpl.l"
 return emit_string(T_ASIN);
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 109 "gpl.l"
+#line 110 "gpl.l"
 return emit_string(T_ACOS);
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 110 "gpl.l"
+#line 111 "gpl.l"
 return emit_string(T_ATAN);
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 111 "gpl.l"
+#line 112 "gpl.l"
 return emit_string(T_SQRT);
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 112 "gpl.l"
+#line 113 "gpl.l"
 return emit_string(T_ABS);
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 113 "gpl.l"
+#line 114 "gpl.l"
 return emit_string(T_FLOOR);
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 114 "gpl.l"
+#line 115 "gpl.l"
 return emit_string(T_RANDOM);
 	YY_BREAK
 /*graphical operators*/
@@ -1421,134 +1422,134 @@ return emit_string(T_RANDOM);
   * they don't need a precedence level */
 case 65:
 YY_RULE_SETUP
-#line 119 "gpl.l"
+#line 120 "gpl.l"
 return emit_string(T_TOUCHES);
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 120 "gpl.l"
+#line 121 "gpl.l"
 return emit_string(T_NEAR);
 	YY_BREAK
 /* mathematical operators */
 case 67:
 YY_RULE_SETUP
-#line 123 "gpl.l"
+#line 124 "gpl.l"
 return emit_string(T_ASTERISK);
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
-#line 124 "gpl.l"
+#line 125 "gpl.l"
 return emit_string(T_DIVIDE);
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
-#line 125 "gpl.l"
+#line 126 "gpl.l"
 return emit_string(T_PLUS);
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
-#line 126 "gpl.l"
+#line 127 "gpl.l"
 return emit_string(T_MINUS);
 	YY_BREAK
 case 71:
 YY_RULE_SETUP
-#line 127 "gpl.l"
+#line 128 "gpl.l"
 return emit_string(T_MOD);
 	YY_BREAK
 /*logical operators*/
 case 72:
 YY_RULE_SETUP
-#line 130 "gpl.l"
+#line 131 "gpl.l"
 return emit_string(T_LESS);
 	YY_BREAK
 case 73:
 YY_RULE_SETUP
-#line 131 "gpl.l"
+#line 132 "gpl.l"
 return emit_string(T_GREATER);
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
-#line 132 "gpl.l"
+#line 133 "gpl.l"
 return emit_string(T_LESS_EQUAL);
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
-#line 133 "gpl.l"
+#line 134 "gpl.l"
 return emit_string(T_GREATER_EQUAL);
 	YY_BREAK
 case 76:
 YY_RULE_SETUP
-#line 134 "gpl.l"
+#line 135 "gpl.l"
 return emit_string(T_EQUAL);
 	YY_BREAK
 case 77:
 YY_RULE_SETUP
-#line 135 "gpl.l"
+#line 136 "gpl.l"
 return emit_string(T_NOT_EQUAL);
 	YY_BREAK
 case 78:
 YY_RULE_SETUP
-#line 136 "gpl.l"
+#line 137 "gpl.l"
 return emit_string(T_NOT);
 	YY_BREAK
 case 79:
 YY_RULE_SETUP
-#line 137 "gpl.l"
+#line 138 "gpl.l"
 return emit_string(T_AND);
 	YY_BREAK
 case 80:
 YY_RULE_SETUP
-#line 138 "gpl.l"
+#line 139 "gpl.l"
 return emit_string(T_OR);
 	YY_BREAK
 case 81:
 YY_RULE_SETUP
-#line 140 "gpl.l"
+#line 141 "gpl.l"
 ;
 	YY_BREAK
 case 82:
 /* rule 82 can match eol */
 YY_RULE_SETUP
-#line 141 "gpl.l"
+#line 142 "gpl.l"
 line_count++;
 	YY_BREAK
 case 83:
 YY_RULE_SETUP
-#line 142 "gpl.l"
+#line 143 "gpl.l"
 ;
 	YY_BREAK
 case 84:
 YY_RULE_SETUP
-#line 143 "gpl.l"
+#line 144 "gpl.l"
 return emit_int(T_INT_CONSTANT);
 	YY_BREAK
 case 85:
 YY_RULE_SETUP
-#line 144 "gpl.l"
+#line 145 "gpl.l"
 return emit_double(T_DOUBLE_CONSTANT);
 	YY_BREAK
 case 86:
 YY_RULE_SETUP
-#line 145 "gpl.l"
+#line 146 "gpl.l"
 return emit_string(T_ID);
 	YY_BREAK
 case 87:
 /* rule 87 can match eol */
 YY_RULE_SETUP
-#line 146 "gpl.l"
+#line 147 "gpl.l"
 return emit_string(T_STRING_CONSTANT);
 	YY_BREAK
 case 88:
 YY_RULE_SETUP
-#line 147 "gpl.l"
+#line 148 "gpl.l"
 ;
 	YY_BREAK
 case 89:
 YY_RULE_SETUP
-#line 148 "gpl.l"
+#line 149 "gpl.l"
 ECHO;
 	YY_BREAK
-#line 1552 "lex.yy.c"
+#line 1553 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2546,7 +2547,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 148 "gpl.l"
+#line 149 "gpl.l"
 
 
 

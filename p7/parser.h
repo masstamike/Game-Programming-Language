@@ -28,5 +28,7 @@
 #include "gpl_type.h"
 #include "variable.h"
 #include "y.tab.h"
+#include "statement.h"
+#include "statement_block.h"
 
 #endif // #ifndef PARSER_H

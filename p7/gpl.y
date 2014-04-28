@@ -1,6 +1,8 @@
 %{
 //stuff from flex that bison needs to know about:
 #include "expression.h"
+#include "statement.h"
+#include "print_stmt.h"
 extern int yylex();         // this lexer function returns next token
 extern int yyerror(char *); // used to print errors
 extern int line_count;      // the current line in the input; from arary.l
@@ -24,6 +26,8 @@ extern int line_count;      // the current line in the input; from arary.l
 #include "circle.h"
 #include "rectangle.h"
 #include "textbox.h"
+#include <stack>
+#include "event_manager.h"
 
 //#include <map>
 using namespace std;
@@ -32,6 +36,8 @@ vector<int> *int_vector;
 Symbol_table* symbol_table = Symbol_table::instance();
 Game_object* cur_object_under_construction;
 string cur_object_name;
+stack<Statement_block*> block_stack;
+
 %}
 
 // Bison fundamentally works by asking flex to get the next token, which it
@@ -45,10 +51,12 @@ string cur_object_name;
  std::string    *union_string;  // MUST be a pointer to a string (this sucks!)
  double         union_double;
  Gpl_type       union_variable_type;
- Variable*       union_variable;
+ Variable*      union_variable;
  Operator_type  union_operator_type;
  Expr*          union_expr;
  Symbol*        union_symbol;
+ Statement*     union_stmt;
+ Statement_block*   union_stmt_block;
  
 }
 // Precedence Levels:
@@ -177,6 +185,10 @@ string cur_object_name;
 %type <union_string> parameter_list_or_empty
 %type <union_int> object_type
 %type <union_symbol> animation_parameter
+%type <union_stmt> print_statement
+%type <union_int> keystroke
+%type <union_stmt_block> statement_block
+%type <union_stmt_block> end_of_statement_block
 
 // special token that does not match any production
 // used for characters that are not part of the language
@@ -459,6 +471,7 @@ parameter:
                     Error::error(Error::INCORRECT_CONSTRUCTOR_PARAMETER_TYPE,
                         cur_object_name, *$1);
                     break;
+                default:break;
             }
         }
         }
@@ -570,34 +583,107 @@ check_animation_parameter:
 
 //---------------------------------------------------------------------
 on_block:
-    T_ON keystroke statement_block
+    T_ON keystroke statement_block {
+        switch($2) {
+            case T_SPACE:
+                Event_manager::instance()->add_block(0, $3);
+                break;
+            case T_LEFTARROW:
+                Event_manager::instance()->add_block(1, $3);
+                break;
+            case T_RIGHTARROW:
+                Event_manager::instance()->add_block(2, $3);
+                break;
+            case T_UPARROW:
+                Event_manager::instance()->add_block(3, $3);
+                break;
+            case T_DOWNARROW:
+                Event_manager::instance()->add_block(4, $3);
+                break;
+            case T_LEFTMOUSE_DOWN:
+                Event_manager::instance()->add_block(5, $3);
+                break;
+            case T_MIDDLEMOUSE_DOWN:
+                Event_manager::instance()->add_block(6, $3);
+                break;
+            case T_RIGHTMOUSE_DOWN:
+                Event_manager::instance()->add_block(7, $3);
+                break;
+            case T_LEFTMOUSE_UP:
+                Event_manager::instance()->add_block(8, $3);
+                break;
+            case T_MIDDLEMOUSE_UP:
+                Event_manager::instance()->add_block(9, $3);
+                break;
+            case T_RIGHTMOUSE_UP:
+                Event_manager::instance()->add_block(10, $3);
+                break;
+            case T_MOUSE_MOVE:
+                Event_manager::instance()->add_block(11, $3);
+                break;
+            case T_MOUSE_DRAG:
+                Event_manager::instance()->add_block(12, $3);
+                break;
+            case T_F1:
+                Event_manager::instance()->add_block(13, $3);
+                break;
+            case T_AKEY:
+                Event_manager::instance()->add_block(14, $3);
+                break;
+            case T_SKEY:
+                Event_manager::instance()->add_block(15, $3);
+                break;
+            case T_DKEY:
+                Event_manager::instance()->add_block(16, $3);
+                break;
+            case T_FKEY:
+                Event_manager::instance()->add_block(17, $3);
+                break;
+            case T_HKEY:
+                Event_manager::instance()->add_block(18, $3);
+                break;
+            case T_JKEY:
+                Event_manager::instance()->add_block(19, $3);
+                break;
+            case T_KKEY:
+                Event_manager::instance()->add_block(20, $3);
+                break;
+            case T_LKEY:
+                Event_manager::instance()->add_block(21, $3);
+                break;
+            case T_WKEY:
+                Event_manager::instance()->add_block(22, $3);
+                break;
+            default:break;
+        }
+    }
     ;
 
 //---------------------------------------------------------------------
 keystroke:
-    T_SPACE
-    | T_UPARROW
-    | T_DOWNARROW
-    | T_LEFTARROW
-    | T_RIGHTARROW
-    | T_LEFTMOUSE_DOWN
-    | T_MIDDLEMOUSE_DOWN
-    | T_RIGHTMOUSE_DOWN
-    | T_LEFTMOUSE_UP
-    | T_MIDDLEMOUSE_UP
-    | T_RIGHTMOUSE_UP
-    | T_MOUSE_MOVE
-    | T_MOUSE_DRAG
-    | T_AKEY 
-    | T_SKEY 
-    | T_DKEY 
-    | T_FKEY 
-    | T_HKEY 
-    | T_JKEY 
-    | T_KKEY 
-    | T_LKEY 
-    | T_WKEY 
-    | T_F1
+    T_SPACE{$$=T_SPACE;}
+    | T_UPARROW{$$=T_UPARROW;}
+    | T_DOWNARROW{$$=T_DOWNARROW;}
+    | T_LEFTARROW{$$=T_LEFTARROW;}
+    | T_RIGHTARROW{$$=T_RIGHTARROW;}
+    | T_LEFTMOUSE_DOWN{$$=T_LEFTMOUSE_DOWN;}
+    | T_MIDDLEMOUSE_DOWN{$$=T_MIDDLEMOUSE_DOWN;}
+    | T_RIGHTMOUSE_DOWN{$$=T_RIGHTMOUSE_DOWN;}
+    | T_LEFTMOUSE_UP{$$=T_LEFTMOUSE_UP;}
+    | T_MIDDLEMOUSE_UP{$$=T_MIDDLEMOUSE_UP;}
+    | T_RIGHTMOUSE_UP{$$=T_RIGHTMOUSE_UP;}
+    | T_MOUSE_MOVE{$$=T_MOUSE_MOVE;}
+    | T_MOUSE_DRAG{$$=T_MOUSE_DRAG;}
+    | T_AKEY {$$=T_AKEY;}
+    | T_SKEY {$$=T_SKEY;}
+    | T_DKEY {$$=T_DKEY;}
+    | T_FKEY {$$=T_FKEY;}
+    | T_HKEY {$$=T_HKEY;}
+    | T_JKEY {$$=T_JKEY;}
+    | T_KKEY {$$=T_KKEY;}
+    | T_LKEY {$$=T_LKEY;}
+    | T_WKEY {$$=T_WKEY;}
+    | T_F1{$$=T_F1;}
     ;
 
 //---------------------------------------------------------------------
@@ -608,17 +694,26 @@ if_block:
 
 //---------------------------------------------------------------------
 statement_block:
-    T_LBRACE statement_block_creator statement_list T_RBRACE end_of_statement_block
+    T_LBRACE statement_block_creator statement_list T_RBRACE end_of_statement_block {
+        $$=$5;
+    }
     ;
 
 //---------------------------------------------------------------------
 statement_block_creator:
     // this goes to nothing so that you can put an action here in p7
+    {
+        block_stack.push(new Statement_block(line_count));
+    }
     ;
 
 //---------------------------------------------------------------------
 end_of_statement_block:
     // this goes to nothing so that you can put an action here in p7
+    {
+        $$ = block_stack.top();
+        block_stack.pop();
+    }
     ;
 
 //---------------------------------------------------------------------
@@ -649,7 +744,9 @@ for_statement:
 
 //---------------------------------------------------------------------
 print_statement:
-    T_PRINT T_LPAREN expression T_RPAREN
+    T_PRINT T_LPAREN expression T_RPAREN {
+        block_stack.top()->add(new Print_stmt(line_count,$3));
+    }
     ;
 
 //---------------------------------------------------------------------
@@ -738,6 +835,7 @@ variable:
                                 Error::INCORRECT_CONSTRUCTOR_PARAMETER_TYPE,
                                 *$1, *$3);
                             break;
+                        default:break;
                     }
                     int* val_int = new int(var_int);
                     $$=new Variable(*$3, new Symbol(*$3,val_int,"int"),
@@ -758,6 +856,7 @@ variable:
                                 Error::INCORRECT_CONSTRUCTOR_PARAMETER_TYPE,
                                 *$1, *$3);
                             break;
+                        default:break;
                     }
                     double* val_double = new double(var_double);
                     $$=new Variable(*$3, new Symbol(*$3,val_double,"double"),
@@ -778,12 +877,14 @@ variable:
                                 Error::INCORRECT_CONSTRUCTOR_PARAMETER_TYPE,
                                 *$1, *$3);
                             break;
+                        default:break;
                     }
                     string* val_str = new string(var_string);
                     $$=new Variable(*$3, new Symbol(*$3,val_str, "string"),
                        "string");
                     break;
                 }
+                default:break;
             }
         } else {
             Error::error(Error::UNDECLARED_VARIABLE,*$1);
@@ -839,6 +940,7 @@ variable:
                        "string");
                     break;
                 }
+                default:break;
             }
         } else {
             stringstream ss;

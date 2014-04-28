@@ -8,6 +8,10 @@ Statement_block::Statement_block(int block_line)
   m_line = block_line;
 }
 
+void Statement_block::add(Statement* stmt) {
+    m_stmts.push_back(stmt);
+}
+
 // Return true if this statement_block has no statements, false otherwise
 // Implement this function for p7 (but you won't need it until p8)
 bool Statement_block::empty()
@@ -17,10 +21,11 @@ bool Statement_block::empty()
   // So define it when you implement p7
 
   // **** remove this assert when you implement empty();
-//  assert(false); 
+  //  assert(false); 
+    return m_stmts.empty()?true:false;
 
   // place holder to keep the compiler from issuing a warning
-  return true;
+  //  return true;
 }
 
 // this function is called for all non-animation_block statement_blocks
@@ -32,7 +37,11 @@ void Statement_block::execute()
   // is called before it is implemented.
 
   // *** ==> Remove this assert when you implement this function
-  assert(false);
+//  assert(false);
+    for(std::vector<Statement*>::iterator it = m_stmts.begin();
+        it != m_stmts.end(); it++) {
+        (*it)->execute();
+    }
 }
 
 ostream & Statement_block::print(ostream &os) const

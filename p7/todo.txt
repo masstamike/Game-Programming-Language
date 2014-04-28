@@ -1,2 +1,0 @@
-Work on member variables, start with gpl.y:661 and reference step 9 on
-assignment write up.

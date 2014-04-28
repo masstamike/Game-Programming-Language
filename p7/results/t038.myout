@@ -155,6 +155,9 @@ string strings[2] ""
 double x 3.145
 gpl.cpp::main() Calling window->initialize().
 gpl.cpp::main() Passing control to window->main_loop().
+gpl[28]: i = 42
+gpl[30]: x = 3.145
+gpl[32]: s = hello
 
 Printing the symbol table from signal_handler()
 double doubles[0] 0
