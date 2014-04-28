@@ -905,6 +905,8 @@ variable:
         }
     }
     | T_ID T_LBRACKET expression T_RBRACKET T_PERIOD T_ID {
+        game_flag=true;
+        cur_member_name = *$6;
         if($3->get_type() !=  "int") {
             string s2=$3->get_type();
             s2="A "+s2+" expression";
@@ -916,6 +918,7 @@ variable:
         stringstream ss;
         ss<<index;
         array = array + "[" + ss.str() + "]";
+        cur_object_name = array;
         Symbol* sym = symbol_table->find(array);
         if(sym->m_type == "int" || sym->m_type == "double" ||
             sym->m_type == "string" || sym->m_type == "animation_block") {

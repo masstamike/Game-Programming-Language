@@ -191,7 +191,7 @@ game_object circles[1]
     user_string5 = string(""),
     visible = int(1),
     w = int(20),
-    x = int(0),
+    x = int(1),
     y = int(0)
   }
 game_object circles[2]
@@ -222,7 +222,7 @@ game_object circles[2]
     user_string5 = string(""),
     visible = int(1),
     w = int(20),
-    x = int(0),
+    x = int(2),
     y = int(0)
   }
 double doubles[0] 0
