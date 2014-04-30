@@ -16,7 +16,7 @@ class Assign_stmt : public Statement{
         Expr* m_expr;
         Variable* m_var;
         std::string m_object, m_member;
-        bool game_flag=false;
+        bool game_flag;
 };
 
 #endif

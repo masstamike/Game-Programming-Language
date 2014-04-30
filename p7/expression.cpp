@@ -579,6 +579,35 @@ std::string Expr::eval_string() {
             double d = *(double*) m_var->m_sym->m_value;
             ss<<d;
             return ss.str();
+        } else if (m_var->m_sym->get_game_object_value()) {
+            Gpl_type type;
+            Game_object* obj = m_var->m_sym->get_game_object_value();
+            obj->get_member_variable_type(m_var->m_type, type);
+            switch (type) {
+                case INT: {
+                    int ival;
+                    obj->get_member_variable(m_var->m_type, ival);
+                    ss<<ival;
+                    return ss.str();
+                    break;
+                }
+                case DOUBLE: {
+                    double dval;
+                    obj->get_member_variable(m_var->m_type, dval);
+                    ss<<dval;
+                    return ss.str();
+                    break;
+                }
+                case STRING: {
+                    std::string sval;
+                    obj->get_member_variable(m_var->m_type, sval);
+                    return sval;
+                    break;
+                }
+                default:break;
+            }
+            
+            
         }
     } else {
         return m_str; //just for now

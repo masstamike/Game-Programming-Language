@@ -6,6 +6,7 @@ using namespace std;
 Assign_stmt::Assign_stmt(Variable* var, Expr* expr) {
     m_var = var;
     m_expr = expr;
+    game_flag=false;
 }
 
 Assign_stmt::Assign_stmt(std::string object, std::string member, Expr* expr) {

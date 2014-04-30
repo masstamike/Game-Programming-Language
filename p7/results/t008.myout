@@ -128,8 +128,8 @@ gpl[30]: strings[0] = zero
 gpl[31]: strings[1] = one
 gpl[32]: strings[2] = two
 gpl[33]: circles[0].x = 0
-gpl[34]: circles[1].x = 0
-gpl[35]: circles[2].x = 0
+gpl[34]: circles[1].x = 1
+gpl[35]: circles[2].x = 2
 
 Printing the symbol table from signal_handler()
 game_object circles[0]

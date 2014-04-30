@@ -14,7 +14,7 @@
 #           if you rename the file from Makefile to makefile you must
 #               change the dependency for gpl.o (hard to notice on WinXp & OSX)
 
-CXX = g++ -std=c++11
+CXX = g++ -std=c++0x
 CPPFLAGS = -g -Wall -pedantic
 
 # ************************************************************************
@@ -123,117 +123,120 @@ clean:
 
 error.o: error.h
 gpl_assert.o: /usr/include/stdlib.h /usr/include/features.h
-gpl_assert.o: /usr/include/stdc-predef.h /usr/include/alloca.h
+gpl_assert.o: /usr/include/alloca.h
 gpl.o: parser.h expression.h gpl_type.h variable.h symbol.h game_object.h
 gpl.o: /usr/include/GL/gl.h /usr/include/GL/glext.h /usr/include/inttypes.h
-gpl.o: /usr/include/features.h /usr/include/stdc-predef.h
-gpl.o: /usr/include/stdint.h /usr/include/GL/glu.h animation_block.h
-gpl.o: statement_block.h indent.h y.tab.h error.h gpl_assert.h
-gpl.o: /usr/include/signal.h /usr/include/time.h /usr/include/stdlib.h
-gpl.o: /usr/include/alloca.h /usr/include/string.h /usr/include/xlocale.h
-gpl.o: /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h
-gpl.o: /usr/include/wchar.h
+gpl.o: /usr/include/features.h /usr/include/stdint.h /usr/include/GL/glu.h
+gpl.o: animation_block.h statement_block.h indent.h statement.h y.tab.h
+gpl.o: error.h gpl_assert.h /usr/include/signal.h /usr/include/time.h
+gpl.o: /usr/include/stdlib.h /usr/include/alloca.h /usr/include/string.h
+gpl.o: /usr/include/xlocale.h /usr/include/stdio.h /usr/include/libio.h
+gpl.o: /usr/include/_G_config.h /usr/include/wchar.h
 indent.o: indent.h gpl_assert.h
 symbol.o: symbol.h game_object.h gpl_type.h /usr/include/GL/gl.h
 symbol.o: /usr/include/GL/glext.h /usr/include/inttypes.h
-symbol.o: /usr/include/features.h /usr/include/stdc-predef.h
-symbol.o: /usr/include/stdint.h /usr/include/GL/glu.h animation_block.h
-symbol.o: statement_block.h indent.h
+symbol.o: /usr/include/features.h /usr/include/stdint.h /usr/include/GL/glu.h
+symbol.o: animation_block.h statement_block.h indent.h statement.h
 symbol_table.o: symbol_table.h symbol.h game_object.h gpl_type.h
 symbol_table.o: /usr/include/GL/gl.h /usr/include/GL/glext.h
 symbol_table.o: /usr/include/inttypes.h /usr/include/features.h
-symbol_table.o: /usr/include/stdc-predef.h /usr/include/stdint.h
-symbol_table.o: /usr/include/GL/glu.h animation_block.h statement_block.h
-symbol_table.o: indent.h
+symbol_table.o: /usr/include/stdint.h /usr/include/GL/glu.h animation_block.h
+symbol_table.o: statement_block.h indent.h statement.h
 expression.o: expression.h gpl_type.h variable.h symbol.h game_object.h
 expression.o: /usr/include/GL/gl.h /usr/include/GL/glext.h
 expression.o: /usr/include/inttypes.h /usr/include/features.h
-expression.o: /usr/include/stdc-predef.h /usr/include/stdint.h
-expression.o: /usr/include/GL/glu.h animation_block.h statement_block.h
-expression.o: indent.h
+expression.o: /usr/include/stdint.h /usr/include/GL/glu.h animation_block.h
+expression.o: statement_block.h indent.h statement.h
 variable.o: variable.h symbol.h game_object.h gpl_type.h /usr/include/GL/gl.h
 variable.o: /usr/include/GL/glext.h /usr/include/inttypes.h
-variable.o: /usr/include/features.h /usr/include/stdc-predef.h
-variable.o: /usr/include/stdint.h /usr/include/GL/glu.h animation_block.h
-variable.o: statement_block.h indent.h
+variable.o: /usr/include/features.h /usr/include/stdint.h
+variable.o: /usr/include/GL/glu.h animation_block.h statement_block.h
+variable.o: indent.h statement.h
 gpl_type.o: gpl_type.h gpl_assert.h
-animation_block.o: animation_block.h statement_block.h indent.h gpl_assert.h
+animation_block.o: animation_block.h statement_block.h indent.h statement.h
+animation_block.o: gpl_assert.h
 circle.o: circle.h game_object.h gpl_type.h /usr/include/GL/gl.h
 circle.o: /usr/include/GL/glext.h /usr/include/inttypes.h
-circle.o: /usr/include/features.h /usr/include/stdc-predef.h
-circle.o: /usr/include/stdint.h /usr/include/GL/glu.h gpl_assert.h
-event_manager.o: event_manager.h window.h gpl_assert.h
+circle.o: /usr/include/features.h /usr/include/stdint.h /usr/include/GL/glu.h
+circle.o: gpl_assert.h
+event_manager.o: event_manager.h statement_block.h indent.h statement.h
+event_manager.o: window.h gpl_assert.h
 pixmap.o: pixmap.h game_object.h gpl_type.h /usr/include/GL/gl.h
 pixmap.o: /usr/include/GL/glext.h /usr/include/inttypes.h
-pixmap.o: /usr/include/features.h /usr/include/stdc-predef.h
-pixmap.o: /usr/include/stdint.h /usr/include/GL/glu.h /usr/include/GL/glut.h
-pixmap.o: /usr/include/GL/freeglut_std.h /usr/include/stdlib.h
-pixmap.o: /usr/include/alloca.h gpl_assert.h /usr/include/stdio.h
-pixmap.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
-pixmap.o: default_pixmap.h
+pixmap.o: /usr/include/features.h /usr/include/stdint.h /usr/include/GL/glu.h
+pixmap.o: /usr/include/GL/glut.h /usr/include/GL/freeglut_std.h
+pixmap.o: /usr/include/stdlib.h /usr/include/alloca.h gpl_assert.h
+pixmap.o: /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h
+pixmap.o: /usr/include/wchar.h /usr/include/xlocale.h default_pixmap.h
 rectangle.o: rectangle.h game_object.h gpl_type.h /usr/include/GL/gl.h
 rectangle.o: /usr/include/GL/glext.h /usr/include/inttypes.h
-rectangle.o: /usr/include/features.h /usr/include/stdc-predef.h
-rectangle.o: /usr/include/stdint.h /usr/include/GL/glu.h gpl_assert.h
-statement_block.o: statement_block.h indent.h gpl_assert.h
+rectangle.o: /usr/include/features.h /usr/include/stdint.h
+rectangle.o: /usr/include/GL/glu.h gpl_assert.h
+statement_block.o: statement_block.h indent.h statement.h gpl_assert.h
 textbox.o: textbox.h game_object.h gpl_type.h /usr/include/GL/gl.h
 textbox.o: /usr/include/GL/glext.h /usr/include/inttypes.h
-textbox.o: /usr/include/features.h /usr/include/stdc-predef.h
-textbox.o: /usr/include/stdint.h /usr/include/GL/glu.h /usr/include/GL/glut.h
+textbox.o: /usr/include/features.h /usr/include/stdint.h
+textbox.o: /usr/include/GL/glu.h /usr/include/GL/glut.h
 textbox.o: /usr/include/GL/freeglut_std.h /usr/include/stdlib.h
 textbox.o: /usr/include/alloca.h gpl_assert.h
 triangle.o: triangle.h game_object.h gpl_type.h /usr/include/GL/gl.h
 triangle.o: /usr/include/GL/glext.h /usr/include/inttypes.h
-triangle.o: /usr/include/features.h /usr/include/stdc-predef.h
-triangle.o: /usr/include/stdint.h /usr/include/GL/glu.h gpl_assert.h
+triangle.o: /usr/include/features.h /usr/include/stdint.h
+triangle.o: /usr/include/GL/glu.h gpl_assert.h
 window.o: window.h symbol_table.h symbol.h game_object.h gpl_type.h
 window.o: /usr/include/GL/gl.h /usr/include/GL/glext.h
 window.o: /usr/include/inttypes.h /usr/include/features.h
-window.o: /usr/include/stdc-predef.h /usr/include/stdint.h
-window.o: /usr/include/GL/glu.h animation_block.h statement_block.h indent.h
-window.o: event_manager.h gpl_assert.h /usr/include/unistd.h
-window.o: /usr/include/getopt.h /usr/include/signal.h /usr/include/time.h
-window.o: /usr/include/stdlib.h /usr/include/alloca.h /usr/include/stdio.h
-window.o: /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h
-window.o: /usr/include/string.h /usr/include/xlocale.h /usr/include/GL/glut.h
+window.o: /usr/include/stdint.h /usr/include/GL/glu.h animation_block.h
+window.o: statement_block.h indent.h statement.h event_manager.h gpl_assert.h
+window.o: /usr/include/unistd.h /usr/include/getopt.h /usr/include/ctype.h
+window.o: /usr/include/endian.h /usr/include/xlocale.h /usr/include/signal.h
+window.o: /usr/include/time.h /usr/include/stdlib.h /usr/include/alloca.h
+window.o: /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h
+window.o: /usr/include/wchar.h /usr/include/string.h /usr/include/GL/glut.h
 window.o: /usr/include/GL/freeglut_std.h
 game_object.o: game_object.h gpl_type.h /usr/include/GL/gl.h
 game_object.o: /usr/include/GL/glext.h /usr/include/inttypes.h
-game_object.o: /usr/include/features.h /usr/include/stdc-predef.h
-game_object.o: /usr/include/stdint.h /usr/include/GL/glu.h animation_block.h
-game_object.o: statement_block.h indent.h gpl_assert.h error.h
+game_object.o: /usr/include/features.h /usr/include/stdint.h
+game_object.o: /usr/include/GL/glu.h animation_block.h statement_block.h
+game_object.o: indent.h statement.h gpl_assert.h error.h
 statement.o: statement.h
 print_stmt.o: print_stmt.h statement.h expression.h gpl_type.h variable.h
 print_stmt.o: symbol.h game_object.h /usr/include/GL/gl.h
 print_stmt.o: /usr/include/GL/glext.h /usr/include/inttypes.h
-print_stmt.o: /usr/include/features.h /usr/include/stdc-predef.h
-print_stmt.o: /usr/include/stdint.h /usr/include/GL/glu.h animation_block.h
-print_stmt.o: statement_block.h indent.h
+print_stmt.o: /usr/include/features.h /usr/include/stdint.h
+print_stmt.o: /usr/include/GL/glu.h animation_block.h statement_block.h
+print_stmt.o: indent.h
+assign_stmt.o: assign_stmt.h statement.h expression.h gpl_type.h variable.h
+assign_stmt.o: symbol.h game_object.h /usr/include/GL/gl.h
+assign_stmt.o: /usr/include/GL/glext.h /usr/include/inttypes.h
+assign_stmt.o: /usr/include/features.h /usr/include/stdint.h
+assign_stmt.o: /usr/include/GL/glu.h animation_block.h statement_block.h
+assign_stmt.o: indent.h symbol_table.h
 y.tab.o: expression.h gpl_type.h variable.h symbol.h game_object.h
 y.tab.o: /usr/include/GL/gl.h /usr/include/GL/glext.h /usr/include/inttypes.h
-y.tab.o: /usr/include/features.h /usr/include/stdc-predef.h
-y.tab.o: /usr/include/stdint.h /usr/include/GL/glu.h animation_block.h
-y.tab.o: statement_block.h indent.h error.h gpl_assert.h parser.h y.tab.h
+y.tab.o: /usr/include/features.h /usr/include/stdint.h /usr/include/GL/glu.h
+y.tab.o: animation_block.h statement_block.h indent.h statement.h
+y.tab.o: print_stmt.h assign_stmt.h error.h gpl_assert.h parser.h y.tab.h
 y.tab.o: symbol_table.h triangle.h pixmap.h /usr/include/GL/glut.h
 y.tab.o: /usr/include/GL/freeglut_std.h /usr/include/stdlib.h
-y.tab.o: /usr/include/alloca.h circle.h rectangle.h textbox.h statement.h
-y.tab.o: print_stmt.h
-lex.yy.o: /usr/include/stdio.h /usr/include/features.h
-lex.yy.o: /usr/include/stdc-predef.h /usr/include/libio.h
-lex.yy.o: /usr/include/_G_config.h /usr/include/wchar.h /usr/include/string.h
-lex.yy.o: /usr/include/xlocale.h /usr/include/errno.h /usr/include/stdlib.h
-lex.yy.o: /usr/include/alloca.h error.h parser.h expression.h gpl_type.h
-lex.yy.o: variable.h symbol.h game_object.h /usr/include/GL/gl.h
-lex.yy.o: /usr/include/GL/glext.h /usr/include/inttypes.h
-lex.yy.o: /usr/include/stdint.h /usr/include/GL/glu.h animation_block.h
-lex.yy.o: statement_block.h indent.h y.tab.h statement.h
-lex.yy.o: /usr/include/unistd.h /usr/include/getopt.h
+y.tab.o: /usr/include/alloca.h circle.h rectangle.h textbox.h event_manager.h
+y.tab.o: window.h
+lex.yy.o: /usr/include/stdio.h /usr/include/features.h /usr/include/libio.h
+lex.yy.o: /usr/include/_G_config.h /usr/include/wchar.h
+lex.yy.o: /usr/include/xlocale.h /usr/include/string.h /usr/include/errno.h
+lex.yy.o: /usr/include/stdlib.h /usr/include/alloca.h error.h parser.h
+lex.yy.o: expression.h gpl_type.h variable.h symbol.h game_object.h
+lex.yy.o: /usr/include/GL/gl.h /usr/include/GL/glext.h
+lex.yy.o: /usr/include/inttypes.h /usr/include/stdint.h /usr/include/GL/glu.h
+lex.yy.o: animation_block.h statement_block.h indent.h statement.h y.tab.h
+lex.yy.o: /usr/include/unistd.h /usr/include/getopt.h /usr/include/ctype.h
+lex.yy.o: /usr/include/endian.h
 gpl.o: expression.h gpl_type.h variable.h symbol.h game_object.h
 gpl.o: /usr/include/GL/gl.h /usr/include/GL/glext.h /usr/include/inttypes.h
-gpl.o: /usr/include/features.h /usr/include/stdc-predef.h
-gpl.o: /usr/include/stdint.h /usr/include/GL/glu.h animation_block.h
-gpl.o: statement_block.h indent.h error.h gpl_assert.h parser.h y.tab.h
-gpl.o: symbol_table.h triangle.h pixmap.h /usr/include/GL/glut.h
+gpl.o: /usr/include/features.h /usr/include/stdint.h /usr/include/GL/glu.h
+gpl.o: animation_block.h statement_block.h indent.h statement.h print_stmt.h
+gpl.o: assign_stmt.h error.h gpl_assert.h parser.h y.tab.h symbol_table.h
+gpl.o: triangle.h pixmap.h /usr/include/GL/glut.h
 gpl.o: /usr/include/GL/freeglut_std.h /usr/include/stdlib.h
-gpl.o: /usr/include/alloca.h circle.h rectangle.h textbox.h statement.h
-gpl.o: print_stmt.h
+gpl.o: /usr/include/alloca.h circle.h rectangle.h textbox.h event_manager.h
+gpl.o: window.h
