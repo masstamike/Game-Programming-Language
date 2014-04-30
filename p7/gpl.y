@@ -5,6 +5,7 @@
 #include "print_stmt.h"
 #include "assign_stmt.h"
 #include "if_stmt.h"
+#include "exit_stmt.h"
 extern int yylex();         // this lexer function returns next token
 extern int yyerror(char *); // used to print errors
 extern int line_count;      // the current line in the input; from arary.l
@@ -761,7 +762,9 @@ print_statement:
 
 //---------------------------------------------------------------------
 exit_statement:
-    T_EXIT T_LPAREN expression T_RPAREN
+    T_EXIT T_LPAREN expression T_RPAREN {
+        block_stack.top()->add(new Exit_stmt(line_count,$3));
+    }
     ;
 
 //---------------------------------------------------------------------

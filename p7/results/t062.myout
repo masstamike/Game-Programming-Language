@@ -21,4 +21,4 @@ gpl.cpp::main() Passing control to window->main_loop().
 
 Printing the symbol table from signal_handler()
 string s ""
-double x 1.38524e-309
+double x 2.11371e-314
