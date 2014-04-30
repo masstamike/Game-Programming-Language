@@ -4,6 +4,7 @@
 #include "statement.h"
 #include "print_stmt.h"
 #include "assign_stmt.h"
+#include "if_stmt.h"
 extern int yylex();         // this lexer function returns next token
 extern int yyerror(char *); // used to print errors
 extern int line_count;      // the current line in the input; from arary.l
@@ -191,6 +192,7 @@ bool game_flag;
 %type <union_stmt> print_statement
 %type <union_int> keystroke
 %type <union_stmt_block> statement_block
+%type <union_stmt_block> if_block
 %type <union_stmt_block> end_of_statement_block
 
 // special token that does not match any production
@@ -691,8 +693,8 @@ keystroke:
 
 //---------------------------------------------------------------------
 if_block:
-    statement_block_creator statement end_of_statement_block
-    | statement_block
+    statement_block_creator statement end_of_statement_block {$$=$3;}
+    | statement_block {$$=$1;}
     ;
 
 //---------------------------------------------------------------------
@@ -736,8 +738,13 @@ statement:
 
 //---------------------------------------------------------------------
 if_statement:
-    T_IF T_LPAREN expression T_RPAREN if_block %prec IF_NO_ELSE
-    | T_IF T_LPAREN expression T_RPAREN if_block T_ELSE if_block
+    T_IF T_LPAREN expression T_RPAREN if_block %prec IF_NO_ELSE {
+        block_stack.top()->add(new If_stmt($3, $5));
+    }
+    | T_IF T_LPAREN expression T_RPAREN if_block T_ELSE if_block {
+        block_stack.top()->add(new If_stmt($3, $5, $7));
+        
+    }
     ;
 
 //---------------------------------------------------------------------
