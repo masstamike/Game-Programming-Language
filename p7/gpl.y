@@ -6,6 +6,7 @@
 #include "assign_stmt.h"
 #include "if_stmt.h"
 #include "exit_stmt.h"
+#include "for_stmt.h"
 extern int yylex();         // this lexer function returns next token
 extern int yyerror(char *); // used to print errors
 extern int line_count;      // the current line in the input; from arary.l
@@ -750,7 +751,11 @@ if_statement:
 
 //---------------------------------------------------------------------
 for_statement:
-    T_FOR T_LPAREN statement_block_creator assign_statement end_of_statement_block T_SEMIC expression T_SEMIC statement_block_creator assign_statement end_of_statement_block T_RPAREN statement_block
+    T_FOR T_LPAREN statement_block_creator assign_statement
+    end_of_statement_block T_SEMIC expression T_SEMIC statement_block_creator
+    assign_statement end_of_statement_block T_RPAREN statement_block {
+        block_stack.top()->add(new For_stmt($5, $7, $11, $13));
+    }
     ;
 
 //---------------------------------------------------------------------

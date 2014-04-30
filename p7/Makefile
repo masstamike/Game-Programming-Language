@@ -47,13 +47,13 @@ C++SRC = error.cpp gpl_assert.cpp gpl.cpp indent.cpp symbol.cpp\
          animation_block.cpp circle.cpp event_manager.cpp pixmap.cpp\
          rectangle.cpp statement_block.cpp textbox.cpp triangle.cpp window.cpp\
          game_object.cpp statement.cpp print_stmt.cpp assign_stmt.cpp\
-         if_stmt.cpp exit_stmt.cpp
+         if_stmt.cpp exit_stmt.cpp for_stmt.cpp
 	 
 C++OBJ = error.o gpl_assert.o gpl.o indent.o symbol.o symbol_table.o\
          expression.o variable.o gpl_type.o animation_block.o circle.o\
          event_manager.o pixmap.o rectangle.o statement_block.o textbox.o\
          triangle.o window.o game_object.o statement.o print_stmt.o\
-         assign_stmt.o if_stmt.o exit_stmt.o
+         assign_stmt.o if_stmt.o exit_stmt.o for_stmt.o
 
 # command to compile the gpl executable
 gpl: y.tab.o lex.yy.o $(C++OBJ)
