@@ -2734,8 +2734,8 @@ yyreduce:
                         default:break;
                     }
                     double* val_double = new double(var_double);
-                    (yyval.union_variable)=new Variable(*(yyvsp[(3) - (3)].union_string), new Symbol(*(yyvsp[(3) - (3)].union_string),val_double,"double"),
-                       "double");
+                    (yyval.union_variable)=new Variable(*(yyvsp[(3) - (3)].union_string), new Symbol(*(yyvsp[(3) - (3)].union_string),val_double,
+                        "double"),"double");
                     break;
                 }
                 case STRING: {

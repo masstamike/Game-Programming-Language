@@ -904,8 +904,8 @@ variable:
                         default:break;
                     }
                     double* val_double = new double(var_double);
-                    $$=new Variable(*$3, new Symbol(*$3,val_double,"double"),
-                       "double");
+                    $$=new Variable(*$3, new Symbol(*$3,val_double,
+                        "double"),"double");
                     break;
                 }
                 case STRING: {
