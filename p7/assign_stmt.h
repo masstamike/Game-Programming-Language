@@ -8,8 +8,8 @@
 
 class Assign_stmt : public Statement{
     public:
-        Assign_stmt(Variable*, Expr*);
-        Assign_stmt(std::string, std::string, Expr*);
+        Assign_stmt(Variable*, Expr*, int);
+        Assign_stmt(std::string, std::string, Expr*, int);
         virtual void execute();
 
     private:
@@ -17,6 +17,7 @@ class Assign_stmt : public Statement{
         Variable* m_var;
         std::string m_object, m_member;
         bool game_flag;
+        int assign_type;
 };
 
 #endif

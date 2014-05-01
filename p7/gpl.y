@@ -777,13 +777,30 @@ assign_statement:
     variable T_ASSIGN expression {
         if(game_flag) {
             block_stack.top()->add(new Assign_stmt(cur_object_name,
-            cur_member_name, $3));
+            cur_member_name, $3,0));
             game_flag = false;
         }
-        block_stack.top()->add(new Assign_stmt($1,$3));
+        else
+            block_stack.top()->add(new Assign_stmt($1,$3,0));
     }
-    | variable T_PLUS_ASSIGN expression
-    | variable T_MINUS_ASSIGN expression
+    | variable T_PLUS_ASSIGN expression {
+        if(game_flag) {
+            block_stack.top()->add(new Assign_stmt(cur_object_name,
+            cur_member_name, $3,1));
+            game_flag = false;
+        }
+        else
+            block_stack.top()->add(new Assign_stmt($1,$3,1));
+    }
+    | variable T_MINUS_ASSIGN expression {
+        if(game_flag) {
+            block_stack.top()->add(new Assign_stmt(cur_object_name,
+            cur_member_name, $3,2));
+            game_flag = false;
+        }
+        else
+            block_stack.top()->add(new Assign_stmt($1,$3,2));
+    }
     ;
 
 //---------------------------------------------------------------------

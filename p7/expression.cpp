@@ -336,8 +336,6 @@ int Expr::eval_int() {
         }
     } else if (m_kind == "variable") {
         if(m_var->m_sym->m_type == "int") {
-            std::cout<<"int "<<m_var->m_sym->m_name<<" = "
-                    <<*(int*) m_var->m_sym->m_value<<std::endl;
             return *(int*) m_var->m_sym->m_value;
         }
         //else
