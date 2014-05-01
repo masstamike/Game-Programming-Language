@@ -883,8 +883,8 @@ variable:
                         default:break;
                     }
                     int* val_int = new int(var_int);
-                    $$=new Variable(*$3, new Symbol(*$3,val_int,"int"),
-                        "int");
+                    $$=new Variable(cur_member_name, var,
+                        "game_object");
                     break;
                 }
                 case DOUBLE: {

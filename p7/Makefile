@@ -14,7 +14,7 @@
 #           if you rename the file from Makefile to makefile you must
 #               change the dependency for gpl.o (hard to notice on WinXp & OSX)
 
-CXX = g++ -std=c++0x
+CXX = g++ -std=c++11
 CPPFLAGS = -g -Wall -pedantic
 
 # ************************************************************************
