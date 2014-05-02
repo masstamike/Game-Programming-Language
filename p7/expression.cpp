@@ -569,6 +569,7 @@ std::string Expr::eval_string() {
             default:break;
         }
     } else if (m_kind=="variable") {
+            std::cout<<"well i got this going for me\n";
         if(m_var->m_sym->m_type == "string") {
             std::string s=*(std::string*) m_var->m_sym->m_value;
             return s;

@@ -968,8 +968,8 @@ variable:
                     int* val_int = new int(var_int);
 //                    $$=new Variable(*$6, new Symbol(*$6,val_int,"int"),
 //                        "int");
-                    $$=new Variable(*$6, new Symbol(array,
-                        sym->get_game_object_value(), "game_object"), *$6);
+                    $$=new Variable(cur_member_name,
+                        sym, "game_object");
                     break;
                 }
                 case DOUBLE: {

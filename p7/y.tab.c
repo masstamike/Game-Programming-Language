@@ -2729,8 +2729,8 @@ yyreduce:
                     int* val_int = new int(var_int);
 //                    $$=new Variable(*$6, new Symbol(*$6,val_int,"int"),
 //                        "int");
-                    (yyval.union_variable)=new Variable(*(yyvsp[(6) - (6)].union_string), new Symbol(array,
-                        sym->get_game_object_value(), "game_object"), *(yyvsp[(6) - (6)].union_string));
+                    (yyval.union_variable)=new Variable(cur_member_name,
+                        sym, "game_object");
                     break;
                 }
                 case DOUBLE: {
