@@ -569,19 +569,23 @@ std::string Expr::eval_string() {
             default:break;
         }
     } else if (m_kind=="variable") {
-            std::cout<<"well i got this going for me\n";
+//            std::cout<<"well i got this going for me\n";
         if(m_var->m_sym->m_type == "string") {
+//            std::cout<<"string "<<m_var->m_id<<std::endl;
             std::string s=*(std::string*) m_var->m_sym->m_value;
             return s;
         } else if (m_var->m_sym->m_type == "int") {
+//            std::cout<<"int"<<m_var->m_id<<std::endl;
             int i = *(int*) m_var->m_sym->m_value;
             ss<<i;
             return ss.str();
         } else if (m_var->m_sym->m_type == "double") {
+//            std::cout<<"double"<<m_var->m_id<<std::endl;
             double d = *(double*) m_var->m_sym->m_value;
             ss<<d;
             return ss.str();
-        } else if (m_var->m_sym->get_game_object_value()) {
+        } else {//if (m_var->m_sym->get_game_object_value()) {
+//            std::cout<<"else"<<m_var->m_id<<std::endl;
             Gpl_type type;
 //            Game_object* obj = m_var->m_sym->get_game_object_value();
             m_var->m_sym->get_game_object_value()->get_member_variable_type(m_var->m_id, type);
