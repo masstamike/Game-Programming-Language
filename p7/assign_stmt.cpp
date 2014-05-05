@@ -1,6 +1,7 @@
 #include "assign_stmt.h"
 #include "symbol_table.h"
 #include "gpl_type.h"
+#include "error.h"
 using namespace std;
 
 Assign_stmt::Assign_stmt(Variable* var, Expr* expr, int type) {
@@ -13,6 +14,7 @@ Assign_stmt::Assign_stmt(Variable* var, Expr* expr, int type) {
 Assign_stmt::Assign_stmt(std::string object, std::string member, Expr* expr,
     int type) {
     game_flag=true;
+    m_var = NULL;
     m_object = object;
     m_member = member;
     m_expr = expr;
@@ -20,6 +22,12 @@ Assign_stmt::Assign_stmt(std::string object, std::string member, Expr* expr,
 }
 
 void Assign_stmt::execute() {
+std::string variable_type, expression_type;
+if(m_var)
+    variable_type = m_var->m_type;
+expression_type = m_expr->get_type();
+if(variable_type == "int" && expression_type !="int")
+    Error::error(Error::ASSIGNMENT_TYPE_ERROR,variable_type,expression_type);
 if(game_flag) {
     Game_object* obj = Symbol_table::instance()->find(m_object)->
         get_game_object_value();
