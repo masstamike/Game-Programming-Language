@@ -154,6 +154,14 @@ Expr::Expr(Variable* var) {
     m_var = var;
     type = var->m_type;
     m_kind = "variable";
+    m_game_object = false;
+}
+
+Expr::Expr(Variable* var, bool game) {
+    m_var = var;
+    type = var->m_type;
+    m_kind = "variable";
+    m_game_object = game;
 }
 
 Expr::~Expr() {
@@ -335,11 +343,20 @@ int Expr::eval_int() {
             }
         }
     } else if (m_kind == "variable") {
-        if(m_var->m_sym->m_type == "int") {
+        if(m_game_object && m_var->m_sym->m_type != "int") {
+            int ival;
+            m_var->m_sym->get_game_object_value()->get_member_variable(
+                m_var->m_id, ival);
+            return ival;
+        } else if(m_var->m_sym->m_type == "int") {
             return *(int*) m_var->m_sym->m_value;
         }
-        //else
-            //error
+        else {
+            int ival;
+            m_var->m_sym->get_game_object_value()->get_member_variable(
+                m_var->m_id, ival);
+            return ival;
+        }
     }
 }
 
@@ -569,23 +586,18 @@ std::string Expr::eval_string() {
             default:break;
         }
     } else if (m_kind=="variable") {
-//            std::cout<<"well i got this going for me\n";
-        if(m_var->m_sym->m_type == "string") {
-//            std::cout<<"string "<<m_var->m_id<<std::endl;
+        if(m_var->m_type == "string") {
             std::string s=*(std::string*) m_var->m_sym->m_value;
             return s;
-        } else if (m_var->m_sym->m_type == "int") {
-//            std::cout<<"int"<<m_var->m_id<<std::endl;
+        } else if (m_var->m_type == "int") {
             int i = *(int*) m_var->m_sym->m_value;
             ss<<i;
             return ss.str();
-        } else if (m_var->m_sym->m_type == "double") {
-//            std::cout<<"double"<<m_var->m_id<<std::endl;
+        } else if (m_var->m_type == "double") {
             double d = *(double*) m_var->m_sym->m_value;
             ss<<d;
             return ss.str();
         } else {//if (m_var->m_sym->get_game_object_value()) {
-//            std::cout<<"else"<<m_var->m_id<<std::endl;
             Gpl_type type;
 //            Game_object* obj = m_var->m_sym->get_game_object_value();
             m_var->m_sym->get_game_object_value()->get_member_variable_type(m_var->m_id, type);

@@ -251,8 +251,9 @@ variable_declaration:
                 $3->eval_double():0.0),"double"));
         else if($1 == STRING) {
             stringstream ss;
-            if(!$3)
+            if(!$3) {
                 ss << "";
+            }
             else if($3->get_type() == "int") {
                 ss << $3->eval_int();}
             else if($3->get_type() == "double")
@@ -775,13 +776,16 @@ exit_statement:
 //---------------------------------------------------------------------
 assign_statement:
     variable T_ASSIGN expression {
-        if(game_flag) {
+        if($1 && $1->m_type=="game_object") {
+            if($1)
             block_stack.top()->add(new Assign_stmt(cur_object_name,
             cur_member_name, $3,0));
             game_flag = false;
         }
-        else
+        else {
+            if($1)
             block_stack.top()->add(new Assign_stmt($1,$3,0));
+        }
     }
     | variable T_PLUS_ASSIGN expression {
         if(game_flag) {
@@ -808,8 +812,9 @@ variable:
     T_ID {
         Symbol* var = symbol_table->find(*$1);
         if(var) {
-            if(var->m_type == "int")
+            if(var->m_type == "int") {
                 $$=new Variable(*$1,var,"int");
+            }
             else if(var->m_type == "double")
                 $$=new Variable(*$1,var,"double");
             else if(var->m_type == "string")
@@ -1092,9 +1097,13 @@ primary_expression:
         $$=$2;
     }
     | variable {
-        if($1)
-            $$ = new Expr($1);
-        else
+        if($1 && game_flag) {
+            $$ = new Expr($1, true);
+            game_flag = false;
+        } else if($1 && !game_flag) {
+            $$ = new Expr($1, false);
+            game_flag = false;
+        } else
             $$=new Expr(0);
     }
     | T_INT_CONSTANT {

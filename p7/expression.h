@@ -12,6 +12,7 @@ class Expr {
         Expr(std::string s);//string constructor
         Expr(Operator_type, Expr*, Expr*);
         Expr(Operator_type, Expr*);
+        Expr(Variable*, bool);
         Expr(Variable*);
         Expr(Animation_block*);
         ~Expr();
@@ -25,6 +26,7 @@ class Expr {
         Operator_type m_op;
         
     private:
+        bool m_game_object;
         int m_int;
         double m_double;
         Variable* m_var;
