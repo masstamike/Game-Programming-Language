@@ -795,6 +795,13 @@ assign_statement:
         }
     }
     | variable T_PLUS_ASSIGN expression {
+        string variable_type, expression_type;
+        if($1)
+            variable_type = $1->m_type;
+        expression_type = $3->get_type();
+        if(variable_type != expression_type)
+            Error::error(Error::PLUS_ASSIGNMENT_TYPE_ERROR,variable_type,
+                expression_type);
         if(game_flag) {
             block_stack.top()->add(new Assign_stmt(cur_object_name,
             cur_member_name, $3,1));
@@ -804,6 +811,13 @@ assign_statement:
             block_stack.top()->add(new Assign_stmt($1,$3,1));
     }
     | variable T_MINUS_ASSIGN expression {
+        string variable_type, expression_type;
+        if($1)
+            variable_type = $1->m_type;
+        expression_type = $3->get_type();
+        if(variable_type != expression_type)
+            Error::error(Error::MINUS_ASSIGNMENT_TYPE_ERROR,variable_type,
+                expression_type);
         if(game_flag) {
             block_stack.top()->add(new Assign_stmt(cur_object_name,
             cur_member_name, $3,2));
