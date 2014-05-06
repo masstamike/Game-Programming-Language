@@ -13,7 +13,9 @@ Assign_stmt::Assign_stmt(Variable* var, Expr* expr, int type) {
 void Assign_stmt::execute() {
     if(m_var->m_type == "int") {
         int previous;
-        previous = m_var->get_int();
+        if(assign_type) {
+            previous = m_var->get_int();
+        }
         switch(assign_type) {
             case 0:
                 m_var->set(m_expr->eval_int());
@@ -28,7 +30,9 @@ void Assign_stmt::execute() {
     }
     else if (m_var->m_type == "double") {
         double previous;
-        previous = m_var->get_double();
+        if(assign_type) {
+            previous = m_var->get_double();
+        }
         switch(assign_type) {
             case 0:
                 m_var->set(m_expr->eval_double());
@@ -43,7 +47,9 @@ void Assign_stmt::execute() {
     }
     else if (m_var->m_type == "string") {
         std::string previous;
-        previous = m_var->get_string();
+        if(assign_type) {
+            previous = m_var->get_string();
+        }
         switch(assign_type) {
             case 0:
                 m_var->set(m_expr->eval_string());

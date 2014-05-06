@@ -1,6 +1,7 @@
 #include "variable.h"
 #include <sstream>
 #include "symbol_table.h"
+#include "error.h"
 
 Variable::Variable (std::string id, Symbol* sym) {
     m_id = id;
@@ -55,11 +56,22 @@ void Variable::set(int i) {
         if (m_member == "") {
             ss<<m_expr->eval_int();
             std::string name = m_id + "[" + ss.str() + "]";
-            *(int*) Symbol_table::instance()->find(name)->m_value = i;
+            if(Symbol_table::instance()->find(name))
+                *(int*) Symbol_table::instance()->find(name)->m_value = i;
+            else {
+                Error::error(Error::ARRAY_INDEX_OUT_OF_BOUNDS,m_id,ss.str());
+                *(int*) Symbol_table::instance()->find(m_id+"[0]")->m_value = i;
+            }
         } else {
             ss<<m_expr->eval_int();
             std::string name = m_id + "[" + ss.str() + "]";
-            Symbol_table::instance()->find(name)->get_game_object_value()->
+            if(!Symbol_table::instance()->find(name)) {
+                Error::error(Error::ARRAY_INDEX_OUT_OF_BOUNDS,m_id,ss.str());
+                Symbol_table::instance()->find(m_id+"[0]")->
+                    get_game_object_value()->set_member_variable(m_member, i);
+            }
+            else
+                Symbol_table::instance()->find(name)->get_game_object_value()->
                 set_member_variable(m_member, i);
         }
     }
@@ -76,11 +88,23 @@ void Variable::set(double d) {
         if (m_member == "") {
             ss<<m_expr->eval_double();
             std::string name = m_id + "[" + ss.str() + "]";
-            *(double*) Symbol_table::instance()->find(name)->m_value = d;
+            if(Symbol_table::instance()->find(name))
+                *(double*) Symbol_table::instance()->find(name)->m_value = d;
+            else {
+                Error::error(Error::ARRAY_INDEX_OUT_OF_BOUNDS,m_id,ss.str());
+                *(double*) Symbol_table::instance()->find(m_id+"[0]")->
+                m_value = d;
+            }
         } else {
-            ss<<m_expr->eval_double();
+            ss<<m_expr->eval_int();
             std::string name = m_id + "[" + ss.str() + "]";
-            Symbol_table::instance()->find(name)->get_game_object_value()->
+            if(!Symbol_table::instance()->find(name)) {
+                Error::error(Error::ARRAY_INDEX_OUT_OF_BOUNDS,m_id,ss.str());
+                Symbol_table::instance()->find(m_id+"[0]")->
+                    get_game_object_value()->set_member_variable(m_member, d);
+            }
+            else
+                Symbol_table::instance()->find(name)->get_game_object_value()->
                 set_member_variable(m_member, d);
         }
     }
@@ -97,11 +121,24 @@ void Variable::set(std::string s) {
         if (m_member == "") {
             ss<<m_expr->eval_string();
             std::string name = m_id + "[" + ss.str() + "]";
-            *(std::string*) Symbol_table::instance()->find(name)->m_value = s;
+            if(Symbol_table::instance()->find(name))
+                *(std::string*) Symbol_table::instance()->find(name)->
+                m_value = s;
+            else {
+                Error::error(Error::ARRAY_INDEX_OUT_OF_BOUNDS,m_id,ss.str());
+                *(std::string*) Symbol_table::instance()->find(m_id+"[0]")->
+                m_value = s;
+            }
         } else {
-            ss<<m_expr->eval_string();
+            ss<<m_expr->eval_int();
             std::string name = m_id + "[" + ss.str() + "]";
-            Symbol_table::instance()->find(name)->get_game_object_value()->
+            if(!Symbol_table::instance()->find(name)) {
+                Error::error(Error::ARRAY_INDEX_OUT_OF_BOUNDS,m_id,ss.str());
+                Symbol_table::instance()->find(m_id+"[0]")->
+                    get_game_object_value()->set_member_variable(m_member, s);
+            }
+            else
+                Symbol_table::instance()->find(name)->get_game_object_value()->
                 set_member_variable(m_member, s);
         }
     }
@@ -121,11 +158,22 @@ int Variable::get_int() {
         if (m_member == "") {
             ss<<m_expr->eval_int();
             std::string name = m_id + "[" + ss.str() + "]";
-            return *(int*) Symbol_table::instance()->find(name)->m_value;
+            if(Symbol_table::instance()->find(name))
+                return *(int*) Symbol_table::instance()->find(name)->m_value;
+            else {
+                Error::error(Error::ARRAY_INDEX_OUT_OF_BOUNDS,m_id,ss.str());
+                return *(int*) Symbol_table::instance()->find(m_id+"[0]")->
+                    m_value;
+            }
         } else {
             int i;
             ss<<m_expr->eval_int();
             std::string name = m_id + "[" + ss.str() + "]";
+            if(!Symbol_table::instance()->find(name)) {
+                Error::error(Error::ARRAY_INDEX_OUT_OF_BOUNDS,m_id,ss.str());
+                Symbol_table::instance()->find(m_id+"[0]")->
+                    get_game_object_value()->get_member_variable(m_member, i);
+            }
             Symbol_table::instance()->find(name)->get_game_object_value()->
                 get_member_variable(m_member, i);
             return i;
@@ -147,11 +195,22 @@ double Variable::get_double() {
         if (m_member == "") {
             ss<<m_expr->eval_double();
             std::string name = m_id + "[" + ss.str() + "]";
-            return *(double*) Symbol_table::instance()->find(name)->m_value;
+            if(Symbol_table::instance()->find(name))
+                return *(double*) Symbol_table::instance()->find(name)->m_value;
+            else {
+                Error::error(Error::ARRAY_INDEX_OUT_OF_BOUNDS,m_id,ss.str());
+                return *(double*) Symbol_table::instance()->find(m_id+"[0]")->
+                    m_value;
+            }
         } else {
             double d;
             ss<<m_expr->eval_double();
             std::string name = m_id + "[" + ss.str() + "]";
+            if(!Symbol_table::instance()->find(name)) {
+                Error::error(Error::ARRAY_INDEX_OUT_OF_BOUNDS,m_id,ss.str());
+                Symbol_table::instance()->find(m_id+"[0]")->
+                    get_game_object_value()->get_member_variable(m_member, d);
+            }
             Symbol_table::instance()->find(name)->get_game_object_value()->
                 get_member_variable(m_member, d);
         }
@@ -172,11 +231,23 @@ std::string Variable::get_string() {
         if (m_member == "") {
             ss<<m_expr->eval_string();
             std::string name = m_id + "[" + ss.str() + "]";
-            return *(std::string*) Symbol_table::instance()->find(name)->m_value;
+            if(Symbol_table::instance()->find(name))
+                return *(std::string*) Symbol_table::instance()->find(name)->
+                    m_value;
+            else {
+                Error::error(Error::ARRAY_INDEX_OUT_OF_BOUNDS,m_id,ss.str());
+                return *(std::string*) Symbol_table::instance()->
+                    find(m_id+"[0]")->m_value;
+            }
         } else {
             std::string s;
             ss<<m_expr->eval_string();
             std::string name = m_id + "[" + ss.str() + "]";
+            if(!Symbol_table::instance()->find(name)) {
+                Error::error(Error::ARRAY_INDEX_OUT_OF_BOUNDS,m_id,ss.str());
+                Symbol_table::instance()->find(m_id+"[0]")->
+                    get_game_object_value()->get_member_variable(m_member, s);
+            }
             Symbol_table::instance()->find(name)->get_game_object_value()->
                 get_member_variable(m_member, s);
         }
