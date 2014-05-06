@@ -872,9 +872,9 @@ variable:
             if(sym->m_type == "int")
                 $$=new Variable(*$1,$3);
             else if(sym->m_type == "double")
-                $$=new Variable(*$1,sym,"double");
+                $$=new Variable(*$1,$3);
             else if(sym->m_type == "string")
-                $$=new Variable(*$1,sym,"string");
+                $$=new Variable(*$1,$3);
         } else {
             stringstream ss;
             ss<<$3->eval_int();
@@ -917,8 +917,7 @@ variable:
                         default:break;
                     }
                     int* val_int = new int(var_int);
-                    $$=new Variable(cur_member_name, var,
-                        "game_object");
+                    $$=new Variable(*$1,var,*$3);
                     break;
                 }
                 case DOUBLE: {
@@ -938,8 +937,7 @@ variable:
                         default:break;
                     }
                     double* val_double = new double(var_double);
-                    $$=new Variable(*$3, new Symbol(*$3,val_double,
-                        "double"),"double");
+                    $$=new Variable(*$1,var,*$3);
                     break;
                 }
                 case STRING: {
@@ -959,8 +957,7 @@ variable:
                         default:break;
                     }
                     string* val_str = new string(var_string);
-                    $$=new Variable(*$3, new Symbol(*$3,val_str, "string"),
-                       "string");
+                    $$=new Variable(*$1,var,*$3);
                     break;
                 }
                 default:break;
@@ -1002,8 +999,7 @@ variable:
                     int* val_int = new int(var_int);
 //                    $$=new Variable(*$6, new Symbol(*$6,val_int,"int"),
 //                        "int");
-                    $$=new Variable(cur_member_name,
-                        sym, "game_object");
+                    $$=new Variable(*$1,$3,*$6);
                     break;
                 }
                 case DOUBLE: {
@@ -1011,8 +1007,7 @@ variable:
                     sym->get_game_object_value()->
                         get_member_variable(*$6,var_double);
                     double* val_double = new double(var_double);
-                    $$=new Variable(*$6, new Symbol(*$6,val_double,"double"),
-                        "double");
+                    $$=new Variable(*$1,$3,*$6);
                     break;
                 }
                 case STRING: {
@@ -1020,8 +1015,7 @@ variable:
                     sym->get_game_object_value()->
                         get_member_variable(*$6,var_string);
                     string* val_str = new string(var_string);
-                    $$=new Variable(*$6, new Symbol(*$6,val_str, "string"),
-                       "string");
+                    $$=new Variable(*$1,$3,*$6);
                     break;
                 }
                 default:break;
