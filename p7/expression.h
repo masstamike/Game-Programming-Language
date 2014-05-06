@@ -15,7 +15,7 @@ class Expr {
         Expr(std::string s);//string constructor
         Expr(Operator_type, Expr*, Expr*);
         Expr(Operator_type, Expr*);
-        Expr(Variable*, bool);
+//        Expr(Variable*, bool);
         Expr(Variable*);
         Expr(Animation_block*);
         ~Expr();

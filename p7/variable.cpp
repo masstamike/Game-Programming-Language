@@ -13,8 +13,7 @@ Variable::Variable(std::string id, Expr* expr) {    // array types
     std::stringstream ss;
     m_id = id;
     m_sym = NULL;
-    ss<<expr->eval_int();
-    std::string object_name = id + "[" + ss.str() + "]";
+    std::string object_name = id + "[0]";
     m_type = Symbol_table::instance()->find(object_name)->m_type;
     m_expr = expr;
 }

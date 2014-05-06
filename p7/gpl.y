@@ -742,10 +742,16 @@ statement:
 //---------------------------------------------------------------------
 if_statement:
     T_IF T_LPAREN expression T_RPAREN if_block %prec IF_NO_ELSE {
-        block_stack.top()->add(new If_stmt($3, $5));
+        if($3->get_type() != "int")
+            Error::error(Error::INVALID_TYPE_FOR_IF_STMT_EXPRESSION);
+        else
+            block_stack.top()->add(new If_stmt($3, $5));
     }
     | T_IF T_LPAREN expression T_RPAREN if_block T_ELSE if_block {
-        block_stack.top()->add(new If_stmt($3, $5, $7));
+        if($3->get_type() != "int")
+            Error::error(Error::INVALID_TYPE_FOR_IF_STMT_EXPRESSION);
+        else
+            block_stack.top()->add(new If_stmt($3, $5, $7));
         
     }
     ;
@@ -778,24 +784,18 @@ exit_statement:
 //---------------------------------------------------------------------
 assign_statement:
     variable T_ASSIGN expression {
-        if($1 && $1->m_type=="game_object") {
-            if($1)
-            block_stack.top()->add(new Assign_stmt($1,$3,0));
-            game_flag = false;
-        }
-        else {
-            string variable_type, expression_type;
-                if($1)
-                    variable_type = $1->m_type;
-                expression_type = $3->get_type();
-                if(variable_type == "int" && expression_type !="int")
-                    Error::error(Error::ASSIGNMENT_TYPE_ERROR,variable_type,
-                        expression_type);
-                else if(variable_type == "double" && expression_type=="string")
-                    Error::error(Error::ASSIGNMENT_TYPE_ERROR,variable_type,
-                        expression_type);
-            block_stack.top()->add(new Assign_stmt($1,$3,0));
-        }
+        string variable_type, expression_type;
+        Variable* test_var = $1;
+        if($1)
+            variable_type = $1->m_type;
+        expression_type = $3->get_type();
+        if(variable_type == "int" && expression_type !="int")
+            Error::error(Error::ASSIGNMENT_TYPE_ERROR,variable_type,
+                expression_type);
+        else if(variable_type == "double" && expression_type=="string")
+            Error::error(Error::ASSIGNMENT_TYPE_ERROR,variable_type,
+                expression_type);
+        block_stack.top()->add(new Assign_stmt($1,$3,0));
     }
     | variable T_PLUS_ASSIGN expression {
         string variable_type, expression_type;
@@ -865,23 +865,7 @@ variable:
         }
         string array = *$1;
         int index = $3->eval_int();
-        stringstream ss;
-        ss<<index;
-        array = array + "[" + ss.str() + "]";
-        Symbol* sym = symbol_table->find(array);
-        if(sym) {
-            if(sym->m_type == "int")
-                $$=new Variable(*$1,$3);
-            else if(sym->m_type == "double")
-                $$=new Variable(*$1,$3);
-            else if(sym->m_type == "string")
-                $$=new Variable(*$1,$3);
-        } else {
-            if(symbol_table->find(*$1)) {
-                Error::error(Error::VARIABLE_NOT_AN_ARRAY,*$1);
-                $$=NULL;
-            }
-        }
+        $$=new Variable(*$1,$3);
     }
     | T_ID T_PERIOD T_ID {
         game_flag=true;
@@ -1114,11 +1098,8 @@ primary_expression:
         $$=$2;
     }
     | variable {
-        if($1 && game_flag) {
-            $$ = new Expr($1, true);
-            game_flag = false;
-        } else if($1 && !game_flag) {
-            $$ = new Expr($1, false);
+        if($1) {
+            $$ = new Expr($1);
             game_flag = false;
         } else
             $$=new Expr(0);

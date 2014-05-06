@@ -157,12 +157,13 @@ Expr::Expr(Variable* var) {
     m_game_object = false;
 }
 
-Expr::Expr(Variable* var, bool game) {
+/*Expr::Expr(Variable* var, bool game) {
     m_var = var;
-    type = var->m_type;
+    if(var)
+        type = var->m_type;
     m_kind = "variable";
     m_game_object = game;
-}
+}*/
 
 Expr::~Expr() {
     if(m_left) delete m_left;
