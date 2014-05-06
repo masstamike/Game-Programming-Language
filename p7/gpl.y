@@ -877,10 +877,15 @@ variable:
             else if(sym->m_type == "string")
                 $$=new Variable(*$1,$3);
         } else {
+            if(symbol_table->find(*$1)) {
+                Error::error(Error::VARIABLE_NOT_AN_ARRAY,*$1);
+                $$=NULL;
+            } else {
             stringstream ss;
             ss<<$3->eval_int();
             Error::error(Error::ARRAY_INDEX_OUT_OF_BOUNDS,*$1,ss.str());
             $$=NULL;
+            }
         }
     }
     | T_ID T_PERIOD T_ID {
@@ -899,7 +904,7 @@ variable:
                 g_type) == MEMBER_NOT_DECLARED) {
                 Error::error(Error::UNDECLARED_MEMBER, *$1, *$3);
                 $$=NULL;
-            }
+            } else {
             switch(g_type) {
                 case INT: {
                     int var_int;
@@ -962,7 +967,7 @@ variable:
                     break;
                 }
                 default:break;
-            }
+            }   }
         } else {
             Error::error(Error::UNDECLARED_VARIABLE,*$1);
             $$=NULL;
