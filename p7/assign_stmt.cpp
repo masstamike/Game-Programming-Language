@@ -1,6 +1,7 @@
 #include "assign_stmt.h"
 #include "symbol_table.h"
 #include "gpl_type.h"
+#include "error.h"
 using namespace std;
 
 Assign_stmt::Assign_stmt(Variable* var, Expr* expr, int type) {
@@ -13,6 +14,7 @@ Assign_stmt::Assign_stmt(Variable* var, Expr* expr, int type) {
 Assign_stmt::Assign_stmt(std::string object, std::string member, Expr* expr,
     int type) {
     game_flag=true;
+    m_var = NULL;
     m_object = object;
     m_member = member;
     m_expr = expr;

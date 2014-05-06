@@ -755,6 +755,8 @@ for_statement:
     T_FOR T_LPAREN statement_block_creator assign_statement
     end_of_statement_block T_SEMIC expression T_SEMIC statement_block_creator
     assign_statement end_of_statement_block T_RPAREN statement_block {
+        if($7->get_type() != "int")
+            Error::error(Error::INVALID_TYPE_FOR_FOR_STMT_EXPRESSION);
         block_stack.top()->add(new For_stmt($5, $7, $11, $13));
     }
     ;
@@ -783,11 +785,27 @@ assign_statement:
             game_flag = false;
         }
         else {
-            if($1)
+            string variable_type, expression_type;
+                if($1)
+                    variable_type = $1->m_type;
+                expression_type = $3->get_type();
+                if(variable_type == "int" && expression_type !="int")
+                    Error::error(Error::ASSIGNMENT_TYPE_ERROR,variable_type,
+                        expression_type);
+                else if(variable_type == "double" && expression_type=="string")
+                    Error::error(Error::ASSIGNMENT_TYPE_ERROR,variable_type,
+                        expression_type);
             block_stack.top()->add(new Assign_stmt($1,$3,0));
         }
     }
     | variable T_PLUS_ASSIGN expression {
+        string variable_type, expression_type;
+        if($1)
+            variable_type = $1->m_type;
+        expression_type = $3->get_type();
+        if(variable_type != expression_type)
+            Error::error(Error::PLUS_ASSIGNMENT_TYPE_ERROR,variable_type,
+                expression_type);
         if(game_flag) {
             block_stack.top()->add(new Assign_stmt(cur_object_name,
             cur_member_name, $3,1));
@@ -797,6 +815,17 @@ assign_statement:
             block_stack.top()->add(new Assign_stmt($1,$3,1));
     }
     | variable T_MINUS_ASSIGN expression {
+        string variable_type, expression_type;
+        if($1)
+            variable_type = $1->m_type;
+        expression_type = $3->get_type();
+        if(variable_type != expression_type)
+            Error::error(Error::MINUS_ASSIGNMENT_TYPE_ERROR,variable_type,
+                expression_type);
+        if(variable_type != "int" && variable_type != "double") {
+            Error::error(Error::INVALID_LHS_OF_MINUS_ASSIGNMENT,$1->m_id,
+                variable_type);
+        }
         if(game_flag) {
             block_stack.top()->add(new Assign_stmt(cur_object_name,
             cur_member_name, $3,2));
