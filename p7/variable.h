@@ -13,6 +13,12 @@ class Variable {
         Variable(std::string, Expr*);                // array types
         Variable(std::string, Symbol*, std::string); // member variables
         Variable(std::string, Expr*, std::string);   // array[expr].member
+        void set(int);
+        void set(double);
+        void set(std::string);
+        int get_int();
+        double get_double();
+        std::string get_string();
         std::string m_id, m_type, m_member; 
         Symbol* m_sym;
         Expr* m_expr;

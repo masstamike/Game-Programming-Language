@@ -343,7 +343,7 @@ int Expr::eval_int() {
             }
         }
     } else if (m_kind == "variable") {
-        if(m_game_object && m_var->m_sym->m_type != "int") {
+/*        if(m_game_object && m_var->m_sym->m_type != "int") {
             int ival;
             m_var->m_sym->get_game_object_value()->get_member_variable(
                 m_var->m_id, ival);
@@ -356,7 +356,8 @@ int Expr::eval_int() {
             m_var->m_sym->get_game_object_value()->get_member_variable(
                 m_var->m_id, ival);
             return ival;
-        }
+        } */
+        return m_var->get_int();
     }
 }
 
@@ -541,11 +542,14 @@ double Expr::eval_double() {
         }
     } else if (m_kind == "variable") {
         if(m_var->m_type == "double") {
-            double d = *(double*) m_var->m_sym->m_value;
-            return d;
+//            double d = *(double*) m_var->m_sym->m_value;
+//            return d;
+            return m_var->get_double();
         }
         else if (m_var->m_type == "int") {
-            double d = (double) *(int*) m_var->m_sym->m_value;
+//            double d = (double) *(int*) m_var->m_sym->m_value;
+//            return d;
+            double d = (double) m_var->get_int();
             return d;
         }
     }
@@ -587,45 +591,48 @@ std::string Expr::eval_string() {
         }
     } else if (m_kind=="variable") {
         if(m_var->m_type == "string") {
-            std::string s=*(std::string*) m_var->m_sym->m_value;
-            return s;
+//            std::string s=*(std::string*) m_var->m_sym->m_value;
+//            return s;
+            return m_var->get_string();
         } else if (m_var->m_type == "int") {
-            int i = *(int*) m_var->m_sym->m_value;
+//            int i = *(int*) m_var->m_sym->m_value;
+            int i = m_var->get_int();
             ss<<i;
             return ss.str();
         } else if (m_var->m_type == "double") {
-            double d = *(double*) m_var->m_sym->m_value;
+//            double d = *(double*) m_var->m_sym->m_value;
+            double d = m_var->get_double();
             ss<<d;
             return ss.str();
         } else {//if (m_var->m_sym->get_game_object_value()) {
-            Gpl_type type;
+//            Gpl_type type;
 //            Game_object* obj = m_var->m_sym->get_game_object_value();
-            m_var->m_sym->get_game_object_value()->get_member_variable_type(m_var->m_id, type);
-            switch (type) {
-                case INT: {
-                    int ival;
-                    m_var->m_sym->get_game_object_value()->get_member_variable(m_var->m_id, ival);
-                    ss<<ival;
-                    return ss.str();
-                    break;
-                }
-                case DOUBLE: {
-                    double dval;
-                    m_var->m_sym->get_game_object_value()->get_member_variable(m_var->m_id, dval);
-                    ss<<dval;
-                    return ss.str();
-                    break;
-                }
-                case STRING: {
-                    std::string sval;
-                    m_var->m_sym->get_game_object_value()->get_member_variable(m_var->m_id, sval);
-                    return sval;
-                    break;
-                }
-                default:break;
-            }
-            
-            
+//            m_var->m_sym->get_game_object_value()->get_member_variable_type(m_var->m_id, type);
+//            switch (type) {
+//                case INT: {
+//                    int ival;
+//                    m_var->m_sym->get_game_object_value()->get_member_variable(m_var->m_id, ival);
+//                    ss<<ival;
+//                    return ss.str();
+//                    break;
+//                }
+//                case DOUBLE: {
+//                    double dval;
+//                    m_var->m_sym->get_game_object_value()->get_member_variable(m_var->m_id, dval);
+//                    ss<<dval;
+//                    return ss.str();
+//                    break;
+//                }
+//                case STRING: {
+//                    std::string sval;
+//                    m_var->m_sym->get_game_object_value()->get_member_variable(m_var->m_id, sval);
+//                    return sval;
+//                    break;
+//                }
+//                default:break;
+//            }
+//            
+        std::cout<<"this shouldn't happen, I think \n";            
         }
     } else {
         return m_str; //just for now
