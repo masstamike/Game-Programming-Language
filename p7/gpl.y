@@ -780,8 +780,7 @@ assign_statement:
     variable T_ASSIGN expression {
         if($1 && $1->m_type=="game_object") {
             if($1)
-            block_stack.top()->add(new Assign_stmt(cur_object_name,
-            cur_member_name, $3,0));
+            block_stack.top()->add(new Assign_stmt($1,$3,0));
             game_flag = false;
         }
         else {
@@ -807,8 +806,7 @@ assign_statement:
             Error::error(Error::PLUS_ASSIGNMENT_TYPE_ERROR,variable_type,
                 expression_type);
         if(game_flag) {
-            block_stack.top()->add(new Assign_stmt(cur_object_name,
-            cur_member_name, $3,1));
+            block_stack.top()->add(new Assign_stmt($1,$3,1));
             game_flag = false;
         }
         else
@@ -827,8 +825,7 @@ assign_statement:
                 variable_type);
         }
         if(game_flag) {
-            block_stack.top()->add(new Assign_stmt(cur_object_name,
-            cur_member_name, $3,2));
+            block_stack.top()->add(new Assign_stmt($1,$3,2));
             game_flag = false;
         }
         else
