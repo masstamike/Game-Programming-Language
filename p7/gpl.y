@@ -842,14 +842,14 @@ variable:
         Symbol* var = symbol_table->find(*$1);
         if(var) {
             if(var->m_type == "int") {
-                $$=new Variable(*$1,var,"int");
+                $$=new Variable(*$1,var);
             }
             else if(var->m_type == "double")
-                $$=new Variable(*$1,var,"double");
+                $$=new Variable(*$1,var);
             else if(var->m_type == "string")
-                $$=new Variable(*$1,var,"string");
+                $$=new Variable(*$1,var);
             else if(var->m_type == "animation_block")
-                $$=new Variable(*$1,var,"animation_block");
+                $$=new Variable(*$1,var);
         } else {
             Error::error(Error::UNDECLARED_VARIABLE,*$1);
             $$=NULL;
@@ -870,7 +870,7 @@ variable:
         Symbol* sym = symbol_table->find(array);
         if(sym) {
             if(sym->m_type == "int")
-                $$=new Variable(*$1,sym,"int");
+                $$=new Variable(*$1,$3);
             else if(sym->m_type == "double")
                 $$=new Variable(*$1,sym,"double");
             else if(sym->m_type == "string")

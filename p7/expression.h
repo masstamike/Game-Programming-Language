@@ -1,9 +1,12 @@
+#ifndef EXPRESSION_H
+#define EXPRESSION_H
+
 #include <string>
 #include "gpl_type.h"
 #include "variable.h"
 #include "animation_block.h"
-#ifndef EXPRESSION_H
-#define EXPRESSION_H
+
+class Variable;
 
 class Expr {
     public:
