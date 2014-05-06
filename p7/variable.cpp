@@ -129,6 +129,7 @@ int Variable::get_int() {
             std::string name = m_id + "[" + ss.str() + "]";
             Symbol_table::instance()->find(name)->get_game_object_value()->
                 get_member_variable(m_member, i);
+            return i;
         }
     }
 }
