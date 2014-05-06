@@ -803,6 +803,8 @@ assign_statement:
             variable_type = $1->m_type;
         expression_type = $3->get_type();
         if(variable_type != expression_type)
+            if(variable_type == "int" || (variable_type == "double" &&
+                expression_type == "string"))
             Error::error(Error::PLUS_ASSIGNMENT_TYPE_ERROR,variable_type,
                 expression_type);
         if(game_flag) {
@@ -818,6 +820,8 @@ assign_statement:
             variable_type = $1->m_type;
         expression_type = $3->get_type();
         if(variable_type != expression_type)
+            if(variable_type == "int" || (variable_type == "double" &&
+                expression_type == "string"))
             Error::error(Error::MINUS_ASSIGNMENT_TYPE_ERROR,variable_type,
                 expression_type);
         if(variable_type != "int" && variable_type != "double") {
