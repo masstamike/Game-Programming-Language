@@ -19,3 +19,14 @@ printf_statement:
                     =========
 
 
+Need to add this somewhere:
+            stringstream ss;
+            ss<<$3->eval_int();
+            Error::error(Error::ARRAY_INDEX_OUT_OF_BOUNDS,*$1,ss.str());
+            $$=NULL;
+
+            stringstream ss;
+            ss<<$3->eval_int();
+            Error::error(Error::ARRAY_INDEX_OUT_OF_BOUNDS,*$1,ss.str());
+            $$=NULL;
+            }

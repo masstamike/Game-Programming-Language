@@ -880,11 +880,6 @@ variable:
             if(symbol_table->find(*$1)) {
                 Error::error(Error::VARIABLE_NOT_AN_ARRAY,*$1);
                 $$=NULL;
-            } else {
-            stringstream ss;
-            ss<<$3->eval_int();
-            Error::error(Error::ARRAY_INDEX_OUT_OF_BOUNDS,*$1,ss.str());
-            $$=NULL;
             }
         }
     }
@@ -994,7 +989,6 @@ variable:
             Error::error(Error::LHS_OF_PERIOD_MUST_BE_OBJECT, *$1);
             $$=NULL;
         }
-        if(sym) {
             Gpl_type g_type;
             sym->get_game_object_value()->get_member_variable_type(*$6, g_type);
             switch(g_type) {
@@ -1026,12 +1020,6 @@ variable:
                 }
                 default:break;
             }
-        } else {
-            stringstream ss;
-            ss<<$3->eval_int();
-            Error::error(Error::ARRAY_INDEX_OUT_OF_BOUNDS,*$1,ss.str());
-            $$=NULL;
-        }
     }
     ;
 
