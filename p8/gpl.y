@@ -793,7 +793,6 @@ exit_statement:
 assign_statement:
     variable T_ASSIGN expression {
         string variable_type, expression_type;
-        Variable* test_var = $1;
         if($1) {
             variable_type = $1->m_type;
             if(variable_type == "")
@@ -890,7 +889,6 @@ variable:
         }
         else {
             string array = *$1;
-            int index = $3->eval_int();
             $$=new Variable(*$1,$3);
         }
     }
@@ -928,7 +926,6 @@ variable:
                             break;
                         default:break;
                     }
-                    int* val_int = new int(var_int);
                     $$=new Variable(*$1,var,*$3);
                     break;
                 }
@@ -948,7 +945,6 @@ variable:
                             break;
                         default:break;
                     }
-                    double* val_double = new double(var_double);
                     $$=new Variable(*$1,var,*$3);
                     break;
                 }
@@ -968,7 +964,6 @@ variable:
                             break;
                         default:break;
                     }
-                    string* val_str = new string(var_string);
                     $$=new Variable(*$1,var,*$3);
                     break;
                 }
@@ -1010,9 +1005,6 @@ variable:
                     int var_int;
                     sym->get_game_object_value()->
                         get_member_variable(*$6,var_int);
-                    int* val_int = new int(var_int);
-//                    $$=new Variable(*$6, new Symbol(*$6,val_int,"int"),
-//                        "int");
                     $$=new Variable(*$1,$3,*$6);
                     break;
                 }
@@ -1020,7 +1012,6 @@ variable:
                     double var_double;
                     sym->get_game_object_value()->
                         get_member_variable(*$6,var_double);
-                    double* val_double = new double(var_double);
                     $$=new Variable(*$1,$3,*$6);
                     break;
                 }
@@ -1028,7 +1019,6 @@ variable:
                     string var_string;
                     sym->get_game_object_value()->
                         get_member_variable(*$6,var_string);
-                    string* val_str = new string(var_string);
                     $$=new Variable(*$1,$3,*$6);
                     break;
                 }
