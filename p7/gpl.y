@@ -810,6 +810,10 @@ assign_statement:
         if($1)
             variable_type = $1->m_type;
         expression_type = $3->get_type();
+        if(!(variable_type == "int" || variable_type == "double" ||
+                variable_type == "string"))
+            Error::error(Error::INVALID_LHS_OF_PLUS_ASSIGNMENT,$1->m_id,
+                variable_type);
         if(variable_type != expression_type)
             if(variable_type == "int" || (variable_type == "double" &&
                 expression_type == "string"))
@@ -827,6 +831,10 @@ assign_statement:
         if($1)
             variable_type = $1->m_type;
         expression_type = $3->get_type();
+        if(!(variable_type == "int" || variable_type == "double" ||
+                variable_type == "string"))
+            Error::error(Error::INVALID_LHS_OF_MINUS_ASSIGNMENT,$1->m_id,
+                variable_type);
         if(variable_type != expression_type)
             if(variable_type == "int" || (variable_type == "double" &&
                 expression_type == "string"))
@@ -835,10 +843,6 @@ assign_statement:
         if(variable_type != "int" && variable_type != "double") {
             Error::error(Error::INVALID_LHS_OF_MINUS_ASSIGNMENT,$1->m_id,
                 variable_type);
-        }
-        if(game_flag) {
-            block_stack.top()->add(new Assign_stmt($1,$3,2));
-            game_flag = false;
         }
         else
             block_stack.top()->add(new Assign_stmt($1,$3,2));
@@ -871,9 +875,13 @@ variable:
             Error::error(Error::ARRAY_INDEX_MUST_BE_AN_INTEGER,*$1,s2);
             $$=NULL;
         }
-        string array = *$1;
-        int index = $3->eval_int();
-        $$=new Variable(*$1,$3);
+        else if(symbol_table->find(*$1))
+            Error::error(Error::VARIABLE_NOT_AN_ARRAY,*$1);
+        else {
+            string array = *$1;
+            int index = $3->eval_int();
+            $$=new Variable(*$1,$3);
+        }
     }
     | T_ID T_PERIOD T_ID {
         game_flag=true;
@@ -969,6 +977,9 @@ variable:
             Error::error(Error::ARRAY_INDEX_MUST_BE_AN_INTEGER,*$1,s2);
             $$=NULL;
         }
+        else if(symbol_table->find(*$1))
+            Error::error(Error::VARIABLE_NOT_AN_ARRAY,*$1);
+        else {
         string array = *$1;
         int index = $3->eval_int();
         stringstream ss;
@@ -1012,6 +1023,7 @@ variable:
                 }
                 default:break;
             }
+        }
         }
     }
     ;
