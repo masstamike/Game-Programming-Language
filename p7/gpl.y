@@ -770,14 +770,22 @@ for_statement:
 //---------------------------------------------------------------------
 print_statement:
     T_PRINT T_LPAREN expression T_RPAREN {
-        block_stack.top()->add(new Print_stmt(line_count,$3));
+        if(!($3->get_type() == "int" ||
+           $3->get_type() == "double" ||
+           $3->get_type() == "string"))
+            Error::error(Error::INVALID_TYPE_FOR_PRINT_STMT_EXPRESSION);
+        else
+            block_stack.top()->add(new Print_stmt(line_count,$3));
     }
     ;
 
 //---------------------------------------------------------------------
 exit_statement:
     T_EXIT T_LPAREN expression T_RPAREN {
-        block_stack.top()->add(new Exit_stmt(line_count,$3));
+        if($3->get_type()!="int")
+            Error::error(Error::EXIT_STATUS_MUST_BE_AN_INTEGER,$3->get_type());
+        else
+            block_stack.top()->add(new Exit_stmt(line_count,$3));
     }
     ;
 
@@ -972,7 +980,7 @@ variable:
             sym->m_type == "string" || sym->m_type == "animation_block") {
             Error::error(Error::LHS_OF_PERIOD_MUST_BE_OBJECT, *$1);
             $$=NULL;
-        }
+        } else {
             Gpl_type g_type;
             sym->get_game_object_value()->get_member_variable_type(*$6, g_type);
             switch(g_type) {
@@ -1004,6 +1012,7 @@ variable:
                 }
                 default:break;
             }
+        }
     }
     ;
 
