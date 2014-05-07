@@ -809,6 +809,8 @@ assign_statement:
         string variable_type, expression_type;
         if($1)
             variable_type = $1->m_type;
+        if(variable_type == "")
+            variable_type = "game_object";
         expression_type = $3->get_type();
         if(!(variable_type == "int" || variable_type == "double" ||
                 variable_type == "string"))
