@@ -794,8 +794,15 @@ assign_statement:
     variable T_ASSIGN expression {
         string variable_type, expression_type;
         Variable* test_var = $1;
-        if($1)
+        if($1) {
             variable_type = $1->m_type;
+            if(variable_type == "")
+                variable_type = "game_object";
+            if(!(variable_type == "int" || variable_type == "double" ||
+                variable_type == "string"))
+                Error::error(Error::INVALID_LHS_OF_ASSIGNMENT, $1->m_id,
+                    variable_type);
+        }
         expression_type = $3->get_type();
         if(variable_type == "int" && expression_type !="int")
             Error::error(Error::ASSIGNMENT_TYPE_ERROR,variable_type,

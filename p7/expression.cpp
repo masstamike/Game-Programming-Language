@@ -384,17 +384,17 @@ double Expr::eval_double() {
             case MULTIPLY:
                 return (m_left->eval_double())*(m_right->eval_double());
             case SIN: 
-                return sin(m_left->eval_double()*3.141592653589/180);
+                return sin(m_left->eval_double()*M_PI/180);
             case COS:
-                return cos(m_left->eval_double()*3.141592653589/180);
+                return cos(m_left->eval_double()*M_PI/180);
             case TAN:
-                return tan(m_left->eval_double()*3.141592653589/180);
+                return tan(m_left->eval_double()*M_PI/180);
             case ASIN:
-                return asin(m_left->eval_double())*180/3.141592653589;
+                return asin(m_left->eval_double())*180/M_PI;
             case ACOS:
-                return acos(m_left->eval_double())*180/3.141592653589;
+                return acos(m_left->eval_double())*180/M_PI;
             case ATAN:
-                return atan(m_left->eval_double())*180/3.141592653589;
+                return atan(m_left->eval_double())*180/M_PI;
             case SQRT:
                 return sqrt(m_left->eval_double());
             case ABS:
