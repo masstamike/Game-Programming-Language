@@ -884,8 +884,10 @@ variable:
             Error::error(Error::ARRAY_INDEX_MUST_BE_AN_INTEGER,*$1,s2);
             $$=NULL;
         }
-        else if(symbol_table->find(*$1))
+        else if(symbol_table->find(*$1)) {
             Error::error(Error::VARIABLE_NOT_AN_ARRAY,*$1);
+            $$=NULL;
+        }
         else {
             string array = *$1;
             int index = $3->eval_int();
