@@ -877,7 +877,7 @@ variable:
                 $$=new Variable(*$1,var);
         } else {
             Error::error(Error::UNDECLARED_VARIABLE,*$1);
-            $$=NULL;
+            $$=new Variable("dummy", new Symbol("name", new int(0),"type"));
         }
     }
     | T_ID T_LBRACKET expression T_RBRACKET {
@@ -1086,13 +1086,19 @@ expression:
     | expression T_DIVIDE expression {
         if($1->get_type() == "string")
             Error::error(Error::INVALID_LEFT_OPERAND_TYPE,"/");
-        if($3->get_type() == "string")
+        else if($3->get_type() == "string")
             Error::error(Error::INVALID_RIGHT_OPERAND_TYPE,"/");
             //error
         else
             $$=new Expr(DIVIDE, $1, $3);
     }
-    | expression T_MOD expression {$$=new Expr(MOD,$1,$3);}
+    | expression T_MOD expression {
+        if($1->get_type() == "string")
+            Error::error(Error::INVALID_LEFT_OPERAND_TYPE,"%");
+        else if($3->get_type() == "string")
+            Error::error(Error::INVALID_RIGHT_OPERAND_TYPE,"%");
+        else
+            $$=new Expr(MOD,$1,$3);}
     | T_MINUS  expression %prec UNARY_OPS {
         $$=new Expr(UNARY_MINUS, $2);
     }
