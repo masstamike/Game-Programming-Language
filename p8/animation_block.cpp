@@ -1,6 +1,7 @@
 #include "animation_block.h"
 #include "indent.h"
 #include "gpl_assert.h"
+#include "symbol.h"
 using namespace std;
 
 Animation_block::Animation_block(int forward_line, 
@@ -20,7 +21,10 @@ void
 Animation_block::execute(Game_object *argument)
 {
     // not implemented yet
-    assert(false);
+    Symbol* old_parameter_symbol = m_parameter_symbol;
+    m_parameter_symbol->m_value = argument;
+    Statement_block::execute();
+    m_parameter_symbol = old_parameter_symbol;
 }
 
 ostream &

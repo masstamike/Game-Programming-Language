@@ -1,0 +1,28 @@
+string window_title = "p8 test t004 -- after it stops, compare to t004.jpg";
+forward animation move(circle cur_circle);
+
+int i = 0;
+int index;
+int size = 97;
+circle circles[size];
+
+initialization
+{
+    for (index = 0; index < size; index += 1)
+    {
+        circles[index].x = 5 * index;
+        circles[index].y = 0;
+        circles[index].animation_block = move;
+        circles[index].red = (1.0 * index)/size;
+        circles[index].blue = 1.0 - index/size;
+    }
+}
+
+
+animation move(circle cur_circle)
+{
+    if (i < 30 * size)
+        cur_circle.y += 10;
+
+    i = i + 1;
+}

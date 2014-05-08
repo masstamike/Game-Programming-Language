@@ -509,8 +509,7 @@ block_list:
 //---------------------------------------------------------------------
 block:
     initialization_block
-    | animation_block
-    | on_block
+    | animation_block | on_block
     ;
 
 //---------------------------------------------------------------------
@@ -520,7 +519,10 @@ initialization_block:
 
 //---------------------------------------------------------------------
 animation_block:
-    T_ANIMATION T_ID T_LPAREN check_animation_parameter T_RPAREN T_LBRACE { } statement_list T_RBRACE end_of_statement_block
+    T_ANIMATION T_ID T_LPAREN check_animation_parameter T_RPAREN T_LBRACE {
+        Symbol* anim_block = symbol_table->find(*$2);
+        block_stack.push(anim_block->get_animation_block());
+    } statement_list T_RBRACE end_of_statement_block
     ;
 
 //---------------------------------------------------------------------
