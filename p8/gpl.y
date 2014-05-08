@@ -1084,7 +1084,8 @@ expression:
             $$=new Expr(MULTIPLY, $1, $3);
     }
     | expression T_DIVIDE expression {
-        if($1->get_type() == "string");
+        if($1->get_type() == "string")
+            Error::error(Error::INVALID_LEFT_OPERAND_TYPE,"/");
         if($3->get_type() == "string")
             Error::error(Error::INVALID_RIGHT_OPERAND_TYPE,"/");
             //error
