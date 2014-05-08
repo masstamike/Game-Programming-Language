@@ -358,7 +358,7 @@ empty (131)
     on left: 127, on right: 3 13 23 29 72
 
 
-state 0
+State 0
 
     0 $accept: . program $end
 
@@ -369,14 +369,14 @@ state 0
     empty             go to state 3
 
 
-state 1
+State 1
 
     0 $accept: program . $end
 
     $end  shift, and go to state 4
 
 
-state 2
+State 2
 
     1 program: declaration_list . block_list
     2 declaration_list: declaration_list . declaration
@@ -403,98 +403,98 @@ state 2
     empty                 go to state 21
 
 
-state 3
+State 3
 
     3 declaration_list: empty .
 
     $default  reduce using rule 3 (declaration_list)
 
 
-state 4
+State 4
 
     0 $accept: program $end .
 
     $default  accept
 
 
-state 5
+State 5
 
     9 simple_type: T_INT .
 
     $default  reduce using rule 9 (simple_type)
 
 
-state 6
+State 6
 
    10 simple_type: T_DOUBLE .
 
     $default  reduce using rule 10 (simple_type)
 
 
-state 7
+State 7
 
    11 simple_type: T_STRING .
 
     $default  reduce using rule 11 (simple_type)
 
 
-state 8
+State 8
 
    17 object_type: T_TRIANGLE .
 
     $default  reduce using rule 17 (object_type)
 
 
-state 9
+State 9
 
    18 object_type: T_PIXMAP .
 
     $default  reduce using rule 18 (object_type)
 
 
-state 10
+State 10
 
    19 object_type: T_CIRCLE .
 
     $default  reduce using rule 19 (object_type)
 
 
-state 11
+State 11
 
    20 object_type: T_RECTANGLE .
 
     $default  reduce using rule 20 (object_type)
 
 
-state 12
+State 12
 
    21 object_type: T_TEXTBOX .
 
     $default  reduce using rule 21 (object_type)
 
 
-state 13
+State 13
 
    27 forward_declaration: T_FORWARD . T_ANIMATION T_ID T_LPAREN animation_parameter T_RPAREN
 
     T_ANIMATION  shift, and go to state 22
 
 
-state 14
+State 14
 
     2 declaration_list: declaration_list declaration .
 
     $default  reduce using rule 2 (declaration_list)
 
 
-state 15
+State 15
 
     4 declaration: variable_declaration . T_SEMIC
 
     T_SEMIC  shift, and go to state 23
 
 
-state 16
+State 16
 
     7 variable_declaration: simple_type . T_ID optional_initializer
     8                     | simple_type . T_ID T_LBRACKET expression T_RBRACKET
@@ -502,14 +502,14 @@ state 16
     T_ID  shift, and go to state 24
 
 
-state 17
+State 17
 
     5 declaration: object_declaration . T_SEMIC
 
     T_SEMIC  shift, and go to state 25
 
 
-state 18
+State 18
 
    15 object_declaration: object_type . T_ID $@1 T_LPAREN parameter_list_or_empty T_RPAREN
    16                   | object_type . T_ID T_LBRACKET expression T_RBRACKET
@@ -517,14 +517,14 @@ state 18
     T_ID  shift, and go to state 26
 
 
-state 19
+State 19
 
     6 declaration: forward_declaration . T_SEMIC
 
     T_SEMIC  shift, and go to state 27
 
 
-state 20
+State 20
 
     1 program: declaration_list block_list .
    28 block_list: block_list . block
@@ -541,28 +541,28 @@ state 20
     on_block              go to state 34
 
 
-state 21
+State 21
 
    29 block_list: empty .
 
     $default  reduce using rule 29 (block_list)
 
 
-state 22
+State 22
 
    27 forward_declaration: T_FORWARD T_ANIMATION . T_ID T_LPAREN animation_parameter T_RPAREN
 
     T_ID  shift, and go to state 35
 
 
-state 23
+State 23
 
     4 declaration: variable_declaration T_SEMIC .
 
     $default  reduce using rule 4 (declaration)
 
 
-state 24
+State 24
 
     7 variable_declaration: simple_type T_ID . optional_initializer
     8                     | simple_type T_ID . T_LBRACKET expression T_RBRACKET
@@ -576,14 +576,14 @@ state 24
     empty                 go to state 39
 
 
-state 25
+State 25
 
     5 declaration: object_declaration T_SEMIC .
 
     $default  reduce using rule 5 (declaration)
 
 
-state 26
+State 26
 
    15 object_declaration: object_type T_ID . $@1 T_LPAREN parameter_list_or_empty T_RPAREN
    16                   | object_type T_ID . T_LBRACKET expression T_RBRACKET
@@ -595,14 +595,14 @@ state 26
     $@1  go to state 41
 
 
-state 27
+State 27
 
     6 declaration: forward_declaration T_SEMIC .
 
     $default  reduce using rule 6 (declaration)
 
 
-state 28
+State 28
 
    33 initialization_block: T_INITIALIZATION . statement_block
 
@@ -611,7 +611,7 @@ state 28
     statement_block  go to state 43
 
 
-state 29
+State 29
 
    42 on_block: T_ON . keystroke statement_block
 
@@ -642,49 +642,49 @@ state 29
     keystroke  go to state 67
 
 
-state 30
+State 30
 
    35 animation_block: T_ANIMATION . T_ID T_LPAREN check_animation_parameter T_RPAREN T_LBRACE $@2 statement_list T_RBRACE end_of_statement_block
 
     T_ID  shift, and go to state 68
 
 
-state 31
+State 31
 
    28 block_list: block_list block .
 
     $default  reduce using rule 28 (block_list)
 
 
-state 32
+State 32
 
    30 block: initialization_block .
 
     $default  reduce using rule 30 (block)
 
 
-state 33
+State 33
 
    31 block: animation_block .
 
     $default  reduce using rule 31 (block)
 
 
-state 34
+State 34
 
    32 block: on_block .
 
     $default  reduce using rule 32 (block)
 
 
-state 35
+State 35
 
    27 forward_declaration: T_FORWARD T_ANIMATION T_ID . T_LPAREN animation_parameter T_RPAREN
 
     T_LPAREN  shift, and go to state 69
 
 
-state 36
+State 36
 
    12 optional_initializer: T_ASSIGN . expression
 
@@ -714,7 +714,7 @@ state 36
     math_operator       go to state 92
 
 
-state 37
+State 37
 
     8 variable_declaration: simple_type T_ID T_LBRACKET . expression T_RBRACKET
 
@@ -744,21 +744,21 @@ state 37
     math_operator       go to state 92
 
 
-state 38
+State 38
 
     7 variable_declaration: simple_type T_ID optional_initializer .
 
     $default  reduce using rule 7 (variable_declaration)
 
 
-state 39
+State 39
 
    13 optional_initializer: empty .
 
     $default  reduce using rule 13 (optional_initializer)
 
 
-state 40
+State 40
 
    16 object_declaration: object_type T_ID T_LBRACKET . expression T_RBRACKET
 
@@ -788,14 +788,14 @@ state 40
     math_operator       go to state 92
 
 
-state 41
+State 41
 
    15 object_declaration: object_type T_ID $@1 . T_LPAREN parameter_list_or_empty T_RPAREN
 
     T_LPAREN  shift, and go to state 95
 
 
-state 42
+State 42
 
    68 statement_block: T_LBRACE . statement_block_creator statement_list T_RBRACE end_of_statement_block
 
@@ -804,175 +804,175 @@ state 42
     statement_block_creator  go to state 96
 
 
-state 43
+State 43
 
    33 initialization_block: T_INITIALIZATION statement_block .
 
     $default  reduce using rule 33 (initialization_block)
 
 
-state 44
+State 44
 
    43 keystroke: T_SPACE .
 
     $default  reduce using rule 43 (keystroke)
 
 
-state 45
+State 45
 
    46 keystroke: T_LEFTARROW .
 
     $default  reduce using rule 46 (keystroke)
 
 
-state 46
+State 46
 
    47 keystroke: T_RIGHTARROW .
 
     $default  reduce using rule 47 (keystroke)
 
 
-state 47
+State 47
 
    44 keystroke: T_UPARROW .
 
     $default  reduce using rule 44 (keystroke)
 
 
-state 48
+State 48
 
    45 keystroke: T_DOWNARROW .
 
     $default  reduce using rule 45 (keystroke)
 
 
-state 49
+State 49
 
    48 keystroke: T_LEFTMOUSE_DOWN .
 
     $default  reduce using rule 48 (keystroke)
 
 
-state 50
+State 50
 
    49 keystroke: T_MIDDLEMOUSE_DOWN .
 
     $default  reduce using rule 49 (keystroke)
 
 
-state 51
+State 51
 
    50 keystroke: T_RIGHTMOUSE_DOWN .
 
     $default  reduce using rule 50 (keystroke)
 
 
-state 52
+State 52
 
    51 keystroke: T_LEFTMOUSE_UP .
 
     $default  reduce using rule 51 (keystroke)
 
 
-state 53
+State 53
 
    52 keystroke: T_MIDDLEMOUSE_UP .
 
     $default  reduce using rule 52 (keystroke)
 
 
-state 54
+State 54
 
    53 keystroke: T_RIGHTMOUSE_UP .
 
     $default  reduce using rule 53 (keystroke)
 
 
-state 55
+State 55
 
    54 keystroke: T_MOUSE_MOVE .
 
     $default  reduce using rule 54 (keystroke)
 
 
-state 56
+State 56
 
    55 keystroke: T_MOUSE_DRAG .
 
     $default  reduce using rule 55 (keystroke)
 
 
-state 57
+State 57
 
    65 keystroke: T_F1 .
 
     $default  reduce using rule 65 (keystroke)
 
 
-state 58
+State 58
 
    56 keystroke: T_AKEY .
 
     $default  reduce using rule 56 (keystroke)
 
 
-state 59
+State 59
 
    57 keystroke: T_SKEY .
 
     $default  reduce using rule 57 (keystroke)
 
 
-state 60
+State 60
 
    58 keystroke: T_DKEY .
 
     $default  reduce using rule 58 (keystroke)
 
 
-state 61
+State 61
 
    59 keystroke: T_FKEY .
 
     $default  reduce using rule 59 (keystroke)
 
 
-state 62
+State 62
 
    60 keystroke: T_HKEY .
 
     $default  reduce using rule 60 (keystroke)
 
 
-state 63
+State 63
 
    61 keystroke: T_JKEY .
 
     $default  reduce using rule 61 (keystroke)
 
 
-state 64
+State 64
 
    62 keystroke: T_KKEY .
 
     $default  reduce using rule 62 (keystroke)
 
 
-state 65
+State 65
 
    63 keystroke: T_LKEY .
 
     $default  reduce using rule 63 (keystroke)
 
 
-state 66
+State 66
 
    64 keystroke: T_WKEY .
 
     $default  reduce using rule 64 (keystroke)
 
 
-state 67
+State 67
 
    42 on_block: T_ON keystroke . statement_block
 
@@ -981,14 +981,14 @@ state 67
     statement_block  go to state 97
 
 
-state 68
+State 68
 
    35 animation_block: T_ANIMATION T_ID . T_LPAREN check_animation_parameter T_RPAREN T_LBRACE $@2 statement_list T_RBRACE end_of_statement_block
 
     T_LPAREN  shift, and go to state 98
 
 
-state 69
+State 69
 
    27 forward_declaration: T_FORWARD T_ANIMATION T_ID T_LPAREN . animation_parameter T_RPAREN
 
@@ -1002,7 +1002,7 @@ state 69
     animation_parameter  go to state 100
 
 
-state 70
+State 70
 
   104 expression: T_MINUS . expression
 
@@ -1032,7 +1032,7 @@ state 70
     math_operator       go to state 92
 
 
-state 71
+State 71
 
   105 expression: T_NOT . expression
 
@@ -1062,21 +1062,21 @@ state 71
     math_operator       go to state 92
 
 
-state 72
+State 72
 
   111 primary_expression: T_TRUE .
 
     $default  reduce using rule 111 (primary_expression)
 
 
-state 73
+State 73
 
   112 primary_expression: T_FALSE .
 
     $default  reduce using rule 112 (primary_expression)
 
 
-state 74
+State 74
 
   108 primary_expression: T_LPAREN . expression T_RPAREN
 
@@ -1106,77 +1106,77 @@ state 74
     math_operator       go to state 92
 
 
-state 75
+State 75
 
   117 math_operator: T_SIN .
 
     $default  reduce using rule 117 (math_operator)
 
 
-state 76
+State 76
 
   118 math_operator: T_COS .
 
     $default  reduce using rule 118 (math_operator)
 
 
-state 77
+State 77
 
   119 math_operator: T_TAN .
 
     $default  reduce using rule 119 (math_operator)
 
 
-state 78
+State 78
 
   120 math_operator: T_ASIN .
 
     $default  reduce using rule 120 (math_operator)
 
 
-state 79
+State 79
 
   121 math_operator: T_ACOS .
 
     $default  reduce using rule 121 (math_operator)
 
 
-state 80
+State 80
 
   122 math_operator: T_ATAN .
 
     $default  reduce using rule 122 (math_operator)
 
 
-state 81
+State 81
 
   123 math_operator: T_SQRT .
 
     $default  reduce using rule 123 (math_operator)
 
 
-state 82
+State 82
 
   125 math_operator: T_FLOOR .
 
     $default  reduce using rule 125 (math_operator)
 
 
-state 83
+State 83
 
   124 math_operator: T_ABS .
 
     $default  reduce using rule 124 (math_operator)
 
 
-state 84
+State 84
 
   126 math_operator: T_RANDOM .
 
     $default  reduce using rule 126 (math_operator)
 
 
-state 85
+State 85
 
    86 variable: T_ID .
    87         | T_ID . T_LBRACKET expression T_RBRACKET
@@ -1189,28 +1189,28 @@ state 85
     $default  reduce using rule 86 (variable)
 
 
-state 86
+State 86
 
   110 primary_expression: T_INT_CONSTANT .
 
     $default  reduce using rule 110 (primary_expression)
 
 
-state 87
+State 87
 
   113 primary_expression: T_DOUBLE_CONSTANT .
 
     $default  reduce using rule 113 (primary_expression)
 
 
-state 88
+State 88
 
   114 primary_expression: T_STRING_CONSTANT .
 
     $default  reduce using rule 114 (primary_expression)
 
 
-state 89
+State 89
 
   107 expression: variable . geometric_operator variable
   109 primary_expression: variable .
@@ -1223,7 +1223,7 @@ state 89
     geometric_operator  go to state 108
 
 
-state 90
+State 90
 
    12 optional_initializer: T_ASSIGN expression .
    91 expression: expression . T_OR expression
@@ -1257,21 +1257,21 @@ state 90
     $default  reduce using rule 12 (optional_initializer)
 
 
-state 91
+State 91
 
    90 expression: primary_expression .
 
     $default  reduce using rule 90 (expression)
 
 
-state 92
+State 92
 
   106 expression: math_operator . T_LPAREN expression T_RPAREN
 
     T_LPAREN  shift, and go to state 122
 
 
-state 93
+State 93
 
     8 variable_declaration: simple_type T_ID T_LBRACKET expression . T_RBRACKET
    91 expression: expression . T_OR expression
@@ -1304,7 +1304,7 @@ state 93
     T_RBRACKET       shift, and go to state 123
 
 
-state 94
+State 94
 
    16 object_declaration: object_type T_ID T_LBRACKET expression . T_RBRACKET
    91 expression: expression . T_OR expression
@@ -1337,7 +1337,7 @@ state 94
     T_RBRACKET       shift, and go to state 124
 
 
-state 95
+State 95
 
    15 object_declaration: object_type T_ID $@1 T_LPAREN . parameter_list_or_empty T_RPAREN
 
@@ -1351,7 +1351,7 @@ state 95
     empty                    go to state 129
 
 
-state 96
+State 96
 
    68 statement_block: T_LBRACE statement_block_creator . statement_list T_RBRACE end_of_statement_block
 
@@ -1361,14 +1361,14 @@ state 96
     empty           go to state 131
 
 
-state 97
+State 97
 
    42 on_block: T_ON keystroke statement_block .
 
     $default  reduce using rule 42 (on_block)
 
 
-state 98
+State 98
 
    35 animation_block: T_ANIMATION T_ID T_LPAREN . check_animation_parameter T_RPAREN T_LBRACE $@2 statement_list T_RBRACE end_of_statement_block
 
@@ -1381,21 +1381,21 @@ state 98
     check_animation_parameter  go to state 137
 
 
-state 99
+State 99
 
    36 animation_parameter: object_type . T_ID
 
     T_ID  shift, and go to state 138
 
 
-state 100
+State 100
 
    27 forward_declaration: T_FORWARD T_ANIMATION T_ID T_LPAREN animation_parameter . T_RPAREN
 
     T_RPAREN  shift, and go to state 139
 
 
-state 101
+State 101
 
    91 expression: expression . T_OR expression
    92           | expression . T_AND expression
@@ -1415,7 +1415,7 @@ state 101
     $default  reduce using rule 104 (expression)
 
 
-state 102
+State 102
 
    91 expression: expression . T_OR expression
    92           | expression . T_AND expression
@@ -1435,7 +1435,7 @@ state 102
     $default  reduce using rule 105 (expression)
 
 
-state 103
+State 103
 
    91 expression: expression . T_OR expression
    92           | expression . T_AND expression
@@ -1468,7 +1468,7 @@ state 103
     T_RPAREN         shift, and go to state 140
 
 
-state 104
+State 104
 
    87 variable: T_ID T_LBRACKET . expression T_RBRACKET
    89         | T_ID T_LBRACKET . expression T_RBRACKET T_PERIOD T_ID
@@ -1499,28 +1499,28 @@ state 104
     math_operator       go to state 92
 
 
-state 105
+State 105
 
    88 variable: T_ID T_PERIOD . T_ID
 
     T_ID  shift, and go to state 142
 
 
-state 106
+State 106
 
   115 geometric_operator: T_TOUCHES .
 
     $default  reduce using rule 115 (geometric_operator)
 
 
-state 107
+State 107
 
   116 geometric_operator: T_NEAR .
 
     $default  reduce using rule 116 (geometric_operator)
 
 
-state 108
+State 108
 
   107 expression: variable geometric_operator . variable
 
@@ -1529,7 +1529,7 @@ state 108
     variable  go to state 143
 
 
-state 109
+State 109
 
    91 expression: expression T_OR . expression
 
@@ -1559,7 +1559,7 @@ state 109
     math_operator       go to state 92
 
 
-state 110
+State 110
 
    92 expression: expression T_AND . expression
 
@@ -1589,7 +1589,7 @@ state 110
     math_operator       go to state 92
 
 
-state 111
+State 111
 
    98 expression: expression T_NOT_EQUAL . expression
 
@@ -1619,7 +1619,7 @@ state 111
     math_operator       go to state 92
 
 
-state 112
+State 112
 
    97 expression: expression T_EQUAL . expression
 
@@ -1649,7 +1649,7 @@ state 112
     math_operator       go to state 92
 
 
-state 113
+State 113
 
    93 expression: expression T_LESS_EQUAL . expression
 
@@ -1679,7 +1679,7 @@ state 113
     math_operator       go to state 92
 
 
-state 114
+State 114
 
    94 expression: expression T_GREATER_EQUAL . expression
 
@@ -1709,7 +1709,7 @@ state 114
     math_operator       go to state 92
 
 
-state 115
+State 115
 
    96 expression: expression T_GREATER . expression
 
@@ -1739,7 +1739,7 @@ state 115
     math_operator       go to state 92
 
 
-state 116
+State 116
 
    95 expression: expression T_LESS . expression
 
@@ -1769,7 +1769,7 @@ state 116
     math_operator       go to state 92
 
 
-state 117
+State 117
 
    99 expression: expression T_PLUS . expression
 
@@ -1799,7 +1799,7 @@ state 117
     math_operator       go to state 92
 
 
-state 118
+State 118
 
   100 expression: expression T_MINUS . expression
 
@@ -1829,7 +1829,7 @@ state 118
     math_operator       go to state 92
 
 
-state 119
+State 119
 
   103 expression: expression T_MOD . expression
 
@@ -1859,7 +1859,7 @@ state 119
     math_operator       go to state 92
 
 
-state 120
+State 120
 
   102 expression: expression T_DIVIDE . expression
 
@@ -1889,7 +1889,7 @@ state 120
     math_operator       go to state 92
 
 
-state 121
+State 121
 
   101 expression: expression T_ASTERISK . expression
 
@@ -1919,7 +1919,7 @@ state 121
     math_operator       go to state 92
 
 
-state 122
+State 122
 
   106 expression: math_operator T_LPAREN . expression T_RPAREN
 
@@ -1949,35 +1949,35 @@ state 122
     math_operator       go to state 92
 
 
-state 123
+State 123
 
     8 variable_declaration: simple_type T_ID T_LBRACKET expression T_RBRACKET .
 
     $default  reduce using rule 8 (variable_declaration)
 
 
-state 124
+State 124
 
    16 object_declaration: object_type T_ID T_LBRACKET expression T_RBRACKET .
 
     $default  reduce using rule 16 (object_declaration)
 
 
-state 125
+State 125
 
    26 parameter: T_ID . T_ASSIGN expression
 
     T_ASSIGN  shift, and go to state 158
 
 
-state 126
+State 126
 
    15 object_declaration: object_type T_ID $@1 T_LPAREN parameter_list_or_empty . T_RPAREN
 
     T_RPAREN  shift, and go to state 159
 
 
-state 127
+State 127
 
    22 parameter_list_or_empty: parameter_list .
    24 parameter_list: parameter_list . T_COMMA parameter
@@ -1987,21 +1987,21 @@ state 127
     $default  reduce using rule 22 (parameter_list_or_empty)
 
 
-state 128
+State 128
 
    25 parameter_list: parameter .
 
     $default  reduce using rule 25 (parameter_list)
 
 
-state 129
+State 129
 
    23 parameter_list_or_empty: empty .
 
     $default  reduce using rule 23 (parameter_list_or_empty)
 
 
-state 130
+State 130
 
    68 statement_block: T_LBRACE statement_block_creator statement_list . T_RBRACE end_of_statement_block
    71 statement_list: statement_list . statement
@@ -2022,77 +2022,77 @@ state 130
     variable          go to state 172
 
 
-state 131
+State 131
 
    72 statement_list: empty .
 
     $default  reduce using rule 72 (statement_list)
 
 
-state 132
+State 132
 
    37 check_animation_parameter: T_TRIANGLE . T_ID
 
     T_ID  shift, and go to state 173
 
 
-state 133
+State 133
 
    38 check_animation_parameter: T_PIXMAP . T_ID
 
     T_ID  shift, and go to state 174
 
 
-state 134
+State 134
 
    39 check_animation_parameter: T_CIRCLE . T_ID
 
     T_ID  shift, and go to state 175
 
 
-state 135
+State 135
 
    40 check_animation_parameter: T_RECTANGLE . T_ID
 
     T_ID  shift, and go to state 176
 
 
-state 136
+State 136
 
    41 check_animation_parameter: T_TEXTBOX . T_ID
 
     T_ID  shift, and go to state 177
 
 
-state 137
+State 137
 
    35 animation_block: T_ANIMATION T_ID T_LPAREN check_animation_parameter . T_RPAREN T_LBRACE $@2 statement_list T_RBRACE end_of_statement_block
 
     T_RPAREN  shift, and go to state 178
 
 
-state 138
+State 138
 
    36 animation_parameter: object_type T_ID .
 
     $default  reduce using rule 36 (animation_parameter)
 
 
-state 139
+State 139
 
    27 forward_declaration: T_FORWARD T_ANIMATION T_ID T_LPAREN animation_parameter T_RPAREN .
 
     $default  reduce using rule 27 (forward_declaration)
 
 
-state 140
+State 140
 
   108 primary_expression: T_LPAREN expression T_RPAREN .
 
     $default  reduce using rule 108 (primary_expression)
 
 
-state 141
+State 141
 
    87 variable: T_ID T_LBRACKET expression . T_RBRACKET
    89         | T_ID T_LBRACKET expression . T_RBRACKET T_PERIOD T_ID
@@ -2126,21 +2126,21 @@ state 141
     T_RBRACKET       shift, and go to state 179
 
 
-state 142
+State 142
 
    88 variable: T_ID T_PERIOD T_ID .
 
     $default  reduce using rule 88 (variable)
 
 
-state 143
+State 143
 
   107 expression: variable geometric_operator variable .
 
     $default  reduce using rule 107 (expression)
 
 
-state 144
+State 144
 
    91 expression: expression . T_OR expression
    91           | expression T_OR expression .
@@ -2173,7 +2173,7 @@ state 144
     $default  reduce using rule 91 (expression)
 
 
-state 145
+State 145
 
    91 expression: expression . T_OR expression
    92           | expression . T_AND expression
@@ -2205,7 +2205,7 @@ state 145
     $default  reduce using rule 92 (expression)
 
 
-state 146
+State 146
 
    91 expression: expression . T_OR expression
    92           | expression . T_AND expression
@@ -2235,7 +2235,7 @@ state 146
     $default  reduce using rule 98 (expression)
 
 
-state 147
+State 147
 
    91 expression: expression . T_OR expression
    92           | expression . T_AND expression
@@ -2265,7 +2265,7 @@ state 147
     $default  reduce using rule 97 (expression)
 
 
-state 148
+State 148
 
    91 expression: expression . T_OR expression
    92           | expression . T_AND expression
@@ -2291,7 +2291,7 @@ state 148
     $default  reduce using rule 93 (expression)
 
 
-state 149
+State 149
 
    91 expression: expression . T_OR expression
    92           | expression . T_AND expression
@@ -2317,7 +2317,7 @@ state 149
     $default  reduce using rule 94 (expression)
 
 
-state 150
+State 150
 
    91 expression: expression . T_OR expression
    92           | expression . T_AND expression
@@ -2343,7 +2343,7 @@ state 150
     $default  reduce using rule 96 (expression)
 
 
-state 151
+State 151
 
    91 expression: expression . T_OR expression
    92           | expression . T_AND expression
@@ -2369,7 +2369,7 @@ state 151
     $default  reduce using rule 95 (expression)
 
 
-state 152
+State 152
 
    91 expression: expression . T_OR expression
    92           | expression . T_AND expression
@@ -2393,7 +2393,7 @@ state 152
     $default  reduce using rule 99 (expression)
 
 
-state 153
+State 153
 
    91 expression: expression . T_OR expression
    92           | expression . T_AND expression
@@ -2417,7 +2417,7 @@ state 153
     $default  reduce using rule 100 (expression)
 
 
-state 154
+State 154
 
    91 expression: expression . T_OR expression
    92           | expression . T_AND expression
@@ -2437,7 +2437,7 @@ state 154
     $default  reduce using rule 103 (expression)
 
 
-state 155
+State 155
 
    91 expression: expression . T_OR expression
    92           | expression . T_AND expression
@@ -2457,7 +2457,7 @@ state 155
     $default  reduce using rule 102 (expression)
 
 
-state 156
+State 156
 
    91 expression: expression . T_OR expression
    92           | expression . T_AND expression
@@ -2477,7 +2477,7 @@ state 156
     $default  reduce using rule 101 (expression)
 
 
-state 157
+State 157
 
    91 expression: expression . T_OR expression
    92           | expression . T_AND expression
@@ -2510,7 +2510,7 @@ state 157
     T_RPAREN         shift, and go to state 180
 
 
-state 158
+State 158
 
    26 parameter: T_ID T_ASSIGN . expression
 
@@ -2540,14 +2540,14 @@ state 158
     math_operator       go to state 92
 
 
-state 159
+State 159
 
    15 object_declaration: object_type T_ID $@1 T_LPAREN parameter_list_or_empty T_RPAREN .
 
     $default  reduce using rule 15 (object_declaration)
 
 
-state 160
+State 160
 
    24 parameter_list: parameter_list T_COMMA . parameter
 
@@ -2556,7 +2556,7 @@ state 160
     parameter  go to state 182
 
 
-state 161
+State 161
 
    78 if_statement: T_IF . T_LPAREN expression T_RPAREN if_block
    79             | T_IF . T_LPAREN expression T_RPAREN if_block T_ELSE if_block
@@ -2564,21 +2564,21 @@ state 161
     T_LPAREN  shift, and go to state 183
 
 
-state 162
+State 162
 
    80 for_statement: T_FOR . T_LPAREN statement_block_creator assign_statement end_of_statement_block T_SEMIC expression T_SEMIC statement_block_creator assign_statement end_of_statement_block T_RPAREN statement_block
 
     T_LPAREN  shift, and go to state 184
 
 
-state 163
+State 163
 
    82 exit_statement: T_EXIT . T_LPAREN expression T_RPAREN
 
     T_LPAREN  shift, and go to state 185
 
 
-state 164
+State 164
 
    68 statement_block: T_LBRACE statement_block_creator statement_list T_RBRACE . end_of_statement_block
 
@@ -2587,56 +2587,56 @@ state 164
     end_of_statement_block  go to state 186
 
 
-state 165
+State 165
 
    81 print_statement: T_PRINT . T_LPAREN expression T_RPAREN
 
     T_LPAREN  shift, and go to state 187
 
 
-state 166
+State 166
 
    71 statement_list: statement_list statement .
 
     $default  reduce using rule 71 (statement_list)
 
 
-state 167
+State 167
 
    73 statement: if_statement .
 
     $default  reduce using rule 73 (statement)
 
 
-state 168
+State 168
 
    74 statement: for_statement .
 
     $default  reduce using rule 74 (statement)
 
 
-state 169
+State 169
 
    76 statement: print_statement . T_SEMIC
 
     T_SEMIC  shift, and go to state 188
 
 
-state 170
+State 170
 
    77 statement: exit_statement . T_SEMIC
 
     T_SEMIC  shift, and go to state 189
 
 
-state 171
+State 171
 
    75 statement: assign_statement . T_SEMIC
 
     T_SEMIC  shift, and go to state 190
 
 
-state 172
+State 172
 
    83 assign_statement: variable . T_ASSIGN expression
    84                 | variable . T_PLUS_ASSIGN expression
@@ -2647,49 +2647,49 @@ state 172
     T_MINUS_ASSIGN  shift, and go to state 193
 
 
-state 173
+State 173
 
    37 check_animation_parameter: T_TRIANGLE T_ID .
 
     $default  reduce using rule 37 (check_animation_parameter)
 
 
-state 174
+State 174
 
    38 check_animation_parameter: T_PIXMAP T_ID .
 
     $default  reduce using rule 38 (check_animation_parameter)
 
 
-state 175
+State 175
 
    39 check_animation_parameter: T_CIRCLE T_ID .
 
     $default  reduce using rule 39 (check_animation_parameter)
 
 
-state 176
+State 176
 
    40 check_animation_parameter: T_RECTANGLE T_ID .
 
     $default  reduce using rule 40 (check_animation_parameter)
 
 
-state 177
+State 177
 
    41 check_animation_parameter: T_TEXTBOX T_ID .
 
     $default  reduce using rule 41 (check_animation_parameter)
 
 
-state 178
+State 178
 
    35 animation_block: T_ANIMATION T_ID T_LPAREN check_animation_parameter T_RPAREN . T_LBRACE $@2 statement_list T_RBRACE end_of_statement_block
 
     T_LBRACE  shift, and go to state 194
 
 
-state 179
+State 179
 
    87 variable: T_ID T_LBRACKET expression T_RBRACKET .
    89         | T_ID T_LBRACKET expression T_RBRACKET . T_PERIOD T_ID
@@ -2699,14 +2699,14 @@ state 179
     $default  reduce using rule 87 (variable)
 
 
-state 180
+State 180
 
   106 expression: math_operator T_LPAREN expression T_RPAREN .
 
     $default  reduce using rule 106 (expression)
 
 
-state 181
+State 181
 
    26 parameter: T_ID T_ASSIGN expression .
    91 expression: expression . T_OR expression
@@ -2740,14 +2740,14 @@ state 181
     $default  reduce using rule 26 (parameter)
 
 
-state 182
+State 182
 
    24 parameter_list: parameter_list T_COMMA parameter .
 
     $default  reduce using rule 24 (parameter_list)
 
 
-state 183
+State 183
 
    78 if_statement: T_IF T_LPAREN . expression T_RPAREN if_block
    79             | T_IF T_LPAREN . expression T_RPAREN if_block T_ELSE if_block
@@ -2778,7 +2778,7 @@ state 183
     math_operator       go to state 92
 
 
-state 184
+State 184
 
    80 for_statement: T_FOR T_LPAREN . statement_block_creator assign_statement end_of_statement_block T_SEMIC expression T_SEMIC statement_block_creator assign_statement end_of_statement_block T_RPAREN statement_block
 
@@ -2787,7 +2787,7 @@ state 184
     statement_block_creator  go to state 197
 
 
-state 185
+State 185
 
    82 exit_statement: T_EXIT T_LPAREN . expression T_RPAREN
 
@@ -2817,14 +2817,14 @@ state 185
     math_operator       go to state 92
 
 
-state 186
+State 186
 
    68 statement_block: T_LBRACE statement_block_creator statement_list T_RBRACE end_of_statement_block .
 
     $default  reduce using rule 68 (statement_block)
 
 
-state 187
+State 187
 
    81 print_statement: T_PRINT T_LPAREN . expression T_RPAREN
 
@@ -2854,28 +2854,28 @@ state 187
     math_operator       go to state 92
 
 
-state 188
+State 188
 
    76 statement: print_statement T_SEMIC .
 
     $default  reduce using rule 76 (statement)
 
 
-state 189
+State 189
 
    77 statement: exit_statement T_SEMIC .
 
     $default  reduce using rule 77 (statement)
 
 
-state 190
+State 190
 
    75 statement: assign_statement T_SEMIC .
 
     $default  reduce using rule 75 (statement)
 
 
-state 191
+State 191
 
    83 assign_statement: variable T_ASSIGN . expression
 
@@ -2905,7 +2905,7 @@ state 191
     math_operator       go to state 92
 
 
-state 192
+State 192
 
    84 assign_statement: variable T_PLUS_ASSIGN . expression
 
@@ -2935,7 +2935,7 @@ state 192
     math_operator       go to state 92
 
 
-state 193
+State 193
 
    85 assign_statement: variable T_MINUS_ASSIGN . expression
 
@@ -2965,7 +2965,7 @@ state 193
     math_operator       go to state 92
 
 
-state 194
+State 194
 
    35 animation_block: T_ANIMATION T_ID T_LPAREN check_animation_parameter T_RPAREN T_LBRACE . $@2 statement_list T_RBRACE end_of_statement_block
 
@@ -2974,14 +2974,14 @@ state 194
     $@2  go to state 203
 
 
-state 195
+State 195
 
    89 variable: T_ID T_LBRACKET expression T_RBRACKET T_PERIOD . T_ID
 
     T_ID  shift, and go to state 204
 
 
-state 196
+State 196
 
    78 if_statement: T_IF T_LPAREN expression . T_RPAREN if_block
    79             | T_IF T_LPAREN expression . T_RPAREN if_block T_ELSE if_block
@@ -3015,7 +3015,7 @@ state 196
     T_RPAREN         shift, and go to state 205
 
 
-state 197
+State 197
 
    80 for_statement: T_FOR T_LPAREN statement_block_creator . assign_statement end_of_statement_block T_SEMIC expression T_SEMIC statement_block_creator assign_statement end_of_statement_block T_RPAREN statement_block
 
@@ -3025,7 +3025,7 @@ state 197
     variable          go to state 172
 
 
-state 198
+State 198
 
    82 exit_statement: T_EXIT T_LPAREN expression . T_RPAREN
    91 expression: expression . T_OR expression
@@ -3058,7 +3058,7 @@ state 198
     T_RPAREN         shift, and go to state 207
 
 
-state 199
+State 199
 
    81 print_statement: T_PRINT T_LPAREN expression . T_RPAREN
    91 expression: expression . T_OR expression
@@ -3091,7 +3091,7 @@ state 199
     T_RPAREN         shift, and go to state 208
 
 
-state 200
+State 200
 
    83 assign_statement: variable T_ASSIGN expression .
    91 expression: expression . T_OR expression
@@ -3125,7 +3125,7 @@ state 200
     $default  reduce using rule 83 (assign_statement)
 
 
-state 201
+State 201
 
    84 assign_statement: variable T_PLUS_ASSIGN expression .
    91 expression: expression . T_OR expression
@@ -3159,7 +3159,7 @@ state 201
     $default  reduce using rule 84 (assign_statement)
 
 
-state 202
+State 202
 
    85 assign_statement: variable T_MINUS_ASSIGN expression .
    91 expression: expression . T_OR expression
@@ -3193,7 +3193,7 @@ state 202
     $default  reduce using rule 85 (assign_statement)
 
 
-state 203
+State 203
 
    35 animation_block: T_ANIMATION T_ID T_LPAREN check_animation_parameter T_RPAREN T_LBRACE $@2 . statement_list T_RBRACE end_of_statement_block
 
@@ -3203,14 +3203,14 @@ state 203
     empty           go to state 131
 
 
-state 204
+State 204
 
    89 variable: T_ID T_LBRACKET expression T_RBRACKET T_PERIOD T_ID .
 
     $default  reduce using rule 89 (variable)
 
 
-state 205
+State 205
 
    78 if_statement: T_IF T_LPAREN expression T_RPAREN . if_block
    79             | T_IF T_LPAREN expression T_RPAREN . if_block T_ELSE if_block
@@ -3224,7 +3224,7 @@ state 205
     statement_block_creator  go to state 212
 
 
-state 206
+State 206
 
    80 for_statement: T_FOR T_LPAREN statement_block_creator assign_statement . end_of_statement_block T_SEMIC expression T_SEMIC statement_block_creator assign_statement end_of_statement_block T_RPAREN statement_block
 
@@ -3233,21 +3233,21 @@ state 206
     end_of_statement_block  go to state 213
 
 
-state 207
+State 207
 
    82 exit_statement: T_EXIT T_LPAREN expression T_RPAREN .
 
     $default  reduce using rule 82 (exit_statement)
 
 
-state 208
+State 208
 
    81 print_statement: T_PRINT T_LPAREN expression T_RPAREN .
 
     $default  reduce using rule 81 (print_statement)
 
 
-state 209
+State 209
 
    35 animation_block: T_ANIMATION T_ID T_LPAREN check_animation_parameter T_RPAREN T_LBRACE $@2 statement_list . T_RBRACE end_of_statement_block
    71 statement_list: statement_list . statement
@@ -3268,7 +3268,7 @@ state 209
     variable          go to state 172
 
 
-state 210
+State 210
 
    78 if_statement: T_IF T_LPAREN expression T_RPAREN if_block .
    79             | T_IF T_LPAREN expression T_RPAREN if_block . T_ELSE if_block
@@ -3278,14 +3278,14 @@ state 210
     $default  reduce using rule 78 (if_statement)
 
 
-state 211
+State 211
 
    67 if_block: statement_block .
 
     $default  reduce using rule 67 (if_block)
 
 
-state 212
+State 212
 
    66 if_block: statement_block_creator . statement end_of_statement_block
 
@@ -3304,14 +3304,14 @@ state 212
     variable          go to state 172
 
 
-state 213
+State 213
 
    80 for_statement: T_FOR T_LPAREN statement_block_creator assign_statement end_of_statement_block . T_SEMIC expression T_SEMIC statement_block_creator assign_statement end_of_statement_block T_RPAREN statement_block
 
     T_SEMIC  shift, and go to state 217
 
 
-state 214
+State 214
 
    35 animation_block: T_ANIMATION T_ID T_LPAREN check_animation_parameter T_RPAREN T_LBRACE $@2 statement_list T_RBRACE . end_of_statement_block
 
@@ -3320,7 +3320,7 @@ state 214
     end_of_statement_block  go to state 218
 
 
-state 215
+State 215
 
    79 if_statement: T_IF T_LPAREN expression T_RPAREN if_block T_ELSE . if_block
 
@@ -3333,7 +3333,7 @@ state 215
     statement_block_creator  go to state 212
 
 
-state 216
+State 216
 
    66 if_block: statement_block_creator statement . end_of_statement_block
 
@@ -3342,7 +3342,7 @@ state 216
     end_of_statement_block  go to state 220
 
 
-state 217
+State 217
 
    80 for_statement: T_FOR T_LPAREN statement_block_creator assign_statement end_of_statement_block T_SEMIC . expression T_SEMIC statement_block_creator assign_statement end_of_statement_block T_RPAREN statement_block
 
@@ -3372,28 +3372,28 @@ state 217
     math_operator       go to state 92
 
 
-state 218
+State 218
 
    35 animation_block: T_ANIMATION T_ID T_LPAREN check_animation_parameter T_RPAREN T_LBRACE $@2 statement_list T_RBRACE end_of_statement_block .
 
     $default  reduce using rule 35 (animation_block)
 
 
-state 219
+State 219
 
    79 if_statement: T_IF T_LPAREN expression T_RPAREN if_block T_ELSE if_block .
 
     $default  reduce using rule 79 (if_statement)
 
 
-state 220
+State 220
 
    66 if_block: statement_block_creator statement end_of_statement_block .
 
     $default  reduce using rule 66 (if_block)
 
 
-state 221
+State 221
 
    80 for_statement: T_FOR T_LPAREN statement_block_creator assign_statement end_of_statement_block T_SEMIC expression . T_SEMIC statement_block_creator assign_statement end_of_statement_block T_RPAREN statement_block
    91 expression: expression . T_OR expression
@@ -3426,7 +3426,7 @@ state 221
     T_SEMIC          shift, and go to state 222
 
 
-state 222
+State 222
 
    80 for_statement: T_FOR T_LPAREN statement_block_creator assign_statement end_of_statement_block T_SEMIC expression T_SEMIC . statement_block_creator assign_statement end_of_statement_block T_RPAREN statement_block
 
@@ -3435,7 +3435,7 @@ state 222
     statement_block_creator  go to state 223
 
 
-state 223
+State 223
 
    80 for_statement: T_FOR T_LPAREN statement_block_creator assign_statement end_of_statement_block T_SEMIC expression T_SEMIC statement_block_creator . assign_statement end_of_statement_block T_RPAREN statement_block
 
@@ -3445,7 +3445,7 @@ state 223
     variable          go to state 172
 
 
-state 224
+State 224
 
    80 for_statement: T_FOR T_LPAREN statement_block_creator assign_statement end_of_statement_block T_SEMIC expression T_SEMIC statement_block_creator assign_statement . end_of_statement_block T_RPAREN statement_block
 
@@ -3454,14 +3454,14 @@ state 224
     end_of_statement_block  go to state 225
 
 
-state 225
+State 225
 
    80 for_statement: T_FOR T_LPAREN statement_block_creator assign_statement end_of_statement_block T_SEMIC expression T_SEMIC statement_block_creator assign_statement end_of_statement_block . T_RPAREN statement_block
 
     T_RPAREN  shift, and go to state 226
 
 
-state 226
+State 226
 
    80 for_statement: T_FOR T_LPAREN statement_block_creator assign_statement end_of_statement_block T_SEMIC expression T_SEMIC statement_block_creator assign_statement end_of_statement_block T_RPAREN . statement_block
 
@@ -3470,7 +3470,7 @@ state 226
     statement_block  go to state 227
 
 
-state 227
+State 227
 
    80 for_statement: T_FOR T_LPAREN statement_block_creator assign_statement end_of_statement_block T_SEMIC expression T_SEMIC statement_block_creator assign_statement end_of_statement_block T_RPAREN statement_block .
 

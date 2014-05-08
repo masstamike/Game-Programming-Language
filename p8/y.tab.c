@@ -1,8 +1,8 @@
-/* A Bison parser, made by GNU Bison 2.5.  */
+/* A Bison parser, made by GNU Bison 2.7.12-4996.  */
 
 /* Bison implementation for Yacc-like parsers in C
    
-      Copyright (C) 1984, 1989-1990, 2000-2011 Free Software Foundation, Inc.
+      Copyright (C) 1984, 1989-1990, 2000-2013 Free Software Foundation, Inc.
    
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -44,7 +44,7 @@
 #define YYBISON 1
 
 /* Bison version.  */
-#define YYBISON_VERSION "2.5"
+#define YYBISON_VERSION "2.7.12-4996"
 
 /* Skeleton name.  */
 #define YYSKELETON_NAME "yacc.c"
@@ -58,14 +58,11 @@
 /* Pull parsers.  */
 #define YYPULL 1
 
-/* Using locations.  */
-#define YYLSP_NEEDED 0
 
 
 
 /* Copy the first part of user declarations.  */
-
-/* Line 268 of yacc.c  */
+/* Line 371 of yacc.c  */
 #line 1 "gpl.y"
 
 //stuff from flex that bison needs to know about:
@@ -114,14 +111,16 @@ string cur_member_name;
 bool game_flag;
 
 
+/* Line 371 of yacc.c  */
+#line 116 "y.tab.c"
 
-/* Line 268 of yacc.c  */
-#line 120 "y.tab.c"
-
-/* Enabling traces.  */
-#ifndef YYDEBUG
-# define YYDEBUG 0
-#endif
+# ifndef YY_NULL
+#  if defined __cplusplus && 201103L <= __cplusplus
+#   define YY_NULL nullptr
+#  else
+#   define YY_NULL 0
+#  endif
+# endif
 
 /* Enabling verbose error messages.  */
 #ifdef YYERROR_VERBOSE
@@ -131,11 +130,17 @@ bool game_flag;
 # define YYERROR_VERBOSE 0
 #endif
 
-/* Enabling the token table.  */
-#ifndef YYTOKEN_TABLE
-# define YYTOKEN_TABLE 0
+/* In a future release of Bison, this section will be replaced
+   by #include "y.tab.h".  */
+#ifndef YY_YY_Y_TAB_H_INCLUDED
+# define YY_YY_Y_TAB_H_INCLUDED
+/* Enabling traces.  */
+#ifndef YYDEBUG
+# define YYDEBUG 0
 #endif
-
+#if YYDEBUG
+extern int yydebug;
+#endif
 
 /* Tokens.  */
 #ifndef YYTOKENTYPE
@@ -327,12 +332,10 @@ bool game_flag;
 
 
 
-
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
 {
-
-/* Line 293 of yacc.c  */
+/* Line 387 of yacc.c  */
 #line 55 "gpl.y"
 
  int            union_int;
@@ -348,21 +351,36 @@ typedef union YYSTYPE
  
 
 
-
-/* Line 293 of yacc.c  */
-#line 354 "y.tab.c"
+/* Line 387 of yacc.c  */
+#line 356 "y.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
 #endif
 
+extern YYSTYPE yylval;
+
+#ifdef YYPARSE_PARAM
+#if defined __STDC__ || defined __cplusplus
+int yyparse (void *YYPARSE_PARAM);
+#else
+int yyparse ();
+#endif
+#else /* ! YYPARSE_PARAM */
+#if defined __STDC__ || defined __cplusplus
+int yyparse (void);
+#else
+int yyparse ();
+#endif
+#endif /* ! YYPARSE_PARAM */
+
+#endif /* !YY_YY_Y_TAB_H_INCLUDED  */
 
 /* Copy the second part of user declarations.  */
 
-
-/* Line 343 of yacc.c  */
-#line 366 "y.tab.c"
+/* Line 390 of yacc.c  */
+#line 384 "y.tab.c"
 
 #ifdef short
 # undef short
@@ -415,24 +433,33 @@ typedef short int yytype_int16;
 # if defined YYENABLE_NLS && YYENABLE_NLS
 #  if ENABLE_NLS
 #   include <libintl.h> /* INFRINGES ON USER NAME SPACE */
-#   define YY_(msgid) dgettext ("bison-runtime", msgid)
+#   define YY_(Msgid) dgettext ("bison-runtime", Msgid)
 #  endif
 # endif
 # ifndef YY_
-#  define YY_(msgid) msgid
+#  define YY_(Msgid) Msgid
+# endif
+#endif
+
+#ifndef __attribute__
+/* This feature is available in gcc versions 2.5 and later.  */
+# if (! defined __GNUC__ || __GNUC__ < 2 \
+      || (__GNUC__ == 2 && __GNUC_MINOR__ < 5))
+#  define __attribute__(Spec) /* empty */
 # endif
 #endif
 
 /* Suppress unused-variable warnings by "using" E.  */
 #if ! defined lint || defined __GNUC__
-# define YYUSE(e) ((void) (e))
+# define YYUSE(E) ((void) (E))
 #else
-# define YYUSE(e) /* empty */
+# define YYUSE(E) /* empty */
 #endif
+
 
 /* Identity function, used to suppress warnings about constant conditions.  */
 #ifndef lint
-# define YYID(n) (n)
+# define YYID(N) (N)
 #else
 #if (defined __STDC__ || defined __C99__FUNC__ \
      || defined __cplusplus || defined _MSC_VER)
@@ -468,6 +495,7 @@ YYID (yyi)
 #    if ! defined _ALLOCA_H && ! defined EXIT_SUCCESS && (defined __STDC__ || defined __C99__FUNC__ \
      || defined __cplusplus || defined _MSC_VER)
 #     include <stdlib.h> /* INFRINGES ON USER NAME SPACE */
+      /* Use EXIT_SUCCESS as a witness for stdlib.h.  */
 #     ifndef EXIT_SUCCESS
 #      define EXIT_SUCCESS 0
 #     endif
@@ -559,20 +587,20 @@ union yyalloc
 #endif
 
 #if defined YYCOPY_NEEDED && YYCOPY_NEEDED
-/* Copy COUNT objects from FROM to TO.  The source and destination do
+/* Copy COUNT objects from SRC to DST.  The source and destination do
    not overlap.  */
 # ifndef YYCOPY
 #  if defined __GNUC__ && 1 < __GNUC__
-#   define YYCOPY(To, From, Count) \
-      __builtin_memcpy (To, From, (Count) * sizeof (*(From)))
+#   define YYCOPY(Dst, Src, Count) \
+      __builtin_memcpy (Dst, Src, (Count) * sizeof (*(Src)))
 #  else
-#   define YYCOPY(To, From, Count)		\
-      do					\
-	{					\
-	  YYSIZE_T yyi;				\
-	  for (yyi = 0; yyi < (Count); yyi++)	\
-	    (To)[yyi] = (From)[yyi];		\
-	}					\
+#   define YYCOPY(Dst, Src, Count)              \
+      do                                        \
+        {                                       \
+          YYSIZE_T yyi;                         \
+          for (yyi = 0; yyi < (Count); yyi++)   \
+            (Dst)[yyi] = (Src)[yyi];            \
+        }                                       \
       while (YYID (0))
 #  endif
 # endif
@@ -716,13 +744,13 @@ static const yytype_uint16 yyrline[] =
      717,   725,   733,   734,   739,   740,   741,   742,   743,   748,
      754,   765,   776,   788,   798,   818,   841,   866,   883,   899,
      981,  1038,  1039,  1048,  1057,  1058,  1061,  1062,  1063,  1066,
-    1067,  1070,  1078,  1086,  1092,  1093,  1096,  1099,  1118,  1123,
-    1126,  1133,  1136,  1139,  1142,  1145,  1152,  1153,  1158,  1159,
-    1160,  1161,  1162,  1163,  1164,  1165,  1166,  1167,  1171
+    1067,  1070,  1078,  1086,  1094,  1095,  1098,  1101,  1120,  1125,
+    1128,  1135,  1138,  1141,  1144,  1147,  1154,  1155,  1160,  1161,
+    1162,  1163,  1164,  1165,  1166,  1167,  1168,  1169,  1173
 };
 #endif
 
-#if YYDEBUG || YYERROR_VERBOSE || YYTOKEN_TABLE
+#if YYDEBUG || YYERROR_VERBOSE || 0
 /* YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
@@ -754,7 +782,7 @@ static const char *const yytname[] =
   "end_of_statement_block", "statement_list", "statement", "if_statement",
   "for_statement", "print_statement", "exit_statement", "assign_statement",
   "variable", "expression", "primary_expression", "geometric_operator",
-  "math_operator", "empty", 0
+  "math_operator", "empty", YY_NULL
 };
 #endif
 
@@ -935,10 +963,10 @@ static const yytype_uint8 yytable[] =
      121,    99,   219,   182,   209,   216
 };
 
-#define yypact_value_is_default(yystate) \
-  ((yystate) == (-192))
+#define yypact_value_is_default(Yystate) \
+  (!!((Yystate) == (-192)))
 
-#define yytable_value_is_error(yytable_value) \
+#define yytable_value_is_error(Yytable_value) \
   YYID (0)
 
 static const yytype_uint8 yycheck[] =
@@ -1038,62 +1066,35 @@ static const yytype_uint8 yystos[] =
 
 #define YYRECOVERING()  (!!yyerrstatus)
 
-#define YYBACKUP(Token, Value)					\
-do								\
-  if (yychar == YYEMPTY && yylen == 1)				\
-    {								\
-      yychar = (Token);						\
-      yylval = (Value);						\
-      YYPOPSTACK (1);						\
-      goto yybackup;						\
-    }								\
-  else								\
-    {								\
+#define YYBACKUP(Token, Value)                                  \
+do                                                              \
+  if (yychar == YYEMPTY)                                        \
+    {                                                           \
+      yychar = (Token);                                         \
+      yylval = (Value);                                         \
+      YYPOPSTACK (yylen);                                       \
+      yystate = *yyssp;                                         \
+      goto yybackup;                                            \
+    }                                                           \
+  else                                                          \
+    {                                                           \
       yyerror (YY_("syntax error: cannot back up")); \
       YYERROR;							\
     }								\
 while (YYID (0))
 
-
+/* Error token number */
 #define YYTERROR	1
 #define YYERRCODE	256
 
 
-/* YYLLOC_DEFAULT -- Set CURRENT to span from RHS[1] to RHS[N].
-   If N is 0, then set CURRENT to the empty location which ends
-   the previous symbol: RHS[0] (always defined).  */
-
-#define YYRHSLOC(Rhs, K) ((Rhs)[K])
-#ifndef YYLLOC_DEFAULT
-# define YYLLOC_DEFAULT(Current, Rhs, N)				\
-    do									\
-      if (YYID (N))                                                    \
-	{								\
-	  (Current).first_line   = YYRHSLOC (Rhs, 1).first_line;	\
-	  (Current).first_column = YYRHSLOC (Rhs, 1).first_column;	\
-	  (Current).last_line    = YYRHSLOC (Rhs, N).last_line;		\
-	  (Current).last_column  = YYRHSLOC (Rhs, N).last_column;	\
-	}								\
-      else								\
-	{								\
-	  (Current).first_line   = (Current).last_line   =		\
-	    YYRHSLOC (Rhs, 0).last_line;				\
-	  (Current).first_column = (Current).last_column =		\
-	    YYRHSLOC (Rhs, 0).last_column;				\
-	}								\
-    while (YYID (0))
-#endif
-
-
 /* This macro is provided for backward compatibility. */
-
 #ifndef YY_LOCATION_PRINT
 # define YY_LOCATION_PRINT(File, Loc) ((void) 0)
 #endif
 
 
 /* YYLEX -- calling `yylex' with the right arguments.  */
-
 #ifdef YYLEX_PARAM
 # define YYLEX yylex (YYLEX_PARAM)
 #else
@@ -1143,6 +1144,8 @@ yy_symbol_value_print (yyoutput, yytype, yyvaluep)
     YYSTYPE const * const yyvaluep;
 #endif
 {
+  FILE *yyo = yyoutput;
+  YYUSE (yyo);
   if (!yyvaluep)
     return;
 # ifdef YYPRINT
@@ -1151,11 +1154,7 @@ yy_symbol_value_print (yyoutput, yytype, yyvaluep)
 # else
   YYUSE (yyoutput);
 # endif
-  switch (yytype)
-    {
-      default:
-	break;
-    }
+  YYUSE (yytype);
 }
 
 
@@ -1394,12 +1393,11 @@ static int
 yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
                 yytype_int16 *yyssp, int yytoken)
 {
-  YYSIZE_T yysize0 = yytnamerr (0, yytname[yytoken]);
+  YYSIZE_T yysize0 = yytnamerr (YY_NULL, yytname[yytoken]);
   YYSIZE_T yysize = yysize0;
-  YYSIZE_T yysize1;
   enum { YYERROR_VERBOSE_ARGS_MAXIMUM = 5 };
   /* Internationalized format string. */
-  const char *yyformat = 0;
+  const char *yyformat = YY_NULL;
   /* Arguments of yyformat. */
   char const *yyarg[YYERROR_VERBOSE_ARGS_MAXIMUM];
   /* Number of reported tokens (one for the "unexpected", one per
@@ -1459,11 +1457,13 @@ yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
                     break;
                   }
                 yyarg[yycount++] = yytname[yyx];
-                yysize1 = yysize + yytnamerr (0, yytname[yyx]);
-                if (! (yysize <= yysize1
-                       && yysize1 <= YYSTACK_ALLOC_MAXIMUM))
-                  return 2;
-                yysize = yysize1;
+                {
+                  YYSIZE_T yysize1 = yysize + yytnamerr (YY_NULL, yytname[yyx]);
+                  if (! (yysize <= yysize1
+                         && yysize1 <= YYSTACK_ALLOC_MAXIMUM))
+                    return 2;
+                  yysize = yysize1;
+                }
               }
         }
     }
@@ -1483,10 +1483,12 @@ yysyntax_error (YYSIZE_T *yymsg_alloc, char **yymsg,
 # undef YYCASE_
     }
 
-  yysize1 = yysize + yystrlen (yyformat);
-  if (! (yysize <= yysize1 && yysize1 <= YYSTACK_ALLOC_MAXIMUM))
-    return 2;
-  yysize = yysize1;
+  {
+    YYSIZE_T yysize1 = yysize + yystrlen (yyformat);
+    if (! (yysize <= yysize1 && yysize1 <= YYSTACK_ALLOC_MAXIMUM))
+      return 2;
+    yysize = yysize1;
+  }
 
   if (*yymsg_alloc < yysize)
     {
@@ -1542,36 +1544,26 @@ yydestruct (yymsg, yytype, yyvaluep)
     yymsg = "Deleting";
   YY_SYMBOL_PRINT (yymsg, yytype, yyvaluep, yylocationp);
 
-  switch (yytype)
-    {
-
-      default:
-	break;
-    }
+  YYUSE (yytype);
 }
 
 
-/* Prevent warnings from -Wmissing-prototypes.  */
-#ifdef YYPARSE_PARAM
-#if defined __STDC__ || defined __cplusplus
-int yyparse (void *YYPARSE_PARAM);
-#else
-int yyparse ();
-#endif
-#else /* ! YYPARSE_PARAM */
-#if defined __STDC__ || defined __cplusplus
-int yyparse (void);
-#else
-int yyparse ();
-#endif
-#endif /* ! YYPARSE_PARAM */
 
 
 /* The lookahead symbol.  */
 int yychar;
 
+
+#ifndef YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
+# define YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
+# define YY_IGNORE_MAYBE_UNINITIALIZED_END
+#endif
+#ifndef YY_INITIAL_VALUE
+# define YY_INITIAL_VALUE(Value) /* Nothing. */
+#endif
+
 /* The semantic value of the lookahead symbol.  */
-YYSTYPE yylval;
+YYSTYPE yylval YY_INITIAL_VALUE(yyval_default);
 
 /* Number of syntax errors so far.  */
 int yynerrs;
@@ -1611,7 +1603,7 @@ yyparse ()
        `yyss': related to states.
        `yyvs': related to semantic values.
 
-       Refer to the stacks thru separate pointers, to allow yyoverflow
+       Refer to the stacks through separate pointers, to allow yyoverflow
        to reallocate them elsewhere.  */
 
     /* The state stack.  */
@@ -1629,7 +1621,7 @@ yyparse ()
   int yyn;
   int yyresult;
   /* Lookahead token as an internal (translated) token number.  */
-  int yytoken;
+  int yytoken = 0;
   /* The variables used to return semantic value and location from the
      action routines.  */
   YYSTYPE yyval;
@@ -1647,9 +1639,8 @@ yyparse ()
      Keep to zero when no symbol should be popped.  */
   int yylen = 0;
 
-  yytoken = 0;
-  yyss = yyssa;
-  yyvs = yyvsa;
+  yyssp = yyss = yyssa;
+  yyvsp = yyvs = yyvsa;
   yystacksize = YYINITDEPTH;
 
   YYDPRINTF ((stderr, "Starting parse\n"));
@@ -1658,14 +1649,6 @@ yyparse ()
   yyerrstatus = 0;
   yynerrs = 0;
   yychar = YYEMPTY; /* Cause a token to be read.  */
-
-  /* Initialize stack pointers.
-     Waste one element of value and location stack
-     so that they stay on the same level as the state stack.
-     The wasted elements are never initialized.  */
-  yyssp = yyss;
-  yyvsp = yyvs;
-
   goto yysetstate;
 
 /*------------------------------------------------------------.
@@ -1806,7 +1789,9 @@ yybackup:
   yychar = YYEMPTY;
 
   yystate = yyn;
+  YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
   *++yyvsp = yylval;
+  YY_IGNORE_MAYBE_UNINITIALIZED_END
 
   goto yynewstate;
 
@@ -1843,8 +1828,7 @@ yyreduce:
   switch (yyn)
     {
         case 8:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 230 "gpl.y"
     {
         string array = *(yyvsp[(2) - (3)].union_string);
@@ -1887,8 +1871,7 @@ yyreduce:
     break;
 
   case 9:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 268 "gpl.y"
     {
         string array = *(yyvsp[(2) - (5)].union_string);
@@ -1932,29 +1915,25 @@ yyreduce:
     break;
 
   case 10:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 311 "gpl.y"
     {(yyval.union_variable_type)=INT;}
     break;
 
   case 11:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 312 "gpl.y"
     {(yyval.union_variable_type)=DOUBLE;}
     break;
 
   case 12:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 313 "gpl.y"
     {(yyval.union_variable_type)=STRING;}
     break;
 
   case 13:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 318 "gpl.y"
     {
         (yyval.union_expr)=(yyvsp[(2) - (2)].union_expr);
@@ -1962,15 +1941,13 @@ yyreduce:
     break;
 
   case 14:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 321 "gpl.y"
     {(yyval.union_expr)=NULL;}
     break;
 
   case 15:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 326 "gpl.y"
     {
         cur_object_name = *(yyvsp[(2) - (2)].union_string);
@@ -2005,8 +1982,7 @@ yyreduce:
     break;
 
   case 16:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 355 "gpl.y"
     {
         
@@ -2014,8 +1990,7 @@ yyreduce:
     break;
 
   case 17:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 358 "gpl.y"
     {
         cur_object_name = *(yyvsp[(2) - (5)].union_string);
@@ -2074,43 +2049,37 @@ yyreduce:
     break;
 
   case 18:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 416 "gpl.y"
     {(yyval.union_int)=T_TRIANGLE;}
     break;
 
   case 19:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 417 "gpl.y"
     {(yyval.union_int)=T_PIXMAP;}
     break;
 
   case 20:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 418 "gpl.y"
     {(yyval.union_int)=T_CIRCLE;}
     break;
 
   case 21:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 419 "gpl.y"
     {(yyval.union_int)=T_RECTANGLE;}
     break;
 
   case 22:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 420 "gpl.y"
     {(yyval.union_int)=T_TEXTBOX;}
     break;
 
   case 27:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 437 "gpl.y"
     {
         Gpl_type g_type;
@@ -2165,8 +2134,7 @@ yyreduce:
     break;
 
   case 28:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 491 "gpl.y"
     {
         if(symbol_table->find(*(yyvsp[(3) - (6)].union_string))) {
@@ -2181,8 +2149,7 @@ yyreduce:
     break;
 
   case 34:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 517 "gpl.y"
     {
         Event_manager::instance()->add_block(23, (yyvsp[(2) - (2)].union_stmt_block));
@@ -2190,8 +2157,7 @@ yyreduce:
     break;
 
   case 35:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 524 "gpl.y"
     {
         Symbol* anim_block = symbol_table->find(*(yyvsp[(2) - (6)].union_string));
@@ -2200,8 +2166,7 @@ yyreduce:
     break;
 
   case 37:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 532 "gpl.y"
     {
         if(symbol_table->find(*(yyvsp[(2) - (2)].union_string)))
@@ -2259,8 +2224,7 @@ yyreduce:
     break;
 
   case 43:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 598 "gpl.y"
     {
         switch((yyvsp[(2) - (3)].union_int)) {
@@ -2339,183 +2303,157 @@ yyreduce:
     break;
 
   case 44:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 676 "gpl.y"
     {(yyval.union_int)=T_SPACE;}
     break;
 
   case 45:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 677 "gpl.y"
     {(yyval.union_int)=T_UPARROW;}
     break;
 
   case 46:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 678 "gpl.y"
     {(yyval.union_int)=T_DOWNARROW;}
     break;
 
   case 47:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 679 "gpl.y"
     {(yyval.union_int)=T_LEFTARROW;}
     break;
 
   case 48:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 680 "gpl.y"
     {(yyval.union_int)=T_RIGHTARROW;}
     break;
 
   case 49:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 681 "gpl.y"
     {(yyval.union_int)=T_LEFTMOUSE_DOWN;}
     break;
 
   case 50:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 682 "gpl.y"
     {(yyval.union_int)=T_MIDDLEMOUSE_DOWN;}
     break;
 
   case 51:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 683 "gpl.y"
     {(yyval.union_int)=T_RIGHTMOUSE_DOWN;}
     break;
 
   case 52:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 684 "gpl.y"
     {(yyval.union_int)=T_LEFTMOUSE_UP;}
     break;
 
   case 53:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 685 "gpl.y"
     {(yyval.union_int)=T_MIDDLEMOUSE_UP;}
     break;
 
   case 54:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 686 "gpl.y"
     {(yyval.union_int)=T_RIGHTMOUSE_UP;}
     break;
 
   case 55:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 687 "gpl.y"
     {(yyval.union_int)=T_MOUSE_MOVE;}
     break;
 
   case 56:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 688 "gpl.y"
     {(yyval.union_int)=T_MOUSE_DRAG;}
     break;
 
   case 57:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 689 "gpl.y"
     {(yyval.union_int)=T_AKEY;}
     break;
 
   case 58:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 690 "gpl.y"
     {(yyval.union_int)=T_SKEY;}
     break;
 
   case 59:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 691 "gpl.y"
     {(yyval.union_int)=T_DKEY;}
     break;
 
   case 60:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 692 "gpl.y"
     {(yyval.union_int)=T_FKEY;}
     break;
 
   case 61:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 693 "gpl.y"
     {(yyval.union_int)=T_HKEY;}
     break;
 
   case 62:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 694 "gpl.y"
     {(yyval.union_int)=T_JKEY;}
     break;
 
   case 63:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 695 "gpl.y"
     {(yyval.union_int)=T_KKEY;}
     break;
 
   case 64:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 696 "gpl.y"
     {(yyval.union_int)=T_LKEY;}
     break;
 
   case 65:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 697 "gpl.y"
     {(yyval.union_int)=T_WKEY;}
     break;
 
   case 66:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 698 "gpl.y"
     {(yyval.union_int)=T_F1;}
     break;
 
   case 67:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 703 "gpl.y"
     {(yyval.union_stmt_block)=(yyvsp[(3) - (3)].union_stmt_block);}
     break;
 
   case 68:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 704 "gpl.y"
     {(yyval.union_stmt_block)=(yyvsp[(1) - (1)].union_stmt_block);}
     break;
 
   case 69:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 709 "gpl.y"
     {
         (yyval.union_stmt_block)=(yyvsp[(5) - (5)].union_stmt_block);
@@ -2523,8 +2461,7 @@ yyreduce:
     break;
 
   case 70:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 717 "gpl.y"
     {
         block_stack.push(new Statement_block(line_count));
@@ -2532,8 +2469,7 @@ yyreduce:
     break;
 
   case 71:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 725 "gpl.y"
     {
         (yyval.union_stmt_block) = block_stack.top();
@@ -2542,8 +2478,7 @@ yyreduce:
     break;
 
   case 79:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 748 "gpl.y"
     {
         if((yyvsp[(3) - (5)].union_expr)->get_type() != "int")
@@ -2554,8 +2489,7 @@ yyreduce:
     break;
 
   case 80:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 754 "gpl.y"
     {
         if((yyvsp[(3) - (7)].union_expr)->get_type() != "int")
@@ -2567,8 +2501,7 @@ yyreduce:
     break;
 
   case 81:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 767 "gpl.y"
     {
         if((yyvsp[(7) - (13)].union_expr)->get_type() != "int")
@@ -2578,8 +2511,7 @@ yyreduce:
     break;
 
   case 82:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 776 "gpl.y"
     {
         if(!((yyvsp[(3) - (4)].union_expr)->get_type() == "int" ||
@@ -2592,8 +2524,7 @@ yyreduce:
     break;
 
   case 83:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 788 "gpl.y"
     {
         if((yyvsp[(3) - (4)].union_expr)->get_type()!="int")
@@ -2604,8 +2535,7 @@ yyreduce:
     break;
 
   case 84:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 798 "gpl.y"
     {
         string variable_type, expression_type;
@@ -2630,8 +2560,7 @@ yyreduce:
     break;
 
   case 85:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 818 "gpl.y"
     {
         string variable_type, expression_type;
@@ -2659,8 +2588,7 @@ yyreduce:
     break;
 
   case 86:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 841 "gpl.y"
     {
         string variable_type, expression_type;
@@ -2686,8 +2614,7 @@ yyreduce:
     break;
 
   case 87:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 866 "gpl.y"
     {
         Symbol* var = symbol_table->find(*(yyvsp[(1) - (1)].union_string));
@@ -2709,8 +2636,7 @@ yyreduce:
     break;
 
   case 88:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 883 "gpl.y"
     {
         if((yyvsp[(3) - (4)].union_expr)->get_type() !=  "int") {
@@ -2731,8 +2657,7 @@ yyreduce:
     break;
 
   case 89:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 899 "gpl.y"
     {
         game_flag=true;
@@ -2819,8 +2744,7 @@ yyreduce:
     break;
 
   case 90:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 981 "gpl.y"
     {
         game_flag=true;
@@ -2878,15 +2802,13 @@ yyreduce:
     break;
 
   case 91:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 1038 "gpl.y"
     {(yyval.union_expr)=(yyvsp[(1) - (1)].union_expr);}
     break;
 
   case 92:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 1040 "gpl.y"
     {
         if((yyvsp[(1) - (3)].union_expr)->get_type()=="string")
@@ -2899,8 +2821,7 @@ yyreduce:
     break;
 
   case 93:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 1049 "gpl.y"
     {
         if((yyvsp[(1) - (3)].union_expr)->get_type()=="string")
@@ -2913,15 +2834,13 @@ yyreduce:
     break;
 
   case 94:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 1057 "gpl.y"
     {(yyval.union_expr)=new Expr(LESS_THAN_EQUAL,(yyvsp[(1) - (3)].union_expr),(yyvsp[(3) - (3)].union_expr));}
     break;
 
   case 95:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 1058 "gpl.y"
     {
         (yyval.union_expr)=new Expr(GREATER_THAN_EQUAL,(yyvsp[(1) - (3)].union_expr),(yyvsp[(3) - (3)].union_expr));
@@ -2929,22 +2848,19 @@ yyreduce:
     break;
 
   case 96:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 1061 "gpl.y"
     {(yyval.union_expr)=new Expr(LESS_THAN, (yyvsp[(1) - (3)].union_expr), (yyvsp[(3) - (3)].union_expr));}
     break;
 
   case 97:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 1062 "gpl.y"
     {(yyval.union_expr)=new Expr(GREATER_THAN,(yyvsp[(1) - (3)].union_expr),(yyvsp[(3) - (3)].union_expr));}
     break;
 
   case 98:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 1063 "gpl.y"
     {
         (yyval.union_expr)=new Expr(EQUAL, (yyvsp[(1) - (3)].union_expr), (yyvsp[(3) - (3)].union_expr));
@@ -2952,15 +2868,13 @@ yyreduce:
     break;
 
   case 99:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 1066 "gpl.y"
     {(yyval.union_expr)=new Expr(NOT_EQUAL,(yyvsp[(1) - (3)].union_expr),(yyvsp[(3) - (3)].union_expr));}
     break;
 
   case 100:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 1067 "gpl.y"
     {
         (yyval.union_expr)=new Expr(PLUS, (yyvsp[(1) - (3)].union_expr), (yyvsp[(3) - (3)].union_expr));
@@ -2968,8 +2882,7 @@ yyreduce:
     break;
 
   case 101:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 1070 "gpl.y"
     {
         if((yyvsp[(1) - (3)].union_expr)->get_type()=="string")
@@ -2982,8 +2895,7 @@ yyreduce:
     break;
 
   case 102:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 1078 "gpl.y"
     {
         if((yyvsp[(1) - (3)].union_expr)->get_type()=="string")
@@ -2996,11 +2908,12 @@ yyreduce:
     break;
 
   case 103:
-
-/* Line 1806 of yacc.c  */
+/* Line 1787 of yacc.c  */
 #line 1086 "gpl.y"
     {
-        if((yyvsp[(1) - (3)].union_expr)->get_type() == "string" || (yyvsp[(3) - (3)].union_expr)->get_type() == "string");
+        if((yyvsp[(1) - (3)].union_expr)->get_type() == "string");
+        if((yyvsp[(3) - (3)].union_expr)->get_type() == "string")
+            Error::error(Error::INVALID_RIGHT_OPERAND_TYPE,"/");
             //error
         else
             (yyval.union_expr)=new Expr(DIVIDE, (yyvsp[(1) - (3)].union_expr), (yyvsp[(3) - (3)].union_expr));
@@ -3008,34 +2921,30 @@ yyreduce:
     break;
 
   case 104:
-
-/* Line 1806 of yacc.c  */
-#line 1092 "gpl.y"
+/* Line 1787 of yacc.c  */
+#line 1094 "gpl.y"
     {(yyval.union_expr)=new Expr(MOD,(yyvsp[(1) - (3)].union_expr),(yyvsp[(3) - (3)].union_expr));}
     break;
 
   case 105:
-
-/* Line 1806 of yacc.c  */
-#line 1093 "gpl.y"
+/* Line 1787 of yacc.c  */
+#line 1095 "gpl.y"
     {
         (yyval.union_expr)=new Expr(UNARY_MINUS, (yyvsp[(2) - (2)].union_expr));
     }
     break;
 
   case 106:
-
-/* Line 1806 of yacc.c  */
-#line 1096 "gpl.y"
+/* Line 1787 of yacc.c  */
+#line 1098 "gpl.y"
     {
         (yyval.union_expr)=new Expr(NOT, (yyvsp[(2) - (2)].union_expr));
     }
     break;
 
   case 107:
-
-/* Line 1806 of yacc.c  */
-#line 1099 "gpl.y"
+/* Line 1787 of yacc.c  */
+#line 1101 "gpl.y"
     {
         if((yyvsp[(1) - (4)].union_operator_type)==SQRT && (yyvsp[(3) - (4)].union_expr)->get_type()=="string") {
             Error::error(Error::INVALID_RIGHT_OPERAND_TYPE,"sqrt");
@@ -3058,18 +2967,16 @@ yyreduce:
     break;
 
   case 109:
-
-/* Line 1806 of yacc.c  */
-#line 1123 "gpl.y"
+/* Line 1787 of yacc.c  */
+#line 1125 "gpl.y"
     {
         (yyval.union_expr)=(yyvsp[(2) - (3)].union_expr);
     }
     break;
 
   case 110:
-
-/* Line 1806 of yacc.c  */
-#line 1126 "gpl.y"
+/* Line 1787 of yacc.c  */
+#line 1128 "gpl.y"
     {
         if((yyvsp[(1) - (1)].union_variable)) {
             (yyval.union_expr) = new Expr((yyvsp[(1) - (1)].union_variable));
@@ -3080,124 +2987,108 @@ yyreduce:
     break;
 
   case 111:
-
-/* Line 1806 of yacc.c  */
-#line 1133 "gpl.y"
+/* Line 1787 of yacc.c  */
+#line 1135 "gpl.y"
     {
         (yyval.union_expr)=new Expr((yyvsp[(1) - (1)].union_int));
     }
     break;
 
   case 112:
-
-/* Line 1806 of yacc.c  */
-#line 1136 "gpl.y"
+/* Line 1787 of yacc.c  */
+#line 1138 "gpl.y"
     {
         (yyval.union_expr)=new Expr(1);
     }
     break;
 
   case 113:
-
-/* Line 1806 of yacc.c  */
-#line 1139 "gpl.y"
+/* Line 1787 of yacc.c  */
+#line 1141 "gpl.y"
     {
         (yyval.union_expr)=new Expr(0);
     }
     break;
 
   case 114:
-
-/* Line 1806 of yacc.c  */
-#line 1142 "gpl.y"
+/* Line 1787 of yacc.c  */
+#line 1144 "gpl.y"
     {
         (yyval.union_expr)=new Expr((yyvsp[(1) - (1)].union_double));
     }
     break;
 
   case 115:
-
-/* Line 1806 of yacc.c  */
-#line 1145 "gpl.y"
+/* Line 1787 of yacc.c  */
+#line 1147 "gpl.y"
     {
         (yyval.union_expr)=new Expr(*(yyvsp[(1) - (1)].union_string));
     }
     break;
 
   case 118:
-
-/* Line 1806 of yacc.c  */
-#line 1158 "gpl.y"
+/* Line 1787 of yacc.c  */
+#line 1160 "gpl.y"
     {(yyval.union_operator_type)=SIN;}
     break;
 
   case 119:
-
-/* Line 1806 of yacc.c  */
-#line 1159 "gpl.y"
+/* Line 1787 of yacc.c  */
+#line 1161 "gpl.y"
     {(yyval.union_operator_type)=COS;}
     break;
 
   case 120:
-
-/* Line 1806 of yacc.c  */
-#line 1160 "gpl.y"
+/* Line 1787 of yacc.c  */
+#line 1162 "gpl.y"
     {(yyval.union_operator_type)=TAN;}
     break;
 
   case 121:
-
-/* Line 1806 of yacc.c  */
-#line 1161 "gpl.y"
+/* Line 1787 of yacc.c  */
+#line 1163 "gpl.y"
     {(yyval.union_operator_type)=ASIN;}
     break;
 
   case 122:
-
-/* Line 1806 of yacc.c  */
-#line 1162 "gpl.y"
+/* Line 1787 of yacc.c  */
+#line 1164 "gpl.y"
     {(yyval.union_operator_type)=ACOS;}
     break;
 
   case 123:
-
-/* Line 1806 of yacc.c  */
-#line 1163 "gpl.y"
+/* Line 1787 of yacc.c  */
+#line 1165 "gpl.y"
     {(yyval.union_operator_type)=ATAN;}
     break;
 
   case 124:
-
-/* Line 1806 of yacc.c  */
-#line 1164 "gpl.y"
+/* Line 1787 of yacc.c  */
+#line 1166 "gpl.y"
     {(yyval.union_operator_type)=SQRT;}
     break;
 
   case 125:
-
-/* Line 1806 of yacc.c  */
-#line 1165 "gpl.y"
+/* Line 1787 of yacc.c  */
+#line 1167 "gpl.y"
     {(yyval.union_operator_type)=ABS;}
     break;
 
   case 126:
-
-/* Line 1806 of yacc.c  */
-#line 1166 "gpl.y"
+/* Line 1787 of yacc.c  */
+#line 1168 "gpl.y"
     {(yyval.union_operator_type)=FLOOR;}
     break;
 
   case 127:
-
-/* Line 1806 of yacc.c  */
-#line 1167 "gpl.y"
+/* Line 1787 of yacc.c  */
+#line 1169 "gpl.y"
     {(yyval.union_operator_type)=RANDOM;}
     break;
 
 
-
-/* Line 1806 of yacc.c  */
-#line 3201 "y.tab.c"
+/* Line 1787 of yacc.c  */
+#line 3092 "y.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -3360,7 +3251,9 @@ yyerrlab1:
       YY_STACK_PRINT (yyss, yyssp);
     }
 
+  YY_IGNORE_MAYBE_UNINITIALIZED_BEGIN
   *++yyvsp = yylval;
+  YY_IGNORE_MAYBE_UNINITIALIZED_END
 
 
   /* Shift the error token.  */
@@ -3384,7 +3277,7 @@ yyabortlab:
   yyresult = 1;
   goto yyreturn;
 
-#if !defined(yyoverflow) || YYERROR_VERBOSE
+#if !defined yyoverflow || YYERROR_VERBOSE
 /*-------------------------------------------------.
 | yyexhaustedlab -- memory exhaustion comes here.  |
 `-------------------------------------------------*/
@@ -3424,6 +3317,5 @@ yyreturn:
   /* Make sure YYID is used.  */
   return YYID (yyresult);
 }
-
 
 
