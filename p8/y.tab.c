@@ -709,16 +709,16 @@ static const yytype_uint16 yyrline[] =
        0,   211,   211,   216,   217,   222,   223,   224,   229,   268,
      311,   312,   313,   318,   321,   326,   326,   358,   416,   417,
      418,   419,   420,   425,   426,   431,   432,   437,   491,   505,
-     506,   511,   512,   512,   517,   522,   522,   530,   587,   588,
-     589,   590,   591,   596,   674,   675,   676,   677,   678,   679,
-     680,   681,   682,   683,   684,   685,   686,   687,   688,   689,
-     690,   691,   692,   693,   694,   695,   696,   701,   702,   707,
-     715,   723,   731,   732,   737,   738,   739,   740,   741,   746,
-     752,   763,   774,   786,   796,   816,   839,   864,   881,   897,
-     979,  1036,  1037,  1046,  1055,  1056,  1059,  1060,  1061,  1064,
-    1065,  1068,  1076,  1084,  1090,  1091,  1094,  1097,  1116,  1121,
-    1124,  1131,  1134,  1137,  1140,  1143,  1150,  1151,  1156,  1157,
-    1158,  1159,  1160,  1161,  1162,  1163,  1164,  1165,  1169
+     506,   511,   512,   512,   517,   524,   524,   532,   589,   590,
+     591,   592,   593,   598,   676,   677,   678,   679,   680,   681,
+     682,   683,   684,   685,   686,   687,   688,   689,   690,   691,
+     692,   693,   694,   695,   696,   697,   698,   703,   704,   709,
+     717,   725,   733,   734,   739,   740,   741,   742,   743,   748,
+     754,   765,   776,   788,   798,   818,   841,   866,   883,   899,
+     981,  1038,  1039,  1048,  1057,  1058,  1061,  1062,  1063,  1066,
+    1067,  1070,  1078,  1086,  1092,  1093,  1096,  1099,  1118,  1123,
+    1126,  1133,  1136,  1139,  1142,  1145,  1152,  1153,  1158,  1159,
+    1160,  1161,  1162,  1163,  1164,  1165,  1166,  1167,  1171
 };
 #endif
 
@@ -2180,10 +2180,19 @@ yyreduce:
     }
     break;
 
+  case 34:
+
+/* Line 1806 of yacc.c  */
+#line 517 "gpl.y"
+    {
+        Event_manager::instance()->add_block(23, (yyvsp[(2) - (2)].union_stmt_block));
+    }
+    break;
+
   case 35:
 
 /* Line 1806 of yacc.c  */
-#line 522 "gpl.y"
+#line 524 "gpl.y"
     {
         Symbol* anim_block = symbol_table->find(*(yyvsp[(2) - (6)].union_string));
         block_stack.push(anim_block->get_animation_block());
@@ -2193,7 +2202,7 @@ yyreduce:
   case 37:
 
 /* Line 1806 of yacc.c  */
-#line 530 "gpl.y"
+#line 532 "gpl.y"
     {
         if(symbol_table->find(*(yyvsp[(2) - (2)].union_string)))
             Error::error(Error::ANIMATION_PARAMETER_NAME_NOT_UNIQUE,*(yyvsp[(2) - (2)].union_string));
@@ -2252,7 +2261,7 @@ yyreduce:
   case 43:
 
 /* Line 1806 of yacc.c  */
-#line 596 "gpl.y"
+#line 598 "gpl.y"
     {
         switch((yyvsp[(2) - (3)].union_int)) {
             case T_SPACE:
@@ -2332,182 +2341,182 @@ yyreduce:
   case 44:
 
 /* Line 1806 of yacc.c  */
-#line 674 "gpl.y"
+#line 676 "gpl.y"
     {(yyval.union_int)=T_SPACE;}
     break;
 
   case 45:
 
 /* Line 1806 of yacc.c  */
-#line 675 "gpl.y"
+#line 677 "gpl.y"
     {(yyval.union_int)=T_UPARROW;}
     break;
 
   case 46:
 
 /* Line 1806 of yacc.c  */
-#line 676 "gpl.y"
+#line 678 "gpl.y"
     {(yyval.union_int)=T_DOWNARROW;}
     break;
 
   case 47:
 
 /* Line 1806 of yacc.c  */
-#line 677 "gpl.y"
+#line 679 "gpl.y"
     {(yyval.union_int)=T_LEFTARROW;}
     break;
 
   case 48:
 
 /* Line 1806 of yacc.c  */
-#line 678 "gpl.y"
+#line 680 "gpl.y"
     {(yyval.union_int)=T_RIGHTARROW;}
     break;
 
   case 49:
 
 /* Line 1806 of yacc.c  */
-#line 679 "gpl.y"
+#line 681 "gpl.y"
     {(yyval.union_int)=T_LEFTMOUSE_DOWN;}
     break;
 
   case 50:
 
 /* Line 1806 of yacc.c  */
-#line 680 "gpl.y"
+#line 682 "gpl.y"
     {(yyval.union_int)=T_MIDDLEMOUSE_DOWN;}
     break;
 
   case 51:
 
 /* Line 1806 of yacc.c  */
-#line 681 "gpl.y"
+#line 683 "gpl.y"
     {(yyval.union_int)=T_RIGHTMOUSE_DOWN;}
     break;
 
   case 52:
 
 /* Line 1806 of yacc.c  */
-#line 682 "gpl.y"
+#line 684 "gpl.y"
     {(yyval.union_int)=T_LEFTMOUSE_UP;}
     break;
 
   case 53:
 
 /* Line 1806 of yacc.c  */
-#line 683 "gpl.y"
+#line 685 "gpl.y"
     {(yyval.union_int)=T_MIDDLEMOUSE_UP;}
     break;
 
   case 54:
 
 /* Line 1806 of yacc.c  */
-#line 684 "gpl.y"
+#line 686 "gpl.y"
     {(yyval.union_int)=T_RIGHTMOUSE_UP;}
     break;
 
   case 55:
 
 /* Line 1806 of yacc.c  */
-#line 685 "gpl.y"
+#line 687 "gpl.y"
     {(yyval.union_int)=T_MOUSE_MOVE;}
     break;
 
   case 56:
 
 /* Line 1806 of yacc.c  */
-#line 686 "gpl.y"
+#line 688 "gpl.y"
     {(yyval.union_int)=T_MOUSE_DRAG;}
     break;
 
   case 57:
 
 /* Line 1806 of yacc.c  */
-#line 687 "gpl.y"
+#line 689 "gpl.y"
     {(yyval.union_int)=T_AKEY;}
     break;
 
   case 58:
 
 /* Line 1806 of yacc.c  */
-#line 688 "gpl.y"
+#line 690 "gpl.y"
     {(yyval.union_int)=T_SKEY;}
     break;
 
   case 59:
 
 /* Line 1806 of yacc.c  */
-#line 689 "gpl.y"
+#line 691 "gpl.y"
     {(yyval.union_int)=T_DKEY;}
     break;
 
   case 60:
 
 /* Line 1806 of yacc.c  */
-#line 690 "gpl.y"
+#line 692 "gpl.y"
     {(yyval.union_int)=T_FKEY;}
     break;
 
   case 61:
 
 /* Line 1806 of yacc.c  */
-#line 691 "gpl.y"
+#line 693 "gpl.y"
     {(yyval.union_int)=T_HKEY;}
     break;
 
   case 62:
 
 /* Line 1806 of yacc.c  */
-#line 692 "gpl.y"
+#line 694 "gpl.y"
     {(yyval.union_int)=T_JKEY;}
     break;
 
   case 63:
 
 /* Line 1806 of yacc.c  */
-#line 693 "gpl.y"
+#line 695 "gpl.y"
     {(yyval.union_int)=T_KKEY;}
     break;
 
   case 64:
 
 /* Line 1806 of yacc.c  */
-#line 694 "gpl.y"
+#line 696 "gpl.y"
     {(yyval.union_int)=T_LKEY;}
     break;
 
   case 65:
 
 /* Line 1806 of yacc.c  */
-#line 695 "gpl.y"
+#line 697 "gpl.y"
     {(yyval.union_int)=T_WKEY;}
     break;
 
   case 66:
 
 /* Line 1806 of yacc.c  */
-#line 696 "gpl.y"
+#line 698 "gpl.y"
     {(yyval.union_int)=T_F1;}
     break;
 
   case 67:
 
 /* Line 1806 of yacc.c  */
-#line 701 "gpl.y"
+#line 703 "gpl.y"
     {(yyval.union_stmt_block)=(yyvsp[(3) - (3)].union_stmt_block);}
     break;
 
   case 68:
 
 /* Line 1806 of yacc.c  */
-#line 702 "gpl.y"
+#line 704 "gpl.y"
     {(yyval.union_stmt_block)=(yyvsp[(1) - (1)].union_stmt_block);}
     break;
 
   case 69:
 
 /* Line 1806 of yacc.c  */
-#line 707 "gpl.y"
+#line 709 "gpl.y"
     {
         (yyval.union_stmt_block)=(yyvsp[(5) - (5)].union_stmt_block);
     }
@@ -2516,7 +2525,7 @@ yyreduce:
   case 70:
 
 /* Line 1806 of yacc.c  */
-#line 715 "gpl.y"
+#line 717 "gpl.y"
     {
         block_stack.push(new Statement_block(line_count));
     }
@@ -2525,7 +2534,7 @@ yyreduce:
   case 71:
 
 /* Line 1806 of yacc.c  */
-#line 723 "gpl.y"
+#line 725 "gpl.y"
     {
         (yyval.union_stmt_block) = block_stack.top();
         block_stack.pop();
@@ -2535,7 +2544,7 @@ yyreduce:
   case 79:
 
 /* Line 1806 of yacc.c  */
-#line 746 "gpl.y"
+#line 748 "gpl.y"
     {
         if((yyvsp[(3) - (5)].union_expr)->get_type() != "int")
             Error::error(Error::INVALID_TYPE_FOR_IF_STMT_EXPRESSION);
@@ -2547,7 +2556,7 @@ yyreduce:
   case 80:
 
 /* Line 1806 of yacc.c  */
-#line 752 "gpl.y"
+#line 754 "gpl.y"
     {
         if((yyvsp[(3) - (7)].union_expr)->get_type() != "int")
             Error::error(Error::INVALID_TYPE_FOR_IF_STMT_EXPRESSION);
@@ -2560,7 +2569,7 @@ yyreduce:
   case 81:
 
 /* Line 1806 of yacc.c  */
-#line 765 "gpl.y"
+#line 767 "gpl.y"
     {
         if((yyvsp[(7) - (13)].union_expr)->get_type() != "int")
             Error::error(Error::INVALID_TYPE_FOR_FOR_STMT_EXPRESSION);
@@ -2571,7 +2580,7 @@ yyreduce:
   case 82:
 
 /* Line 1806 of yacc.c  */
-#line 774 "gpl.y"
+#line 776 "gpl.y"
     {
         if(!((yyvsp[(3) - (4)].union_expr)->get_type() == "int" ||
            (yyvsp[(3) - (4)].union_expr)->get_type() == "double" ||
@@ -2585,7 +2594,7 @@ yyreduce:
   case 83:
 
 /* Line 1806 of yacc.c  */
-#line 786 "gpl.y"
+#line 788 "gpl.y"
     {
         if((yyvsp[(3) - (4)].union_expr)->get_type()!="int")
             Error::error(Error::EXIT_STATUS_MUST_BE_AN_INTEGER,(yyvsp[(3) - (4)].union_expr)->get_type());
@@ -2597,7 +2606,7 @@ yyreduce:
   case 84:
 
 /* Line 1806 of yacc.c  */
-#line 796 "gpl.y"
+#line 798 "gpl.y"
     {
         string variable_type, expression_type;
         if((yyvsp[(1) - (3)].union_variable)) {
@@ -2623,7 +2632,7 @@ yyreduce:
   case 85:
 
 /* Line 1806 of yacc.c  */
-#line 816 "gpl.y"
+#line 818 "gpl.y"
     {
         string variable_type, expression_type;
         if((yyvsp[(1) - (3)].union_variable))
@@ -2652,7 +2661,7 @@ yyreduce:
   case 86:
 
 /* Line 1806 of yacc.c  */
-#line 839 "gpl.y"
+#line 841 "gpl.y"
     {
         string variable_type, expression_type;
         if((yyvsp[(1) - (3)].union_variable))
@@ -2679,7 +2688,7 @@ yyreduce:
   case 87:
 
 /* Line 1806 of yacc.c  */
-#line 864 "gpl.y"
+#line 866 "gpl.y"
     {
         Symbol* var = symbol_table->find(*(yyvsp[(1) - (1)].union_string));
         if(var) {
@@ -2702,7 +2711,7 @@ yyreduce:
   case 88:
 
 /* Line 1806 of yacc.c  */
-#line 881 "gpl.y"
+#line 883 "gpl.y"
     {
         if((yyvsp[(3) - (4)].union_expr)->get_type() !=  "int") {
             string s2=(yyvsp[(3) - (4)].union_expr)->get_type();
@@ -2724,7 +2733,7 @@ yyreduce:
   case 89:
 
 /* Line 1806 of yacc.c  */
-#line 897 "gpl.y"
+#line 899 "gpl.y"
     {
         game_flag=true;
         cur_object_name = *(yyvsp[(1) - (3)].union_string);
@@ -2812,7 +2821,7 @@ yyreduce:
   case 90:
 
 /* Line 1806 of yacc.c  */
-#line 979 "gpl.y"
+#line 981 "gpl.y"
     {
         game_flag=true;
         cur_member_name = *(yyvsp[(6) - (6)].union_string);
@@ -2871,14 +2880,14 @@ yyreduce:
   case 91:
 
 /* Line 1806 of yacc.c  */
-#line 1036 "gpl.y"
+#line 1038 "gpl.y"
     {(yyval.union_expr)=(yyvsp[(1) - (1)].union_expr);}
     break;
 
   case 92:
 
 /* Line 1806 of yacc.c  */
-#line 1038 "gpl.y"
+#line 1040 "gpl.y"
     {
         if((yyvsp[(1) - (3)].union_expr)->get_type()=="string")
             Error::error(Error::INVALID_LEFT_OPERAND_TYPE,"||");
@@ -2892,7 +2901,7 @@ yyreduce:
   case 93:
 
 /* Line 1806 of yacc.c  */
-#line 1047 "gpl.y"
+#line 1049 "gpl.y"
     {
         if((yyvsp[(1) - (3)].union_expr)->get_type()=="string")
             Error::error(Error::INVALID_LEFT_OPERAND_TYPE,"&&");
@@ -2906,14 +2915,14 @@ yyreduce:
   case 94:
 
 /* Line 1806 of yacc.c  */
-#line 1055 "gpl.y"
+#line 1057 "gpl.y"
     {(yyval.union_expr)=new Expr(LESS_THAN_EQUAL,(yyvsp[(1) - (3)].union_expr),(yyvsp[(3) - (3)].union_expr));}
     break;
 
   case 95:
 
 /* Line 1806 of yacc.c  */
-#line 1056 "gpl.y"
+#line 1058 "gpl.y"
     {
         (yyval.union_expr)=new Expr(GREATER_THAN_EQUAL,(yyvsp[(1) - (3)].union_expr),(yyvsp[(3) - (3)].union_expr));
     }
@@ -2922,21 +2931,21 @@ yyreduce:
   case 96:
 
 /* Line 1806 of yacc.c  */
-#line 1059 "gpl.y"
+#line 1061 "gpl.y"
     {(yyval.union_expr)=new Expr(LESS_THAN, (yyvsp[(1) - (3)].union_expr), (yyvsp[(3) - (3)].union_expr));}
     break;
 
   case 97:
 
 /* Line 1806 of yacc.c  */
-#line 1060 "gpl.y"
+#line 1062 "gpl.y"
     {(yyval.union_expr)=new Expr(GREATER_THAN,(yyvsp[(1) - (3)].union_expr),(yyvsp[(3) - (3)].union_expr));}
     break;
 
   case 98:
 
 /* Line 1806 of yacc.c  */
-#line 1061 "gpl.y"
+#line 1063 "gpl.y"
     {
         (yyval.union_expr)=new Expr(EQUAL, (yyvsp[(1) - (3)].union_expr), (yyvsp[(3) - (3)].union_expr));
     }
@@ -2945,14 +2954,14 @@ yyreduce:
   case 99:
 
 /* Line 1806 of yacc.c  */
-#line 1064 "gpl.y"
+#line 1066 "gpl.y"
     {(yyval.union_expr)=new Expr(NOT_EQUAL,(yyvsp[(1) - (3)].union_expr),(yyvsp[(3) - (3)].union_expr));}
     break;
 
   case 100:
 
 /* Line 1806 of yacc.c  */
-#line 1065 "gpl.y"
+#line 1067 "gpl.y"
     {
         (yyval.union_expr)=new Expr(PLUS, (yyvsp[(1) - (3)].union_expr), (yyvsp[(3) - (3)].union_expr));
     }
@@ -2961,7 +2970,7 @@ yyreduce:
   case 101:
 
 /* Line 1806 of yacc.c  */
-#line 1068 "gpl.y"
+#line 1070 "gpl.y"
     {
         if((yyvsp[(1) - (3)].union_expr)->get_type()=="string")
             Error::error(Error::INVALID_LEFT_OPERAND_TYPE,"-");
@@ -2975,7 +2984,7 @@ yyreduce:
   case 102:
 
 /* Line 1806 of yacc.c  */
-#line 1076 "gpl.y"
+#line 1078 "gpl.y"
     {
         if((yyvsp[(1) - (3)].union_expr)->get_type()=="string")
             Error::error(Error::INVALID_LEFT_OPERAND_TYPE,"*");
@@ -2989,7 +2998,7 @@ yyreduce:
   case 103:
 
 /* Line 1806 of yacc.c  */
-#line 1084 "gpl.y"
+#line 1086 "gpl.y"
     {
         if((yyvsp[(1) - (3)].union_expr)->get_type() == "string" || (yyvsp[(3) - (3)].union_expr)->get_type() == "string");
             //error
@@ -3001,14 +3010,14 @@ yyreduce:
   case 104:
 
 /* Line 1806 of yacc.c  */
-#line 1090 "gpl.y"
+#line 1092 "gpl.y"
     {(yyval.union_expr)=new Expr(MOD,(yyvsp[(1) - (3)].union_expr),(yyvsp[(3) - (3)].union_expr));}
     break;
 
   case 105:
 
 /* Line 1806 of yacc.c  */
-#line 1091 "gpl.y"
+#line 1093 "gpl.y"
     {
         (yyval.union_expr)=new Expr(UNARY_MINUS, (yyvsp[(2) - (2)].union_expr));
     }
@@ -3017,7 +3026,7 @@ yyreduce:
   case 106:
 
 /* Line 1806 of yacc.c  */
-#line 1094 "gpl.y"
+#line 1096 "gpl.y"
     {
         (yyval.union_expr)=new Expr(NOT, (yyvsp[(2) - (2)].union_expr));
     }
@@ -3026,7 +3035,7 @@ yyreduce:
   case 107:
 
 /* Line 1806 of yacc.c  */
-#line 1097 "gpl.y"
+#line 1099 "gpl.y"
     {
         if((yyvsp[(1) - (4)].union_operator_type)==SQRT && (yyvsp[(3) - (4)].union_expr)->get_type()=="string") {
             Error::error(Error::INVALID_RIGHT_OPERAND_TYPE,"sqrt");
@@ -3051,7 +3060,7 @@ yyreduce:
   case 109:
 
 /* Line 1806 of yacc.c  */
-#line 1121 "gpl.y"
+#line 1123 "gpl.y"
     {
         (yyval.union_expr)=(yyvsp[(2) - (3)].union_expr);
     }
@@ -3060,7 +3069,7 @@ yyreduce:
   case 110:
 
 /* Line 1806 of yacc.c  */
-#line 1124 "gpl.y"
+#line 1126 "gpl.y"
     {
         if((yyvsp[(1) - (1)].union_variable)) {
             (yyval.union_expr) = new Expr((yyvsp[(1) - (1)].union_variable));
@@ -3073,7 +3082,7 @@ yyreduce:
   case 111:
 
 /* Line 1806 of yacc.c  */
-#line 1131 "gpl.y"
+#line 1133 "gpl.y"
     {
         (yyval.union_expr)=new Expr((yyvsp[(1) - (1)].union_int));
     }
@@ -3082,7 +3091,7 @@ yyreduce:
   case 112:
 
 /* Line 1806 of yacc.c  */
-#line 1134 "gpl.y"
+#line 1136 "gpl.y"
     {
         (yyval.union_expr)=new Expr(1);
     }
@@ -3091,7 +3100,7 @@ yyreduce:
   case 113:
 
 /* Line 1806 of yacc.c  */
-#line 1137 "gpl.y"
+#line 1139 "gpl.y"
     {
         (yyval.union_expr)=new Expr(0);
     }
@@ -3100,7 +3109,7 @@ yyreduce:
   case 114:
 
 /* Line 1806 of yacc.c  */
-#line 1140 "gpl.y"
+#line 1142 "gpl.y"
     {
         (yyval.union_expr)=new Expr((yyvsp[(1) - (1)].union_double));
     }
@@ -3109,7 +3118,7 @@ yyreduce:
   case 115:
 
 /* Line 1806 of yacc.c  */
-#line 1143 "gpl.y"
+#line 1145 "gpl.y"
     {
         (yyval.union_expr)=new Expr(*(yyvsp[(1) - (1)].union_string));
     }
@@ -3118,77 +3127,77 @@ yyreduce:
   case 118:
 
 /* Line 1806 of yacc.c  */
-#line 1156 "gpl.y"
+#line 1158 "gpl.y"
     {(yyval.union_operator_type)=SIN;}
     break;
 
   case 119:
 
 /* Line 1806 of yacc.c  */
-#line 1157 "gpl.y"
+#line 1159 "gpl.y"
     {(yyval.union_operator_type)=COS;}
     break;
 
   case 120:
 
 /* Line 1806 of yacc.c  */
-#line 1158 "gpl.y"
+#line 1160 "gpl.y"
     {(yyval.union_operator_type)=TAN;}
     break;
 
   case 121:
 
 /* Line 1806 of yacc.c  */
-#line 1159 "gpl.y"
+#line 1161 "gpl.y"
     {(yyval.union_operator_type)=ASIN;}
     break;
 
   case 122:
 
 /* Line 1806 of yacc.c  */
-#line 1160 "gpl.y"
+#line 1162 "gpl.y"
     {(yyval.union_operator_type)=ACOS;}
     break;
 
   case 123:
 
 /* Line 1806 of yacc.c  */
-#line 1161 "gpl.y"
+#line 1163 "gpl.y"
     {(yyval.union_operator_type)=ATAN;}
     break;
 
   case 124:
 
 /* Line 1806 of yacc.c  */
-#line 1162 "gpl.y"
+#line 1164 "gpl.y"
     {(yyval.union_operator_type)=SQRT;}
     break;
 
   case 125:
 
 /* Line 1806 of yacc.c  */
-#line 1163 "gpl.y"
+#line 1165 "gpl.y"
     {(yyval.union_operator_type)=ABS;}
     break;
 
   case 126:
 
 /* Line 1806 of yacc.c  */
-#line 1164 "gpl.y"
+#line 1166 "gpl.y"
     {(yyval.union_operator_type)=FLOOR;}
     break;
 
   case 127:
 
 /* Line 1806 of yacc.c  */
-#line 1165 "gpl.y"
+#line 1167 "gpl.y"
     {(yyval.union_operator_type)=RANDOM;}
     break;
 
 
 
 /* Line 1806 of yacc.c  */
-#line 3192 "y.tab.c"
+#line 3201 "y.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires

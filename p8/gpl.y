@@ -514,7 +514,9 @@ block:
 
 //---------------------------------------------------------------------
 initialization_block:
-    T_INITIALIZATION statement_block
+    T_INITIALIZATION statement_block {
+        Event_manager::instance()->add_block(23, $2);
+    }
     ;
 
 //---------------------------------------------------------------------
