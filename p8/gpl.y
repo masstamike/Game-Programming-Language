@@ -796,9 +796,10 @@ exit_statement:
 //---------------------------------------------------------------------
 assign_statement:
     variable T_ASSIGN expression {
-        string variable_type, expression_type;
+        Gpl_type variable_type;
+        string expression_type;
         if($1) {
-            variable_type = $1->m_type;
+            variable_type = symbol_table->find($1->m_id)->get_;
             if(variable_type == "")
                 variable_type = "game_object";
             if(!(variable_type == "int" || variable_type == "double" ||
@@ -1093,9 +1094,9 @@ expression:
             $$=new Expr(DIVIDE, $1, $3);
     }
     | expression T_MOD expression {
-        if($1->get_type() == "string")
+        if($1->get_type() == "double" || $1->get_type() == "string")
             Error::error(Error::INVALID_LEFT_OPERAND_TYPE,"%");
-        else if($3->get_type() == "string")
+        else if($3->get_type() == "double" || $3->get_type() == "string")
             Error::error(Error::INVALID_RIGHT_OPERAND_TYPE,"%");
         else
             $$=new Expr(MOD,$1,$3);}

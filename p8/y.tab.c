@@ -2925,9 +2925,9 @@ yyreduce:
 /* Line 1787 of yacc.c  */
 #line 1095 "gpl.y"
     {
-        if((yyvsp[(1) - (3)].union_expr)->get_type() == "string")
+        if((yyvsp[(1) - (3)].union_expr)->get_type() == "double" || (yyvsp[(1) - (3)].union_expr)->get_type() == "string")
             Error::error(Error::INVALID_LEFT_OPERAND_TYPE,"%");
-        else if((yyvsp[(3) - (3)].union_expr)->get_type() == "string")
+        else if((yyvsp[(3) - (3)].union_expr)->get_type() == "double" || (yyvsp[(3) - (3)].union_expr)->get_type() == "string")
             Error::error(Error::INVALID_RIGHT_OPERAND_TYPE,"%");
         else
             (yyval.union_expr)=new Expr(MOD,(yyvsp[(1) - (3)].union_expr),(yyvsp[(3) - (3)].union_expr));}
