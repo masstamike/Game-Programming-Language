@@ -804,16 +804,16 @@ assign_statement:
 //                variable_type = "game_object";
             if(!(variable_type == INT || variable_type == DOUBLE ||
                  variable_type == STRING))
-                Error::error(Error::INVALID_LHS_OF_ASSIGNMENT, ($1->m_id)*,
+                Error::error(Error::INVALID_LHS_OF_ASSIGNMENT, $1->m_id,
                     gpl_type_to_string(variable_type));
         }
         expression_type = $3->get_type();
-        if(variable_type == "int" && expression_type !="int")
-            Error::error(Error::ASSIGNMENT_TYPE_ERROR,variable_type,
-                expression_type);
-        else if(variable_type == "double" && expression_type=="string")
-            Error::error(Error::ASSIGNMENT_TYPE_ERROR,variable_type,
-                expression_type);
+        if(variable_type == INT && expression_type !="int")
+            Error::error(Error::ASSIGNMENT_TYPE_ERROR,
+                gpl_type_to_string(variable_type),expression_type);
+        else if(variable_type == DOUBLE && expression_type=="string")
+            Error::error(Error::ASSIGNMENT_TYPE_ERROR,
+                gpl_type_to_string(variable_type), expression_type);
         block_stack.top()->add(new Assign_stmt($1,$3,0));
     }
     | variable T_PLUS_ASSIGN expression {

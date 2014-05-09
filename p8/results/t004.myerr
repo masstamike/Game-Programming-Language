@@ -1,1 +1,1 @@
-Semantic error on line 15: LHS of assignment must be (INT || DOUBLE || STRING || ANIMATION_BLOCK).  Variable 'circles' is of type 'game_object'.
+assertion "false" failed: file "gpl_type.cpp", line 15.  Input line 11.
