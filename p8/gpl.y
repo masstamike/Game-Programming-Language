@@ -188,7 +188,7 @@ bool game_flag;
 %type <union_expr> expression
 %type <union_variable> variable
 %type <union_operator_type> math_operator
-%type <union_string> parameter_list_or_empty
+/*%type <union_string> parameter_list_or_empty*/
 %type <union_int> object_type
 %type <union_symbol> animation_parameter
 %type <union_stmt> print_statement
@@ -451,7 +451,7 @@ parameter:
                         cur_object_under_construction->type(), *$1);
         }
         else {
-        if(/*$3->get_type() == "int"*/g_type==INT) {
+        if(g_type==INT) {
             if($3->get_type() == "int") {
                 cur_object_under_construction->set_member_variable(*$1,
                 $3->eval_int());
@@ -459,7 +459,7 @@ parameter:
             else
                     Error::error(Error::INCORRECT_CONSTRUCTOR_PARAMETER_TYPE,
                         cur_object_name, *$1);
-        } else if(/*$3->get_type() == "double"*/g_type==DOUBLE) {
+        } else if(g_type==DOUBLE) {
             if($3->get_type() == "string") {
                 Error::error(Error::INCORRECT_CONSTRUCTOR_PARAMETER_TYPE,
                     cur_object_name, *$1);
@@ -471,8 +471,7 @@ parameter:
         } else if(g_type==STRING) {
             cur_object_under_construction->set_member_variable(*$1,
                 $3->eval_string());
-        } else if(/*$3->get_type() == "animation_block"*/g_type==
-            ANIMATION_BLOCK){
+        } else if(g_type==ANIMATION_BLOCK) {
             switch(cur_object_under_construction->set_member_variable(*$1,
                 $3->eval_animation_block())) {
                 case MEMBER_NOT_OF_GIVEN_TYPE:
@@ -799,12 +798,15 @@ assign_statement:
         string variable_type, expression_type;
         if($1) {
             variable_type = $1->m_type;
-            if(variable_type == "")
-                variable_type = "game_object";
+//            if(variable_type == "")
+//                variable_type = "game_object";
             if(!(variable_type == "int" || variable_type == "double" ||
                 variable_type == "string"))
                 Error::error(Error::INVALID_LHS_OF_ASSIGNMENT, $1->m_id,
                     variable_type);
+            else {
+                $1->
+            }
         }
         expression_type = $3->get_type();
         if(variable_type == "int" && expression_type !="int")
