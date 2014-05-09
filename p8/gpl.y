@@ -795,18 +795,17 @@ exit_statement:
 //---------------------------------------------------------------------
 assign_statement:
     variable T_ASSIGN expression {
-        string variable_type, expression_type;
+        Gpl_type variable_type;
+        string expression_type;
         if($1) {
-            variable_type = $1->m_type;
+            symbol_table->find($1->m_id)->get_game_object_value()->
+                get_member_variable_type($1->m_member,variable_type);
 //            if(variable_type == "")
 //                variable_type = "game_object";
-            if(!(variable_type == "int" || variable_type == "double" ||
-                variable_type == "string"))
-                Error::error(Error::INVALID_LHS_OF_ASSIGNMENT, $1->m_id,
-                    variable_type);
-            else {
-                $1->
-            }
+            if(!(variable_type == INT || variable_type == DOUBLE ||
+                 variable_type == STRING))
+                Error::error(Error::INVALID_LHS_OF_ASSIGNMENT, ($1->m_id)*,
+                    gpl_type_to_string(variable_type));
         }
         expression_type = $3->get_type();
         if(variable_type == "int" && expression_type !="int")
@@ -879,7 +878,7 @@ variable:
                 $$=new Variable(*$1,var);
         } else {
             Error::error(Error::UNDECLARED_VARIABLE,*$1);
-            $$=NULL;
+            $$=new Variable("dummy", new Symbol("name", new int(0),"type"));
         }
     }
     | T_ID T_LBRACKET expression T_RBRACKET {
@@ -1086,12 +1085,21 @@ expression:
             $$=new Expr(MULTIPLY, $1, $3);
     }
     | expression T_DIVIDE expression {
-        if($1->get_type() == "string" || $3->get_type() == "string");
+        if($1->get_type() == "string")
+            Error::error(Error::INVALID_LEFT_OPERAND_TYPE,"/");
+        else if($3->get_type() == "string")
+            Error::error(Error::INVALID_RIGHT_OPERAND_TYPE,"/");
             //error
         else
             $$=new Expr(DIVIDE, $1, $3);
     }
-    | expression T_MOD expression {$$=new Expr(MOD,$1,$3);}
+    | expression T_MOD expression {
+        if($1->get_type() == "double" || $1->get_type() == "string")
+            Error::error(Error::INVALID_LEFT_OPERAND_TYPE,"%");
+        else if($3->get_type() == "double" || $3->get_type() == "string")
+            Error::error(Error::INVALID_RIGHT_OPERAND_TYPE,"%");
+        else
+            $$=new Expr(MOD,$1,$3);}
     | T_MINUS  expression %prec UNARY_OPS {
         $$=new Expr(UNARY_MINUS, $2);
     }

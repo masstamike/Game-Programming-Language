@@ -562,6 +562,14 @@ double Expr::eval_double() {
 std::string Expr::eval_string() {
 //    assert(type == "string");
     std::stringstream ss;
+    if(type == "int") {
+        ss << eval_int();
+        return ss.str();
+    }
+    else if (type == "double") {
+        ss << eval_double();
+        return ss.str();
+    }
     if(m_kind == "constant") {
         if(type=="int") {
             ss<<m_int;
