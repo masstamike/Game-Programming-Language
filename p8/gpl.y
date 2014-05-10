@@ -1135,10 +1135,10 @@ expression:
     }
     | variable geometric_operator variable {
         if($2 == T_NEAR) {
-            if($1->m_type == "game_object" && $3->m_type == "game_object")
+            if($1->get_type()== "game_object" && $3->get_type()== "game_object")
                 $$=new Expr(NEAR,new Expr($1),new Expr($3));
         } else if ($2 == T_TOUCHES) {
-            if($1->m_type == "game_object" && $3->m_type == "game_object")
+            if($1->get_type()=="game_object" && $3->get_type()== "game_object")
                 $$=new Expr(TOUCHES,new Expr($1),new Expr($3));
         }
     }

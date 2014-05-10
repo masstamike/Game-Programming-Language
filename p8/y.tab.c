@@ -3080,10 +3080,10 @@ yyreduce:
 #line 1136 "gpl.y"
     {
         if((yyvsp[(2) - (3)].union_int) == T_NEAR) {
-            if((yyvsp[(1) - (3)].union_variable)->m_type == "game_object" && (yyvsp[(3) - (3)].union_variable)->m_type == "game_object")
+            if((yyvsp[(1) - (3)].union_variable)->get_type()== "game_object" && (yyvsp[(3) - (3)].union_variable)->get_type()== "game_object")
                 (yyval.union_expr)=new Expr(NEAR,new Expr((yyvsp[(1) - (3)].union_variable)),new Expr((yyvsp[(3) - (3)].union_variable)));
         } else if ((yyvsp[(2) - (3)].union_int) == T_TOUCHES) {
-            if((yyvsp[(1) - (3)].union_variable)->m_type == "game_object" && (yyvsp[(3) - (3)].union_variable)->m_type == "game_object")
+            if((yyvsp[(1) - (3)].union_variable)->get_type()=="game_object" && (yyvsp[(3) - (3)].union_variable)->get_type()== "game_object")
                 (yyval.union_expr)=new Expr(TOUCHES,new Expr((yyvsp[(1) - (3)].union_variable)),new Expr((yyvsp[(3) - (3)].union_variable)));
         }
     }
