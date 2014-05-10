@@ -9,7 +9,3 @@ gpl.cpp::main()
 
 gpl.cpp::main() Calling yyparse()
 
-
-gpl.cpp::main() after call to yyparse().
-
-gpl.cpp::main() Calling window->initialize().

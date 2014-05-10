@@ -798,14 +798,13 @@ assign_statement:
     variable T_ASSIGN expression {
         string variable_type, expression_type;
         if($1) {
-            symbol_table->find($1->m_id)->get_game_object_value()->
-                get_member_variable_type($1->m_member,variable_type);
+            variable_type = $1->get_type();
 //            if(variable_type == "")
 //                variable_type = "game_object";
-            if(!(variable_type == INT || variable_type == DOUBLE ||
-                 variable_type == STRING))
+            if(!(variable_type == "int" || variable_type == "double" ||
+                 variable_type == "string"))
                 Error::error(Error::INVALID_LHS_OF_ASSIGNMENT, $1->m_id,
-                    gpl_type_to_string(variable_type));
+                    variable_type);
         }
 //        expression_type = $3->get_type();
 //        if(variable_type == INT && expression_type !="int")

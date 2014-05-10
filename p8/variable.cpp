@@ -255,10 +255,10 @@ std::string Variable::get_string() {
 }
 
 std::string Variable::get_type() {
+    std::stringstream ss;
     std::string ret_type;
     Gpl_type g_type;
     if(m_sym) {
-        int i;
         if(m_member == "")
             return m_sym->m_type;
         else {
@@ -266,30 +266,30 @@ std::string Variable::get_type() {
             m_member, g_type);
             return gpl_type_to_string(g_type);
         }
-    // THIS IS AS FAR AS I GOT...CONTINUE AFTER THIS LINE RETURNING TYPE
     } else if (m_expr) {
         if (m_member == "") {
             ss<<m_expr->eval_int();
             std::string name = m_id + "[" + ss.str() + "]";
             if(Symbol_table::instance()->find(name))
-                return *(int*) Symbol_table::instance()->find(name)->m_value;
+                return Symbol_table::instance()->find(name)->m_type;
             else {
                 Error::error(Error::ARRAY_INDEX_OUT_OF_BOUNDS,m_id,ss.str());
-                return *(int*) Symbol_table::instance()->find(m_id+"[0]")->
-                    m_value;
+                return Symbol_table::instance()->find(m_id+"[0]")->
+                    m_type;
             }
         } else {
-            int i;
             ss<<m_expr->eval_int();
             std::string name = m_id + "[" + ss.str() + "]";
             if(!Symbol_table::instance()->find(name)) {
                 Error::error(Error::ARRAY_INDEX_OUT_OF_BOUNDS,m_id,ss.str());
                 Symbol_table::instance()->find(m_id+"[0]")->
-                    get_game_object_value()->get_member_variable(m_member, i);
+                    get_game_object_value()->get_member_variable_type(
+                    m_member, g_type);
             }
-            Symbol_table::instance()->find(name)->get_game_object_value()->
-                get_member_variable(m_member, i);
-            return i;
+            else
+                Symbol_table::instance()->find(name)->get_game_object_value()->
+                get_member_variable_type(m_member, g_type);
+            return gpl_type_to_string(g_type);
         }
     }
 }
