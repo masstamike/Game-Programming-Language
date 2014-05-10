@@ -802,7 +802,7 @@ assign_statement:
 //            if(variable_type == "")
 //                variable_type = "game_object";
             if(!(variable_type == "int" || variable_type == "double" ||
-                 variable_type == "string"))
+                 variable_type == "string" ||variable_type== "animation_block"))
                 Error::error(Error::INVALID_LHS_OF_ASSIGNMENT, $1->m_id,
                     variable_type);
         }

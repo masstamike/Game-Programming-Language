@@ -2613,7 +2613,7 @@ yyreduce:
 //            if(variable_type == "")
 //                variable_type = "game_object";
             if(!(variable_type == "int" || variable_type == "double" ||
-                 variable_type == "string"))
+                 variable_type == "string" ||variable_type== "animation_block"))
                 Error::error(Error::INVALID_LHS_OF_ASSIGNMENT, (yyvsp[(1) - (3)].union_variable)->m_id,
                     variable_type);
         }

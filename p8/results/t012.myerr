@@ -1,2 +1,0 @@
-Semantic error on line 38: LHS of assignment must be (INT || DOUBLE || STRING || ANIMATION_BLOCK).  Variable 'circles' is of type 'animation_block'.
-Semantic error on line 42: LHS of assignment must be (INT || DOUBLE || STRING || ANIMATION_BLOCK).  Variable 'triangles' is of type 'animation_block'.
