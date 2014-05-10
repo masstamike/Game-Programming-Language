@@ -6,11 +6,11 @@ string gpl_type_to_string(Gpl_type gpl_type)
 {
   switch (gpl_type)
   {
-    case INT: return "int";
-    case DOUBLE: return "double";
-    case STRING: return "string";
-    case GAME_OBJECT: return "game_object";
-    case ANIMATION_BLOCK: return "animation_block";
+    case INT: return "int";break;
+    case DOUBLE: return "double";break;
+    case STRING: return "string";break;
+    case GAME_OBJECT: return "game_object";break;
+    case ANIMATION_BLOCK: return "animation_block";break;
   }
   assert(false);
 

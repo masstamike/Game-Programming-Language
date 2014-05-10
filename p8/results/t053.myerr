@@ -1,1 +1,1 @@
-assertion "false" failed: file "gpl_type.cpp", line 15.  Input line 12.
+Semantic error on line 12: LHS of assignment must be (INT || DOUBLE || STRING || ANIMATION_BLOCK).  Variable 'i' is of type 'error'.
