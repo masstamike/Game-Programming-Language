@@ -885,11 +885,13 @@ variable:
             string s2=$3->get_type();
             s2="A "+s2+" expression";
             Error::error(Error::ARRAY_INDEX_MUST_BE_AN_INTEGER,*$1,s2);
-            $$=NULL;
+            $$=new Variable("dummy", new Symbol("name", new int(0),"type"));
+//            $$=NULL;
         }
         else if(symbol_table->find(*$1)) {
             Error::error(Error::VARIABLE_NOT_AN_ARRAY,*$1);
-            $$=NULL;
+            $$=new Variable("dummy", new Symbol("name", new int(0),"type"));
+//            $$=NULL;
         }
         else {
             string array = *$1;
@@ -906,12 +908,14 @@ variable:
             if(var->m_type == "int" || var->m_type == "double" ||
                 var->m_type == "string" || var->m_type == "animation_block") {
                 Error::error(Error::LHS_OF_PERIOD_MUST_BE_OBJECT, *$1);
-                $$=NULL;
+                $$=new Variable("dummy", new Symbol("name", new int(0),"type"));
+//                $$=NULL;
             }
             else if(var->get_game_object_value()->get_member_variable_type(*$3,
                 g_type) == MEMBER_NOT_DECLARED) {
                 Error::error(Error::UNDECLARED_MEMBER, *$1, *$3);
-                $$=NULL;
+                $$=new Variable("dummy", new Symbol("name", new int(0),"type"));
+//                $$=NULL;
             } else {
             switch(g_type) {
                 case INT: {
@@ -921,16 +925,21 @@ variable:
                         case MEMBER_NOT_DECLARED:
                             Error::error(Error::UNKNOWN_CONSTRUCTOR_PARAMETER,
                                 *$1, *$3);
-                            $$=NULL;
+                            $$=new Variable("dummy", new Symbol("name",
+                            new int(0),"type"));
+//                            $$=NULL;
                             break;
                         case MEMBER_NOT_OF_GIVEN_TYPE:
                             Error::error(
                                 Error::INCORRECT_CONSTRUCTOR_PARAMETER_TYPE,
                                 *$1, *$3);
+                            $$=new Variable("dummy", new Symbol("name",
+                            new int(0),"type"));
                             break;
-                        default:break;
+                        default:
+                            $$=new Variable(*$1,var,*$3);
+                            break;
                     }
-                    $$=new Variable(*$1,var,*$3);
                     break;
                 }
                 case DOUBLE: {
@@ -940,16 +949,21 @@ variable:
                         case MEMBER_NOT_DECLARED:
                             Error::error(Error::UNKNOWN_CONSTRUCTOR_PARAMETER,
                                 *$1, *$3);
-                            $$=NULL;
+                            $$=new Variable("dummy", new Symbol("name",
+                            new int(0),"type"));
+//                            $$=NULL;
                             break;
                         case MEMBER_NOT_OF_GIVEN_TYPE:
                             Error::error(
                                 Error::INCORRECT_CONSTRUCTOR_PARAMETER_TYPE,
                                 *$1, *$3);
+                            $$=new Variable("dummy", new Symbol("name",
+                            new int(0),"type"));
                             break;
-                        default:break;
+                        default:
+                            $$=new Variable(*$1,var,*$3);
+                            break;
                     }
-                    $$=new Variable(*$1,var,*$3);
                     break;
                 }
                 case STRING: {
@@ -959,23 +973,27 @@ variable:
                         case MEMBER_NOT_DECLARED:
                             Error::error(Error::UNKNOWN_CONSTRUCTOR_PARAMETER,
                                 *$1, *$3);
-                            $$=NULL;
+                            $$=new Variable("dummy", new Symbol("name",
+                            new int(0),"type"));
+//                            $$=NULL;
                             break;
                         case MEMBER_NOT_OF_GIVEN_TYPE:
                             Error::error(
                                 Error::INCORRECT_CONSTRUCTOR_PARAMETER_TYPE,
                                 *$1, *$3);
                             break;
-                        default:break;
+                        default:
+                            $$=new Variable(*$1,var,*$3);
+                            break;
                     }
-                    $$=new Variable(*$1,var,*$3);
                     break;
                 }
                 default:break;
             }   }
         } else {
             Error::error(Error::UNDECLARED_VARIABLE,*$1);
-            $$=NULL;
+              $$=new Variable("dummy", new Symbol("name",new int(0),"type"));
+//            $$=NULL;
         }
     }
     | T_ID T_LBRACKET expression T_RBRACKET T_PERIOD T_ID {
@@ -985,11 +1003,13 @@ variable:
             string s2=$3->get_type();
             s2="A "+s2+" expression";
             Error::error(Error::ARRAY_INDEX_MUST_BE_AN_INTEGER,*$1,s2);
-            $$=NULL;
+            $$=new Variable("dummy", new Symbol("name",new int(0),"type"));
+//            $$=NULL;
         }
-        else if(symbol_table->find(*$1))
+        else if(symbol_table->find(*$1)) {
             Error::error(Error::VARIABLE_NOT_AN_ARRAY,*$1);
-        else {
+            $$=new Variable("dummy", new Symbol("name",new int(0),"type"));
+        } else {
         string array = *$1;
         int index = $3->eval_int();
         stringstream ss;
@@ -1000,33 +1020,22 @@ variable:
         if(sym->m_type == "int" || sym->m_type == "double" ||
             sym->m_type == "string" || sym->m_type == "animation_block") {
             Error::error(Error::LHS_OF_PERIOD_MUST_BE_OBJECT, *$1);
-            $$=NULL;
+            $$=new Variable("dummy", new Symbol("name",new int(0),"type"));
+//            $$=NULL;
         } else {
             Gpl_type g_type;
             sym->get_game_object_value()->get_member_variable_type(*$6, g_type);
             switch(g_type) {
-                case INT: {
-                    int var_int;
-                    sym->get_game_object_value()->
-                        get_member_variable(*$6,var_int);
+                case INT:
+                case DOUBLE:
+                case STRING:
+                case ANIMATION_BLOCK:
                     $$=new Variable(*$1,$3,*$6);
                     break;
-                }
-                case DOUBLE: {
-                    double var_double;
-                    sym->get_game_object_value()->
-                        get_member_variable(*$6,var_double);
-                    $$=new Variable(*$1,$3,*$6);
+                default:
+                    $$=new Variable("dummy", new Symbol("name",new int(0),
+                    "type"));
                     break;
-                }
-                case STRING: {
-                    string var_string;
-                    sym->get_game_object_value()->
-                        get_member_variable(*$6,var_string);
-                    $$=new Variable(*$1,$3,*$6);
-                    break;
-                }
-                default:break;
             }
         }
         }
