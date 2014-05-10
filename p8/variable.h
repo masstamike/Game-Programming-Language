@@ -19,6 +19,7 @@ class Variable {
         int get_int();
         double get_double();
         std::string get_string();
+        std::string get_type();
         std::string m_id, m_type, m_member; 
         Symbol* m_sym;
         Expr* m_expr;
