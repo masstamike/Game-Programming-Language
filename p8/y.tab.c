@@ -2607,25 +2607,25 @@ yyreduce:
 /* Line 1806 of yacc.c  */
 #line 798 "gpl.y"
     {
-        Gpl_type variable_type;
-        string expression_type;
-        if((yyvsp[(1) - (3)].union_variable)) {
-            symbol_table->find((yyvsp[(1) - (3)].union_variable)->m_id)->get_game_object_value()->
-                get_member_variable_type((yyvsp[(1) - (3)].union_variable)->m_member,variable_type);
+//        Gpl_type variable_type;
+//        string expression_type;
+/*        if($1) {
+            symbol_table->find($1->m_id)->get_game_object_value()->
+                get_member_variable_type($1->m_member,variable_type);
 //            if(variable_type == "")
 //                variable_type = "game_object";
             if(!(variable_type == INT || variable_type == DOUBLE ||
                  variable_type == STRING))
-                Error::error(Error::INVALID_LHS_OF_ASSIGNMENT, (yyvsp[(1) - (3)].union_variable)->m_id,
+                Error::error(Error::INVALID_LHS_OF_ASSIGNMENT, $1->m_id,
                     gpl_type_to_string(variable_type));
-        }
-        expression_type = (yyvsp[(3) - (3)].union_expr)->get_type();
-        if(variable_type == INT && expression_type !="int")
-            Error::error(Error::ASSIGNMENT_TYPE_ERROR,
-                gpl_type_to_string(variable_type),expression_type);
-        else if(variable_type == DOUBLE && expression_type=="string")
-            Error::error(Error::ASSIGNMENT_TYPE_ERROR,
-                gpl_type_to_string(variable_type), expression_type);
+        }*/
+//        expression_type = $3->get_type();
+//        if(variable_type == INT && expression_type !="int")
+//            Error::error(Error::ASSIGNMENT_TYPE_ERROR,
+//                gpl_type_to_string(variable_type),expression_type);
+//        else if(variable_type == DOUBLE && expression_type=="string")
+//            Error::error(Error::ASSIGNMENT_TYPE_ERROR,
+//                gpl_type_to_string(variable_type), expression_type);
         block_stack.top()->add(new Assign_stmt((yyvsp[(1) - (3)].union_variable),(yyvsp[(3) - (3)].union_expr),0));
     }
     break;

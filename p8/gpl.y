@@ -796,9 +796,9 @@ exit_statement:
 //---------------------------------------------------------------------
 assign_statement:
     variable T_ASSIGN expression {
-        Gpl_type variable_type;
-        string expression_type;
-        if($1) {
+//        Gpl_type variable_type;
+//        string expression_type;
+/*        if($1) {
             symbol_table->find($1->m_id)->get_game_object_value()->
                 get_member_variable_type($1->m_member,variable_type);
 //            if(variable_type == "")
@@ -807,14 +807,14 @@ assign_statement:
                  variable_type == STRING))
                 Error::error(Error::INVALID_LHS_OF_ASSIGNMENT, $1->m_id,
                     gpl_type_to_string(variable_type));
-        }
-        expression_type = $3->get_type();
-        if(variable_type == INT && expression_type !="int")
-            Error::error(Error::ASSIGNMENT_TYPE_ERROR,
-                gpl_type_to_string(variable_type),expression_type);
-        else if(variable_type == DOUBLE && expression_type=="string")
-            Error::error(Error::ASSIGNMENT_TYPE_ERROR,
-                gpl_type_to_string(variable_type), expression_type);
+        }*/
+//        expression_type = $3->get_type();
+//        if(variable_type == INT && expression_type !="int")
+//            Error::error(Error::ASSIGNMENT_TYPE_ERROR,
+//                gpl_type_to_string(variable_type),expression_type);
+//        else if(variable_type == DOUBLE && expression_type=="string")
+//            Error::error(Error::ASSIGNMENT_TYPE_ERROR,
+//                gpl_type_to_string(variable_type), expression_type);
         block_stack.top()->add(new Assign_stmt($1,$3,0));
     }
     | variable T_PLUS_ASSIGN expression {

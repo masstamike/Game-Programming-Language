@@ -1,1 +1,0 @@
-Semantic error on line 8: LHS of assignment must be (INT || DOUBLE || STRING || ANIMATION_BLOCK).  Variable 'i' is of type 'error'.
