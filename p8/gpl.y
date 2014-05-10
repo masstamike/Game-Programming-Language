@@ -196,6 +196,7 @@ bool game_flag;
 %type <union_stmt_block> statement_block
 %type <union_stmt_block> if_block
 %type <union_stmt_block> end_of_statement_block
+%type <union_int> geometric_operator
 
 // special token that does not match any production
 // used for characters that are not part of the language
@@ -1125,7 +1126,15 @@ expression:
 //        else
             //error
     }
-    | variable geometric_operator variable
+    | variable geometric_operator variable {
+        if($2 == T_NEAR) {
+            if($1->m_type == "game_object" && $3->m_type == "game_object")
+                $$=new Expr(NEAR,new Expr($1),new Expr($3));
+        } else if ($2 == T_TOUCHES) {
+            if($1->m_type == "game_object" && $3->m_type == "game_object")
+                $$=new Expr(TOUCHES,new Expr($1),new Expr($3));
+        }
+    }
     ;
 
 //---------------------------------------------------------------------
@@ -1159,8 +1168,8 @@ primary_expression:
 
 //---------------------------------------------------------------------
 geometric_operator:
-    T_TOUCHES
-    | T_NEAR
+    T_TOUCHES {$$=T_TOUCHES;}
+    | T_NEAR {$$=T_NEAR;}
     ;
 
 //---------------------------------------------------------------------

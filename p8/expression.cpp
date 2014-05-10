@@ -31,6 +31,13 @@ Expr::Expr(Animation_block* animation) {
     m_kind = "animation_block";
 }
 
+/*Expr::Expr(Variable* var1, Variable* var2, Operator_type op) {
+    m_var = var1;
+    m_var2 = var2;
+    m_op = op;
+    m_kind = "expr";
+}*/
+
 Expr::Expr(Operator_type op, Expr* ex) {
     m_op = op;
     m_kind = "expr";
@@ -138,6 +145,12 @@ Expr::Expr(Operator_type op, Expr* left, Expr* right) {
         case GREATER_THAN_EQUAL:
             type = "int";
             break;
+        case NEAR:
+            type = "int";
+            break;
+        case TOUCHES:
+            type = "int";
+            break;
         default:break;
     }
     }
@@ -229,6 +242,14 @@ int Expr::eval_int() {
                 break;
             case ABS:
                 return abs(m_left->eval_int());
+            case NEAR:
+                return m_left->m_var->m_sym->get_game_object_value()->near(
+                    m_right->m_var->m_sym->get_game_object_value());
+                break;
+            case TOUCHES:
+                return m_left->m_var->m_sym->get_game_object_value()->touches(
+                    m_right->m_var->m_sym->get_game_object_value());
+                break;
             default:break;
         }
         if(m_left->get_type()==m_right->get_type()) {
