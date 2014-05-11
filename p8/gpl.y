@@ -41,6 +41,7 @@ Symbol_table* symbol_table = Symbol_table::instance();
 Game_object* cur_object_under_construction;
 string cur_object_name;
 stack<Statement_block*> block_stack;
+stack<Animation_block*> uninitialized;
 string cur_member_name;
 bool game_flag;
 
@@ -209,7 +210,11 @@ bool game_flag;
 //----------------------------------------------------------------------------
 //---------------------------------------------------------------------
 program:
-    declaration_list block_list
+    declaration_list block_list {
+        if(!uninitialized.empty())
+            Error::error(Error::NO_BODY_PROVIDED_FOR_FORWARD,
+            uninitialized.top()->name());
+    }
     ;
 
 //---------------------------------------------------------------------
@@ -493,10 +498,12 @@ forward_declaration:
             Error::error(Error::PREVIOUSLY_DECLARED_VARIABLE,
                 *$3);
         }
+        if(!$5)
+            Error::error(Error::NO_BODY_PROVIDED_FOR_FORWARD, *$3);
         Animation_block* anim = new Animation_block(0,$5,*$3);
+        uninitialized.push(anim);
         symbol_table->add(*$3, new Symbol(*$3, anim,
             "animation_block"));
-        
     }
     ;
 
@@ -523,7 +530,9 @@ initialization_block:
 animation_block:
     T_ANIMATION T_ID T_LPAREN check_animation_parameter T_RPAREN T_LBRACE {
         Symbol* anim_block = symbol_table->find(*$2);
+        anim_block->get_animation_block()->tag();
         block_stack.push(anim_block->get_animation_block());
+        uninitialized.pop();
     } statement_list T_RBRACE end_of_statement_block
     ;
 
@@ -532,7 +541,7 @@ animation_parameter:
     object_type T_ID{
         if(symbol_table->find(*$2))
             Error::error(Error::ANIMATION_PARAMETER_NAME_NOT_UNIQUE,*$2);
-        Symbol* param;
+        Symbol* param = NULL;;
         switch($1) {
             case T_TRIANGLE: {
                 cur_object_under_construction = new Triangle();

@@ -11,6 +11,7 @@ Animation_block::Animation_block(int forward_line,
     // m_forward_line is only used for debuggin
     m_forward_line = forward_line;
     m_name = name;
+    tagged = false;
 
     // should do some error checking on parameter
     m_parameter_symbol = parameter;
@@ -20,11 +21,14 @@ Animation_block::Animation_block(int forward_line,
 void 
 Animation_block::execute(Game_object *argument)
 {
-    // not implemented yet
     Symbol* old_parameter_symbol = m_parameter_symbol;
     m_parameter_symbol->m_value = argument;
     Statement_block::execute();
     m_parameter_symbol = old_parameter_symbol;
+}
+
+void Animation_block::tag() {
+    tagged = true;
 }
 
 ostream &

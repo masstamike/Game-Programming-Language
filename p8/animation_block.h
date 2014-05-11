@@ -27,6 +27,7 @@ class Animation_block : public Statement_block
 
         Symbol *get_parameter_symbol() {return m_parameter_symbol;}
         std::string name() {return m_name;}
+        void tag();
 
         std::ostream &print(std::ostream &os) const;
 
@@ -35,6 +36,7 @@ class Animation_block : public Statement_block
         int m_forward_line;
         std::string m_name;
         Symbol *m_parameter_symbol;
+        bool tagged;
 
         // disable default copy constructor and default assignment
         // done as a precaution, they should never be called

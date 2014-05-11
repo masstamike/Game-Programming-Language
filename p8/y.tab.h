@@ -227,7 +227,7 @@ typedef union YYSTYPE
 {
 
 /* Line 2068 of yacc.c  */
-#line 55 "gpl.y"
+#line 56 "gpl.y"
 
  int            union_int;
  std::string    *union_string;  // MUST be a pointer to a string (this sucks!)
