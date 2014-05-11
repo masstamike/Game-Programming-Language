@@ -866,15 +866,7 @@ variable:
     T_ID {
         Symbol* var = symbol_table->find(*$1);
         if(var) {
-            if(var->m_type == "int") {
-                $$=new Variable(*$1,var);
-            }
-            else if(var->m_type == "double")
-                $$=new Variable(*$1,var);
-            else if(var->m_type == "string")
-                $$=new Variable(*$1,var);
-            else if(var->m_type == "animation_block")
-                $$=new Variable(*$1,var);
+            $$=new Variable(*$1,var);
         } else {
             Error::error(Error::UNDECLARED_VARIABLE,*$1);
             $$=new Variable("dummy", new Symbol("name", new int(0),"type"));

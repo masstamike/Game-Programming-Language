@@ -9,3 +9,10 @@ gpl.cpp::main()
 
 gpl.cpp::main() Calling yyparse()
 
+
+gpl.cpp::main() after call to yyparse().
+
+gpl.cpp::main() Calling window->initialize().
+gpl.cpp::main() Passing control to window->main_loop().
+gpl[9]: (rect 1 touches rect2) == false
+gpl[11]: (rect 1 near rect2) == true
