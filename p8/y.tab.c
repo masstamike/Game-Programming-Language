@@ -1965,7 +1965,7 @@ yyreduce:
 
 /* Line 1806 of yacc.c  */
 #line 322 "gpl.y"
-    {(yyval.union_expr)=NULL;}
+    {(yyval.union_expr)=new Expr(0);}
     break;
 
   case 15:

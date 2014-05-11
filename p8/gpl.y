@@ -319,7 +319,7 @@ optional_initializer:
     T_ASSIGN expression {
         $$=$2;
     }
-    | empty{$$=NULL;}
+    | empty{$$=new Expr(0);}
     ;
 
 //---------------------------------------------------------------------
