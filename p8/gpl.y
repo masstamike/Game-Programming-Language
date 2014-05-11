@@ -42,6 +42,7 @@ Game_object* cur_object_under_construction;
 string cur_object_name;
 stack<Statement_block*> block_stack;
 stack<Animation_block*> uninitialized;
+stack<Animation_block*> initialized;
 string cur_member_name;
 bool game_flag;
 
@@ -198,6 +199,7 @@ bool game_flag;
 %type <union_stmt_block> if_block
 %type <union_stmt_block> end_of_statement_block
 %type <union_int> geometric_operator
+%type <union_string> check_animation_parameter
 
 // special token that does not match any production
 // used for characters that are not part of the language
@@ -211,9 +213,11 @@ bool game_flag;
 //---------------------------------------------------------------------
 program:
     declaration_list block_list {
-        if(!uninitialized.empty())
+        while(!uninitialized.empty()) {
             Error::error(Error::NO_BODY_PROVIDED_FOR_FORWARD,
-            uninitialized.top()->name());
+                uninitialized.top()->name());
+            uninitialized.pop();
+        }
     }
     ;
 
@@ -501,9 +505,9 @@ forward_declaration:
         if(!$5)
             Error::error(Error::NO_BODY_PROVIDED_FOR_FORWARD, *$3);
         Animation_block* anim = new Animation_block(0,$5,*$3);
-        uninitialized.push(anim);
         symbol_table->add(*$3, new Symbol(*$3, anim,
             "animation_block"));
+        uninitialized.push(anim);
     }
     ;
 
@@ -528,12 +532,24 @@ initialization_block:
 
 //---------------------------------------------------------------------
 animation_block:
-    T_ANIMATION T_ID T_LPAREN check_animation_parameter T_RPAREN T_LBRACE {
+    T_ANIMATION T_ID T_LPAREN check_animation_parameter T_RPAREN {
         Symbol* anim_block = symbol_table->find(*$2);
-        anim_block->get_animation_block()->tag();
-        block_stack.push(anim_block->get_animation_block());
-        uninitialized.pop();
-    } statement_list T_RBRACE end_of_statement_block
+        if(anim_block) {
+            if(anim_block->get_animation_block()->is_tagged())
+                Error::error(Error::PREVIOUSLY_DEFINED_ANIMATION_BLOCK, *$2);
+            else if (anim_block->get_animation_block()->get_parameter_symbol()->
+                    get_game_object_value()->type() != *$4)
+                Error::error(Error::ANIMATION_PARAM_DOES_NOT_MATCH_FORWARD);
+            else {
+                block_stack.push(anim_block->get_animation_block());
+                anim_block->get_animation_block()->tag();
+                initialized.push(uninitialized.top());
+                uninitialized.pop();
+            }
+        } else {
+            Error::error(Error::NO_FORWARD_FOR_ANIMATION_BLOCK, *$2);
+        }
+    } T_LBRACE statement_list T_RBRACE end_of_statement_block
     ;
 
 //---------------------------------------------------------------------
@@ -595,11 +611,11 @@ animation_parameter:
 
 //---------------------------------------------------------------------
 check_animation_parameter:
-    T_TRIANGLE T_ID
-    | T_PIXMAP T_ID
-    | T_CIRCLE T_ID
-    | T_RECTANGLE T_ID
-    | T_TEXTBOX T_ID
+    T_TRIANGLE T_ID {$$=new string("Triangle");}
+    | T_PIXMAP T_ID {$$=new string("Pixmap");}
+    | T_CIRCLE T_ID {$$=new string("Circle");}
+    | T_RECTANGLE T_ID {$$=new string("Rectangle");}
+    | T_TEXTBOX T_ID {$$=new string("Textbox");}
     ;
 
 //---------------------------------------------------------------------

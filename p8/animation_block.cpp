@@ -31,6 +31,10 @@ void Animation_block::tag() {
     tagged = true;
 }
 
+bool Animation_block::is_tagged() {
+    return tagged;
+}
+
 ostream &
 Animation_block::print(ostream &os) const
 {

@@ -8,6 +8,7 @@ Variable::Variable (std::string id, Symbol* sym) {
     m_sym = sym;
     m_type = sym->m_type;
     m_expr = NULL;
+    m_member = "";
 }
 
 Variable::Variable(std::string id, Expr* expr) {    // array types
@@ -17,6 +18,7 @@ Variable::Variable(std::string id, Expr* expr) {    // array types
     std::string object_name = id + "[0]";
     m_type = Symbol_table::instance()->find(object_name)->m_type;
     m_expr = expr;
+    m_member = "";
 }
 
 Variable::Variable(std::string id, Symbol* sym, std::string member) {
@@ -259,7 +261,7 @@ std::string Variable::get_type() {
     std::string ret_type;
     Gpl_type g_type;
     if(m_sym) {
-        if(m_member == "")
+        if(&m_member && (m_member == ""))
             return m_sym->m_type;
         else {
             m_sym->get_game_object_value()->get_member_variable_type(

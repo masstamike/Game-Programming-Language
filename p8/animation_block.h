@@ -28,6 +28,7 @@ class Animation_block : public Statement_block
         Symbol *get_parameter_symbol() {return m_parameter_symbol;}
         std::string name() {return m_name;}
         void tag();
+        bool is_tagged();
 
         std::ostream &print(std::ostream &os) const;
 
