@@ -1126,12 +1126,20 @@ expression:
             //error
     }
     | variable geometric_operator variable {
-        if($2 == T_NEAR) {
+        if($1->get_type() != "game_object") {
+            Error::error(Error::OPERAND_MUST_BE_A_GAME_OBJECT, $1->m_id);
+            $$ = new Expr(0);
+        } else if($3->get_type() != "game_object") {
+            Error::error(Error::OPERAND_MUST_BE_A_GAME_OBJECT, $3->m_id);
+            $$ = new Expr(0);
+        } else {
+          if($2 == T_NEAR) {
             if($1->get_type()== "game_object" && $3->get_type()== "game_object")
                 $$=new Expr(NEAR,new Expr($1),new Expr($3));
-        } else if ($2 == T_TOUCHES) {
+          } else if ($2 == T_TOUCHES) {
             if($1->get_type()=="game_object" && $3->get_type()== "game_object")
                 $$=new Expr(TOUCHES,new Expr($1),new Expr($3));
+          }
         }
     }
     ;
